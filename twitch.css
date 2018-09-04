@@ -1,0 +1,7 @@
+.tw-z-above,
+.persistent-player,
+.pl-controls-top{
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}

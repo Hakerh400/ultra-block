@@ -1,0 +1,168 @@
+{
+  "manifest_version": 2,
+
+  "name": "Ultra Block",
+  "version": "1.0.0",
+
+  "icons": {
+    "128": "icon.png"
+  },
+
+  "browser_action": {
+    "default_popup": "popup.htm"
+  },
+
+  "permissions": [
+    "tabs",
+    "<all_urls>",
+    "contextMenus",
+    "webRequest",
+    "webRequestBlocking",
+    "webNavigation",
+    "storage",
+    "unlimitedStorage",
+    "notifications",
+    "idle",
+    "alarms",
+    "cookies"
+  ],
+
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": [
+        "init.js",
+        "main.js",
+        "overlay.js",
+        "iframes.js",
+        "links.js",
+        "pdf.js"
+      ],
+      "css": [
+        "main.css",
+        "ublock.css",
+        "overlay.css",
+        "iframes.css"
+      ],
+      "run_at": "document_start",
+      "all_frames": true
+    }, {
+      "matches": ["*://www.youtube.com/*"],
+      "js": [
+        "youtube-init.js",
+        "youtube.js"
+      ],
+      "css": ["youtube.css"],
+      "run_at": "document_start",
+      "all_frames": true
+    }, {
+      "matches": ["*://www.youtube.com/watch?*"],
+      "css": ["youtube-watch.css"],
+      "run_at": "document_start",
+      "all_frames": true
+    }, {
+      "matches": ["*://*.convertfiles.com/*"],
+      "js": ["convertfiles-init.js"],
+      "run_at": "document_start",
+      "all_frames": true
+    }, {
+      "matches": ["*://www.facebook.com/*"],
+      "js": ["facebook.js"],
+      "css": ["facebook.css"],
+      "run_at": "document_start",
+      "all_frames": true
+    }, {
+      "matches": [
+        "*://jsfiddle.net/*",
+        "*://fiddle.jshell.net/*"
+      ],
+      "js": [
+        "jsfiddle.js",
+        "jsfiddle-init.js"
+      ],
+      "css": ["jsfiddle.css"],
+      "run_at": "document_start",
+      "all_frames": true
+    }, {
+      "matches": ["*://nodejs.org/*"],
+      "css": ["nodejs.css"],
+      "run_at": "document_start",
+      "all_frames": true
+    }, {
+      "matches": ["*://char-map.herokuapp.com/*"],
+      "js": ["char-map.herokuapp.js"],
+      "css": ["char-map.herokuapp.css"],
+      "run_at": "document_start",
+      "all_frames": true
+    }, {
+      "matches": ["*://*.tumblr.com/*"],
+      "js": ["tumblr.js"],
+      "run_at": "document_start",
+      "all_frames": true
+    }, {
+      "matches": ["*://www.sokobanonline.com/*"],
+      "css": ["sokobanonline.css"],
+      "run_at": "document_start",
+      "all_frames": true
+    }, {
+      "matches": ["https://www.quora.com/*"],
+      "js": ["quora.js"],
+      "css": ["quora.css"],
+      "run_at": "document_start",
+      "all_frames": true
+    }, {
+      "matches": ["https://github.com/*"],
+      "css": ["github.css"],
+      "run_at": "document_start",
+      "all_frames": true
+    }, {
+      "matches": ["https://musescore.com/*"],
+      "css": ["musescore.css"],
+      "run_at": "document_start",
+      "all_frames": true
+    }, {
+      "matches": ["https://www.wikihow.com/*"],
+      "js": ["wikihow-init.js"],
+      "css": ["wikihow.css"],
+      "run_at": "document_start",
+      "all_frames": true
+    }, {
+      "matches": ["https://bugs.chromium.org/*"],
+      "js": ["chromium.js"],
+      "css": ["chromium.css"],
+      "run_at": "document_start",
+      "all_frames": true
+    }, {
+      "matches": ["https://www.pexels.com/*"],
+      "js": ["pexels.js"],
+      "css": ["pexels.css"],
+      "run_at": "document_start",
+      "all_frames": true
+    }, {
+      "matches": ["https://www.instagram.com/*"],
+      "css": ["instagram.css"],
+      "run_at": "document_start",
+      "all_frames": true
+    }, {
+      "matches": ["https://www.instagram.com/p/*"],
+      "js": ["instagram-photo.js"],
+      "css": ["instagram-photo.css"],
+      "run_at": "document_start",
+      "all_frames": true
+    }
+  ],
+
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": true
+  },
+
+  "web_accessible_resources": [
+    "new-tab.htm",
+    "target.png"
+  ],
+
+  "chrome_url_overrides": {
+    "newtab": "new-tab.htm"
+  }
+}

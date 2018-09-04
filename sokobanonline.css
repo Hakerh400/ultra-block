@@ -1,0 +1,7 @@
+.signup-link,
+a[href*="shop"],
+.topbar{
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}

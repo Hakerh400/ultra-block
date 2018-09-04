@@ -1,0 +1,6 @@
+img[src="/static/images/logo.svg"],
+.mark{
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}

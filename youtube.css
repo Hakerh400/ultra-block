@@ -1,0 +1,74 @@
+#menu-icon,
+#guide,
+.ytp-bezel,
+#ublock_yt-overlay,
+.ytp-bound-time-left,
+.ytp-bound-time-right,
+.ytp-scrubber-pull-indicator,
+#yt-masthead-user,
+*[class*="skeleton"]:not(*[class*="hide-skeleton"])
+{
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
+*[autofocus]{
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
+.style-scope.ytd-searchbox{
+  border-right-color: rgb(203, 204, 204);
+  border-right-style: solid !important;
+  border-right-width: 1px !important;
+  border-top-right-radius: 2px !important;
+  border-bottom-right-radius: 2px !important;
+}
+
+#search-form{
+  border-right-width: 0px !important;
+}
+
+.style-scope.ytd-watch-next-secondary-results-renderer:not(#items){
+  opacity: 0;
+}
+
+div[class*="ytp-"]:not(#movie_player),
+div[id="items"][class*="ytd-watch-next-secondary-results-renderer"],
+ytd-expander.ytd-video-secondary-info-renderer,
+ytd-comments,
+#movie_player:not(.ytp-fullscreen){
+  opacity: 0;
+  pointer-events: none !important;
+}
+
+video{
+  top: 0px !important;
+  opacity: 0 !important;
+}
+
+.html5-video-player{
+  z-index: 2147483646;
+}
+
+ytd-searchbox{
+  display: block !important;
+}
+
+#video-title:not(*[class*="ublock_safe"]),
+h1.title:not(*[class*="ublock_safe"]){
+  visibility: hidden !important;
+}
+
+#player{
+  background-color: black !important;
+}
+
+#page-manager{
+  margin-left: 0px !important;
+}
+
+#creator-page-content{
+  margin-left: 0px !important;
+}

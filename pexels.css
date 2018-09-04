@@ -1,0 +1,4 @@
+.photo-item:not(.ublock-safe){
+  opacity: 0 !important;
+  pointer-events: none !important;
+}

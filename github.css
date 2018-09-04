@@ -1,0 +1,8 @@
+textarea{
+  height: 1000px !important;
+  max-height: 1000px !important;
+}
+
+input.form-control.header-search-input{
+  color: transparent !important;
+}

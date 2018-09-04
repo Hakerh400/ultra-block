@@ -1,0 +1,17 @@
+.navbar.js-navbar,
+.score-hub-menu.js-score-hub-menu,
+div[style*="float: right"].item{
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
+div.page.page-score.page-score-hub-menu{
+  margin-top: 0px !important;
+}
+
+.score-left{
+  top: 0px !important;
+  height: 100% !important;
+  width: 100% !important;
+}

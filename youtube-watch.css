@@ -1,0 +1,17 @@
+#player,
+#player-container-outer,
+#player-container-inner{
+  max-width: 854px !important;
+  max-height: 480px !important;
+  width: 854px !important;
+  height: 480px !important;
+}
+
+#primary{
+  max-width: 854px !important;
+  width: 854px !important;
+}
+
+#player-container-inner{
+  padding: 0px !important;
+}

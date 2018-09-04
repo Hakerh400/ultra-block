@@ -1,0 +1,1 @@
+UltraBlock is advertisement blocking extension for Google Chrome.
