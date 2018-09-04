@@ -121,12 +121,6 @@
       "run_at": "document_start",
       "all_frames": true
     }, {
-      "matches": ["https://www.wikihow.com/*"],
-      "js": ["wikihow-init.js"],
-      "css": ["wikihow.css"],
-      "run_at": "document_start",
-      "all_frames": true
-    }, {
       "matches": ["https://bugs.chromium.org/*"],
       "js": ["chromium.js"],
       "css": ["chromium.css"],
