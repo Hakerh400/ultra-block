@@ -247,7 +247,6 @@
 
         (proxify => {
           var textBlackList = [
-            /**/
           ];
 
           var textReplacement = 'ctx';
