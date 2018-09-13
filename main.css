@@ -43,7 +43,6 @@ img[src*="banner" i],
 *[class*="scrollup" i],
 *[class*="back-to-top" i],
 
-
 a[href^="https://simpleshare.io/"],
 
 /* google */
@@ -70,7 +69,6 @@ div[role="alert"],
 
 /* zimbio */
 .game-share,
-
 /* pexels */
 .navbar__list.pull-right li:nth-child(2),
 .js-loading,
@@ -107,7 +105,6 @@ a:hover,
 a:active{
   color: blue !important;
 }
-
 
 /*body,
 header{
