@@ -12,7 +12,7 @@ jdiv,
 *[id*="watermark" i],
 /**[id*="logo" i],*/
 *[id$="_ad" i],
-*[id="foot" i],
+*[id="foot" i]:not(*[role="navigation"]),
 *[id*="share" i],
 *[id*="addthis" i],
 *[id*="sponsor" i],
@@ -23,7 +23,7 @@ jdiv,
 *[class*="countryList" i],
 *[class*="hint" i],
 *[class*="partner" i],
-*[class*="banner" i],
+*[class*="banner" i]:not(*[class$="--banner"]),
 *[class*="watermark" i],
 /**[class*="logo" i],*/
 *[class$="_ad" i],
@@ -107,6 +107,7 @@ a:hover,
 a:active{
   color: blue !important;
 }
+
 
 /*body,
 header{

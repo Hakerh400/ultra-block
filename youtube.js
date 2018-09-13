@@ -24,6 +24,9 @@
   ////////////////////////////////////////////////////////////////////////////////////////////////////
 
   const PORT = 27000;
+  const ENABLE_DOW = 0;
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////////
 
   const stats = O.enum([
     'NOT_QUEUED',
@@ -575,6 +578,7 @@
     }
 
     function server(data, cb=nop){
+      if(!ENABLE_DOW) return cb(null);
       var xhr = new XMLHttpRequest();
 
       xhr.onreadystatechange = () => {
