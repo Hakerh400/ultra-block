@@ -75,11 +75,6 @@ div[role="alert"],
 canvas#error,
 canvas#error + div,
 
-/* watzatsong */
-#fancybox-loading,
-#spinner,
-#right-column,
-
 /* wikipedia */
 .uls-lcd-region-section.uls-lcd-quicklist,
 
@@ -91,9 +86,12 @@ canvas#error + div,
   opacity: 0 !important;
 }
 
-img[src$=".gif" i],
+/*img[src$=".gif" i],
 img[src*=".gif?" i],
-*[style*=".gif" i],
+*[style*=".gif" i]{
+  visibility: hidden !important;
+}*/
+
 ::-webkit-input-placeholder{
   visibility: hidden !important;
 }

@@ -143,6 +143,11 @@
       "css": ["instagram-photo.css"],
       "run_at": "document_start",
       "all_frames": true
+    }, {
+      "matches": ["https://www.watzatsong.com/*"],
+      "css": ["watzatsong.css"],
+      "run_at": "document_start",
+      "all_frames": true
     }
   ],
 
