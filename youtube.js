@@ -23,8 +23,8 @@
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  const PORT = 27000;
   const ENABLE_DOW = 0;
+  const PORT = 27000;
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -236,11 +236,12 @@
         if(e.className === 'A') url = e.href;
         else url = e.closest('a').href;
 
-        if(requiredWhiteList.length === 0){
-          rf(url, e, updateTitle);
-        }else{
+        if(requiredWhiteList.length !== 0){
           e.classList.add('ublock_safe');
+          continue;
         }
+        
+        rf(url, e, updateTitle);
       }
 
       if(/[\?\&]v\=/.test(top.location.href)){
@@ -250,6 +251,11 @@
           if(e[symbs.status]) continue;
           e[symbs.status] = 1;
 
+          if(requiredWhiteList.length !== 0){
+            e.classList.add('ublock_safe');
+            continue;
+          }
+          
           updateStat(e);
         }
       }

@@ -292,7 +292,9 @@
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        if(top.location.href.startsWith('https://www.youtube.com/')) (() => {
+        var href = top.location.href;
+
+        if(href.startsWith('https://www.youtube.com/')/* && !href.includes('&list=')*/) (() => {
           proxify(w.Node.prototype, 'appendChild', {
             apply(f, t, args){
               var result = f.apply(t, args);

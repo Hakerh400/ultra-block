@@ -61,6 +61,11 @@
       "run_at": "document_start",
       "all_frames": true
     }, {
+      "matches": ["*://www.google.co.uk/*"],
+      "css": ["google.css"],
+      "run_at": "document_start",
+      "all_frames": true
+    }, {
       "matches": ["*://*.convertfiles.com/*"],
       "js": ["convertfiles-init.js"],
       "run_at": "document_start",
