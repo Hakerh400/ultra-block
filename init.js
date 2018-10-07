@@ -5,7 +5,7 @@
   if(location.href.startsWith('http://localhost/')) return;
   if(location.href.startsWith('https://hakerh400.github.io/')) return;
 
-  var styleUrl = chrome.runtime.getURL('main.css');
+  var STYLE_URL = chrome.runtime.getURL('main.css');
 
   var script = () => {
     'use strict';
@@ -494,7 +494,7 @@
   var code = `(${script})();`;
   var elem = document.documentElement;
 
-  code = code.replace(/STYLE_URL/g, `'${styleUrl}'`);
+  code = code.replace(/STYLE_URL/g, `'${STYLE_URL}'`);
 
   elem.setAttribute('onreset', code);
   elem.dispatchEvent(new CustomEvent('reset'));
