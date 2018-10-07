@@ -6,3 +6,7 @@ textarea{
 input.form-control.header-search-input{
   color: transparent !important;
 }
+
+.d-flex.flex-justify-between.px-3:not(.container-lg){
+  opacity: 0 !important;
+}

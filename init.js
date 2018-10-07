@@ -5,6 +5,8 @@
   if(location.href.startsWith('http://localhost/')) return;
   if(location.href.startsWith('https://hakerh400.github.io/')) return;
 
+  var styleUrl = chrome.runtime.getURL('main.css');
+
   var script = () => {
     'use strict';
 
@@ -61,8 +63,9 @@
 
         Object.defineProperty(w.navigator, 'userAgent', {
           get(){
-            return `Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36`;
+            return `Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3555.2 Safari/537.36`;
             return `Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36`;
+            return `Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36`;
           }
         });
 
@@ -207,6 +210,20 @@
           apply(f, t, args){
             if(t.target) return nop;
             return f.apply(t, args);
+          }
+        });
+
+        proxify(w.Element.prototype, 'attachShadow', {
+          apply(f, t, args){
+            var d = w.document;
+            var sr = f.apply(t, args);
+
+            var style = d.createElement('link');
+            style.rel = 'stylesheet';
+            style.href = STYLE_URL;
+            sr.appendChild(style);
+
+            return sr;
           }
         });
 
@@ -476,6 +493,8 @@
 
   var code = `(${script})();`;
   var elem = document.documentElement;
+
+  code = code.replace(/STYLE_URL/g, `'${styleUrl}'`);
 
   elem.setAttribute('onreset', code);
   elem.dispatchEvent(new CustomEvent('reset'));

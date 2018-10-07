@@ -117,6 +117,7 @@
       "all_frames": true
     }, {
       "matches": ["https://github.com/*"],
+      "js": ["github.js"],
       "css": ["github.css"],
       "run_at": "document_start",
       "all_frames": true
@@ -163,7 +164,7 @@
 
   "web_accessible_resources": [
     "new-tab.htm",
-    "target.png"
+    "main.css"
   ],
 
   "chrome_url_overrides": {

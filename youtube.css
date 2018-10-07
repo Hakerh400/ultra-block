@@ -6,6 +6,7 @@
 .ytp-bound-time-right,
 .ytp-scrubber-pull-indicator,
 #yt-masthead-user,
+#spinner,
 *[class*="skeleton"]:not(*[class*="hide-skeleton"])
 {
   display: none !important;
