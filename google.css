@@ -45,8 +45,16 @@ a[href*="atgbcentral"],
 a[href*="cdn."],
 a[href*="qygjxz"],
 
+#appbar,
+#taw,
+
 a[href="#"]{
   display: none !important;
   visibility: hidden !important;
   opacity: 0 !important;
+}
+
+#center_col:not(.ublock-safe){
+  opacity: 0 !important;
+  pointer-events: none !important;
 }

@@ -517,6 +517,7 @@
 
       if(str === null){
         title = document.title;
+        title = title.substring(0, title.length - 10);
       }else{
         title = str.match(/^\s*document.title = (".*");$/m);
 
@@ -524,10 +525,9 @@
           title = '_ublock_error_';
         }else{
           title = JSON.parse(title[1]);
+          title = title.substring(0, title.length - 10);
         }
       }
-
-      title = title.substring(0, title.length - 10);
 
       e.innerHTML = '';
       var text = document.createTextNode(title);

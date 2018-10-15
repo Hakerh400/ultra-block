@@ -18,7 +18,16 @@
     function block(){
       var e;
 
-      if(stage === 0) return setTimeout(block);
+      if(stage === 0)
+        return setTimeout(block, 1e3);
+
+      if(e = qs('#center_col')){
+        if(!e.innerHTML.includes('(without quotes)')){
+          e.classList.add('ublock-safe');
+        }else{
+          e.remove();
+        }
+      }
     }
   }
 

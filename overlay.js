@@ -21,8 +21,7 @@
 
     var w = window.innerWidth;
     var h = window.innerHeight;
-    var shift = false;
-    var ctrl = false;
+    var shift = 0;
 
     var keyDownPrev = null;
     var keyUpPrev = null;
@@ -46,11 +45,10 @@
     ael('resize', updateCanvas);
 
     ael('keydown', evt => {
-      if(evt.key == keyDownPrev && evt.key != keyUpPrev) return;
+      if(evt.key === keyDownPrev && evt.key !== keyUpPrev) return;
 
       switch(evt.key){
-        case 'Shift': shift = !ctrl; break;
-        case 'Control': ctrl = true; break;
+        case 'Shift': shift = 1; break;
         case 'KeyF': setTimeout(() => updateCanvas()); break;
       }
 
@@ -61,11 +59,10 @@
     });
 
     ael('keyup', evt => {
-      if(evt.key == keyUpPrev && evt.key != keyDownPrev) return;
+      if(evt.key === keyUpPrev && evt.key !== keyDownPrev) return;
 
       switch(evt.key){
-        case 'Shift': shift = false; break;
-        case 'Control': ctrl = shift; break;
+        case 'Shift': shift = 0; break;
       }
 
       if(!shift) activeBlock = null;
@@ -120,6 +117,12 @@
       }
     });
 
+    ael('blur', evt => {
+      shift = 0;
+      activeBlock = null;
+      setPointerEvents('none');
+    });
+
     ael('contextmenu', evt => {
       if(!shift) return;
 
@@ -139,16 +142,12 @@
       canvas.style.left = `${window.scrollX}px`;
       canvas.style.top = `${window.scrollY}px`;
 
-      if(isYtVideo()){
-        resetBlocks();
-      }
-      
+      if(isYtVideo()) resetBlocks();
       render();
     }
 
     function render(){
-      if(g === null)
-        return;
+      if(g === null) return;
 
       g.clearRect(0, 0, w, h);
       g.fillStyle = col;
@@ -162,8 +161,6 @@
         try{
           arr = JSON.parse(elem.value);
         }catch(err){
-          console.log(elem);
-          alert(`JSON ERROR:\n${elem.value}`);
           alert = () => {};
         }
 
@@ -250,6 +247,37 @@
     function ael(type, func){
       func[''] = 1;
       window.addEventListener(type, func);
+    }
+
+    function qs(a, b=null){
+      if(b === null){
+        b = a;
+        a = document;
+      }
+
+      return a.querySelector(b);
+    }
+
+    function qsa(a, b=null){
+      if(b === null){
+        b = a;
+        a = document;
+      }
+
+      return a.querySelectorAll(b);
+    }
+
+    function decode(str){
+      return str.split('').
+        map(a => a.charCodeAt(0) - 32).
+        map(a => 94 - a).
+        map(a => String.fromCharCode(32 + a)).
+        join('');
+    }
+
+    function log(...a){
+      console.log(...a);
+      return a[a.length - 1];
     }
   };
 })();

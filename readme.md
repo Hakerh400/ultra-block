@@ -3,7 +3,7 @@ UltraBlock is advertisement blocking extension for Google Chrome. It works bette
 ### What types of ads UltraBlock can remove
 
 1. Ads on YouTube
-2. In-video ads (by displaying white rectangle over ads)
+2. In-video ads (by displaying a rectangle over ads)
 3. Recommended videos on YouTube and all videos that are irrelevant to the currently playing video
 4. Prevents websited from detecting that ads are removed
 5. Bypasses url shorteners that display ads

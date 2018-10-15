@@ -62,6 +62,7 @@
       "all_frames": true
     }, {
       "matches": ["*://www.google.co.uk/*"],
+      "js": ["google.js"],
       "css": ["google.css"],
       "run_at": "document_start",
       "all_frames": true
