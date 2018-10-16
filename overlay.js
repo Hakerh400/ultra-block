@@ -3,6 +3,8 @@
 
   if(window.location.href.startsWith('http://localhost/')) return;
 
+  const DEBUG = 0;
+
   main();
 
   function main(){
@@ -23,8 +25,6 @@
     var h = window.innerHeight;
     var shift = 0;
 
-    var keyDownPrev = null;
-    var keyUpPrev = null;
     var col = /\.pdf(?:\?|$)/.test(window.location.href) ? '#515659' : '#ffffff';
 
     var blocks = [
@@ -33,6 +33,7 @@
     ];
 
     var activeBlock = null;
+    var activeBlockCandidate = null;
     var g = null;
 
     var canvas = document.createElement('canvas');
@@ -45,30 +46,25 @@
     ael('resize', updateCanvas);
 
     ael('keydown', evt => {
-      if(evt.key === keyDownPrev && evt.key !== keyUpPrev) return;
-
       switch(evt.key){
-        case 'Shift': shift = 1; break;
         case 'KeyF': setTimeout(() => updateCanvas()); break;
       }
 
-      if(!shift) activeBlock = null;
-      setPointerEvents(shift ? 'all' : 'none');
+      shift = evt.shiftKey;
 
-      keyDownPrev = evt.key;
+      if(!shift){
+        activeBlock = null;
+      }else if(activeBlock === null && activeBlockCandidate !== null){
+        activeBlock = activeBlockCandidate;
+      }
+
+      setPointerEvents(shift ? 'all' : 'none');
     });
 
     ael('keyup', evt => {
-      if(evt.key === keyUpPrev && evt.key !== keyDownPrev) return;
-
-      switch(evt.key){
-        case 'Shift': shift = 0; break;
-      }
-
+      shift = evt.shiftKey;
       if(!shift) activeBlock = null;
       setPointerEvents(shift ? 'all' : 'none');
-
-      keyUpPrev = evt.key;
     });
 
     ael('mousedown', evt => {
@@ -77,9 +73,9 @@
 
       switch(evt.button){
         case 0:
+          selectNearestBlock(x, y, shift);
           if(!shift) break;
           evt.preventDefault();
-          selectNearestBlock(x, y);
           break;
 
         case 2:
@@ -101,6 +97,8 @@
           activeBlock = null;
           break;
       }
+
+      activeBlockCandidate = null;
     });
 
     ael('mousemove', evt => {
@@ -130,6 +128,11 @@
       evt.stopPropagation();
     });
 
+    if(DEBUG){
+      var first = 1;
+      var obj = {};
+    }
+
     updateCanvas();
 
     function updateCanvas(){
@@ -146,8 +149,13 @@
       render();
     }
 
-    function render(){
+    function render(arg){
       if(g === null) return;
+
+      if(DEBUG){
+        if(!first && arg !== obj) return;
+        first = 0;
+      }
 
       g.clearRect(0, 0, w, h);
       g.fillStyle = col;
@@ -191,6 +199,29 @@
         g.fillRect(0, c[1], c[0], h - c[1]);
         g.fillRect(d[0], d[1], w - d[0], h - d[1]);
       }
+
+      if(DEBUG){
+        if(shift){
+          g.fillStyle = '#f00';
+          g.fillRect(0, 0, 100, 100);
+        }
+
+        if(activeBlock !== null){
+          g.fillStyle = '#0f0';
+          g.fillRect(100, 0, 100, 100);
+
+          var index = blocks.indexOf(activeBlock);
+          var x = index & 1;
+          var y = index >> 1;
+
+          g.fillStyle = '#ff0';
+          g.fillRect(100 + x * 50, y * 50, 50, 50);
+        }
+
+        window.requestAnimationFrame(() => {
+          render(obj);
+        });
+      }
     }
 
     function resetBlocks(){
@@ -200,7 +231,13 @@
       blocks[3][0] = w, blocks[3][1] = h;
     }
 
-    function selectNearestBlock(x, y){
+    function selectNearestBlock(x, y, actual=1){
+      if(actual && activeBlockCandidate !== null){
+        activeBlock = activeBlockCandidate;
+        setPointerEvents('all');
+        return;
+      }
+
       var coords = blocks;
 
       var index = coords.reduce((a, coord, index) => {
@@ -214,8 +251,12 @@
         return a;
       }, [null, 0])[1];
 
-      activeBlock = blocks[index];
-      setPointerEvents('all');
+      if(actual){
+        activeBlock = blocks[index];
+        setPointerEvents('all');
+      }else{
+        activeBlockCandidate = blocks[index];
+      }
     }
 
     function clearActiveBlock(x, y){
@@ -224,7 +265,7 @@
       var index = blocks.indexOf(activeBlock);
 
       activeBlock[0] = (index & 1) * w;
-      activeBlock[1] = (index / 2 & 1) * h;
+      activeBlock[1] = (index >> 1) * h;
 
       activeBlock = null;
     }

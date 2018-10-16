@@ -22,6 +22,8 @@
         window.qsa = a => [...document.querySelectorAll(a)];
 
         w.console_ = w.console;
+        w.alert_ = w.alert;
+
         var log = w.console_.log.bind(w.console_);
         var document = w.document;
         var Object = w.Object;
@@ -182,7 +184,7 @@
             case 'F5':
               evt.preventDefault('ublock');
               evt.stopPropagation('ublock');
-              document.body.innerHTML = '';
+              if(document.body) document.body.innerHTML = '';
               w.location.reload();
               break;
           }
