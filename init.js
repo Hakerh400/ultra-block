@@ -19,7 +19,7 @@
       main();
 
       function main(){
-        window.qsa = a => [...document.querySelectorAll(a)];
+        w.qsa = a => [...document.querySelectorAll(a)];
 
         w.console_ = w.console;
         w.alert_ = w.alert;
@@ -69,9 +69,9 @@
 
         Object.defineProperty(w.navigator, 'userAgent', {
           get(){
-            return `Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36`;
-            return `Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3555.2 Safari/537.36`;
-            return `Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36`;
+            if(top.location.href.startsWith('https://github.com/'))
+              return 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36';
+            return `Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.67 Safari/537.36`;
           }
         });
 
@@ -184,7 +184,11 @@
             case 'F5':
               evt.preventDefault('ublock');
               evt.stopPropagation('ublock');
-              if(document.body) document.body.innerHTML = '';
+
+              var e = document.documentElement;
+              e.scrollTop = 0;
+              e.innerHTML = '';
+              
               w.location.reload();
               break;
           }
