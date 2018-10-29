@@ -71,7 +71,7 @@
           get(){
             if(top.location.href.startsWith('https://github.com/'))
               return 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36';
-            return `Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.67 Safari/537.36`;
+            return `Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36`;
           }
         });
 
@@ -321,7 +321,7 @@
 
         var href = top.location.href;
 
-        if(href.startsWith('https://www.youtube.com/')/* && !href.includes('&list=')*/) (() => {
+        if(href.startsWith('https://www.youtube.com/') && !href.includes('&list=')) (() => {
           proxify(w.Node.prototype, 'appendChild', {
             apply(f, t, args){
               var result = f.apply(t, args);

@@ -78,6 +78,11 @@ canvas#error + div,
 /* wikipedia */
 .uls-lcd-region-section.uls-lcd-quicklist,
 
+/* The Pirate Bay */
+#searchResult:not(.ublock-safe),
+a[href*="protect-your-privacy"],
+a[href*="bitbigs"],
+
 ::-webkit-scrollbar,
 #_eEe
 {

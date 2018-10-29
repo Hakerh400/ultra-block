@@ -18,10 +18,16 @@
     function block(){
       var e;
 
-      if(stage === 0){
-        setTimeout(block, 1e3);
-        return;
+      for(e of qsa('#searchResult:not(.ublock-safe)')){
+        if(qs(e, '.hide_your_ip_btn')) e.remove();
+        else e.classList.add('ublock-safe');
       }
+
+      for(e of qsa('a[href="https://bitcoin.org"]')){
+        e.parentNode.parentNode.remove();
+      }
+
+      if(stage === 0) return setTimeout(block);
     }
   }
 
