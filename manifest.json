@@ -154,7 +154,7 @@
       "matches": ["https://www.watzatsong.com/*"],
       "css": ["watzatsong.css"],
       "run_at": "document_start",
-      "all_frames": true,
+      "all_frames": true
     }
   ],
 
