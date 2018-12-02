@@ -61,11 +61,6 @@
       "run_at": "document_start",
       "all_frames": true
     }, {
-      "matches": ["*://www.youtube.com/channel/*/videos?ub=1"],
-      "css": ["youtube-channel.css"],
-      "run_at": "document_start",
-      "all_frames": true
-    }, {
       "matches": ["*://www.google.co.uk/*"],
       "js": ["google.js"],
       "css": ["google.css"],
@@ -159,7 +154,7 @@
       "matches": ["https://www.watzatsong.com/*"],
       "css": ["watzatsong.css"],
       "run_at": "document_start",
-      "all_frames": true
+      "all_frames": true,
     }
   ],
 

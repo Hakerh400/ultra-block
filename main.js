@@ -24,7 +24,9 @@
       }
 
       for(e of qsa('a[href="https://bitcoin.org"]')){
-        e.parentNode.parentNode.remove();
+        var e1 = e.parentNode;
+        if(e1.parentNode !== document.body) e1.parentNode.remove();
+        else e1.remove();
       }
 
       if(stage === 0) return setTimeout(block);

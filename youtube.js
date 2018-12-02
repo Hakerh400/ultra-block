@@ -72,12 +72,28 @@
   main();
 
   function main(){
-    var url = window.location.href;
+    var url = top.location.href;
     var focused = musicMode;
     var disabledSearch = false;
     var debugMode = false;
     var ended = false;
     var currentSrc = null;
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    document.addEventListener('DOMContentLoaded', () => {
+      var e = qs('body');
+
+      var m = top.location.href.match(/[\?\&]ub\=(\d+)(?:[^\d]|$)/);
+      if(m !== null){
+        var n = Number(m[1]);
+        e.classList.add(`ub${n}`);
+      }
+
+      e.classList.add('ublock-safe');
+    });
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
 
     var lastAction = Date.now();
 
@@ -421,7 +437,7 @@
 
     function toggleRelated(evt, forceHide = false){
       var selector = '#items.style-scope.ytd-watch-next-secondary-results-renderer,yt-next-continuation,*[id*="continuation"],*[class*="continuation"]';
-      var toggled = toggleElem(selector, evt);
+      var toggled = toggleElem(selector, evt, qs('#items.style-scope.ytd-watch-next-secondary-results-renderer'));
       if(!toggled) return false;
 
       if(forceHide){
@@ -433,7 +449,7 @@
             toggleElem(elem);
           }
 
-          elem.style.setProperty('pointer-events', 'all', 'important');
+          elem.style.setProperty('pointer-events', 'auto', 'important');
         }
       }
 
@@ -467,9 +483,7 @@
         if(tag == 'INPUT' || tag == 'TEXTAREA') return false;
       }
 
-      if(evt){
-        evt.preventDefault();
-      }
+      if(evt) evt.preventDefault();
 
       var elems = typeof selector == 'string' ? document.querySelectorAll(selector) : [selector];
       if(!elems.length) return false;
@@ -487,7 +501,7 @@
         if(visible) hide(elem);
         else show(elem);
 
-        elem.style.setProperty('pointer-events', visible ? 'none' : 'all', 'important');
+        elem.style.setProperty('pointer-events', visible ? 'none' : 'auto', 'important');
       }
 
       return true;
@@ -501,6 +515,8 @@
 
       elem.classList.remove('ublock_hidden');
       elem.classList.add('ublock_visible');
+
+      elem.style.setProperty('pointer-events', 'auto', 'important');
     }
 
     function hide(elem){
@@ -510,6 +526,8 @@
 
       elem.classList.remove('ublock_visible');
       elem.classList.add('ublock_hidden');
+
+      elem.style.setProperty('pointer-events', 'none', 'important');
     }
 
     function updateTitle(str, e){

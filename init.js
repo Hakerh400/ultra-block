@@ -1,7 +1,15 @@
 (() => {
   'use strict';
 
-  if(location.href.startsWith('file:///')) return;
+  if(location.href.startsWith('file:///')){
+    onbeforeunload = () => {
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+      document.body.innerHTML = '';
+    };
+    return;
+  }
+
   if(location.href.startsWith('http://localhost/')) return;
   if(location.href.startsWith('https://hakerh400.github.io/')) return;
 
@@ -71,7 +79,7 @@
           get(){
             if(top.location.href.startsWith('https://github.com/'))
               return 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36';
-            return `Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36`;
+            return `Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36`;
           }
         });
 
@@ -185,9 +193,9 @@
               evt.preventDefault('ublock');
               evt.stopPropagation('ublock');
 
-              var e = document.documentElement;
-              e.scrollTop = 0;
-              e.innerHTML = '';
+              document.documentElement.scrollTop = 0;
+              document.body.scrollTop = 0;
+              document.body.innerHTML = '';
               
               w.location.reload();
               break;

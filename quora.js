@@ -24,7 +24,7 @@
       }
 
       for(e of qsa('.UnifiedAnswerPagedList:not(.ublock-safe)')){
-        if(/ ad  by /i.test(e.innerHTML)) e.remove();
+        if(/\bad  by /i.test(e.innerHTML)) e.remove();
         else e.classList.add('ublock-safe');
       }
 

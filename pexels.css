@@ -1,3 +1,10 @@
+.hero__background-image{
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
 .photo-item:not(.ublock-safe){
   opacity: 0 !important;
   pointer-events: none !important;

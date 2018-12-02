@@ -7,16 +7,24 @@
 .ytp-scrubber-pull-indicator,
 #yt-masthead-user,
 #spinner,
+iron-a11y-announcer,
 *[class*="skeleton"]:not(*[class*="hide-skeleton"])
 {
   display: none !important;
   visibility: hidden !important;
   opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+body:not(.ublock-safe){
+  opacity: 0 !important;
+  pointer-events: none !important;
 }
 
 *[autofocus]{
   visibility: hidden !important;
   opacity: 0 !important;
+  pointer-events: none !important;
 }
 
 .style-scope.ytd-searchbox{
@@ -31,8 +39,10 @@
   border-right-width: 0px !important;
 }
 
-.style-scope.ytd-watch-next-secondary-results-renderer:not(#items){
+.style-scope.ytd-watch-next-secondary-results-renderer:not(#items),
+ytd-compact-video-renderer{
   opacity: 0;
+  pointer-events: none !important;
 }
 
 div[class*="ytp-"]:not(#movie_player),
@@ -47,6 +57,7 @@ ytd-comments,
 video{
   top: 0px !important;
   opacity: 0 !important;
+  pointer-events: none !important;
 }
 
 .html5-video-player{
@@ -72,4 +83,14 @@ h1.title:not(*[class*="ublock_safe"]){
 
 #creator-page-content{
   margin-left: 0px !important;
+}
+
+body.ub1 img.style-scope.yt-img-shadow{
+  /* 280 250 */
+  clip-path: polygon(0% 0%, 100% 0%, 100% 75%, 72% 75%, 72% 100%, 0% 100%, 0% 0%) !important;
+}
+
+body.ub2 img.style-scope.yt-img-shadow{
+  /* 242 122 */
+  clip-path: polygon(25% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 13%, 25% 13%) !important;
 }
