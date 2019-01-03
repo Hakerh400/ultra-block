@@ -1,0 +1,16 @@
+.owl-stage-outer,
+#gdpr-cookie-notif,
+#facebook-login,
+#logo,
+.slider,
+.getting-started,
+.go-for-gold,
+.footer-container,
+.snackdown-bar,
+.todo-button,
+.ccl-margin-auto.ccl-margin-m.ccl-align-c{
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}

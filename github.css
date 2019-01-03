@@ -10,3 +10,17 @@ input.form-control.header-search-input{
 .d-flex.flex-justify-between.px-3:not(.container-lg){
   opacity: 0 !important;
 }
+
+/*.tooltipped:active:after,
+.tooltipped:active:before,
+.tooltipped:focus:after,
+.tooltipped:focus:before,
+.tooltipped:hover:after,
+.tooltipped:hover:before{
+  display: none !important;
+}*/
+
+table.highlight:not(.ublock-safe){
+  opacity: 0 !important;
+  pointer-events: none !important;
+}

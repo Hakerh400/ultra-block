@@ -10,7 +10,8 @@
   pointer-events: none !important;
 }
 
-body:not(.ublock-safe){
+.pagedlist_item:not(.ublock-safe),
+.UnifiedAnswerPagedList:not(.ublock-safe){
   opacity: 0 !important;
   pointer-events: none !important;
 }

@@ -47,6 +47,11 @@
       "run_at": "document_start",
       "all_frames": true
     }, {
+      "matches": ["file:///*/*.png"],
+      "css": ["image.css"],
+      "run_at": "document_start",
+      "all_frames": true
+    }, {
       "matches": ["*://www.youtube.com/*"],
       "js": [
         "youtube-init.js",
@@ -153,6 +158,11 @@
     }, {
       "matches": ["https://www.watzatsong.com/*"],
       "css": ["watzatsong.css"],
+      "run_at": "document_start",
+      "all_frames": true
+    }, {
+      "matches": ["https://www.codechef.com/*"],
+      "css": ["codechef.css"],
       "run_at": "document_start",
       "all_frames": true
     }

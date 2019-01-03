@@ -10,26 +10,22 @@
   main();
 
   function main(){
-    if(!document.body)
-      return setTimeout(main);
-
     block();
 
     function block(){
       var e;
 
       for(e of qsa('.pagedlist_item:not(.ublock-safe)')){
-        if(/promoted/i.test(e.innerHTML)) e.remove();
+        if(/promoted|sponsored +by /i.test(e.innerText)) e.remove();
         else e.classList.add('ublock-safe');
       }
 
       for(e of qsa('.UnifiedAnswerPagedList:not(.ublock-safe)')){
-        if(/\bad  by /i.test(e.innerHTML)) e.remove();
+        if(/\bad +by /i.test(e.innerText)) e.remove();
         else e.classList.add('ublock-safe');
       }
 
-      if(stage === 0) return setTimeout(block);
-      document.body.classList.add('ublock-safe');
+      setTimeout(block, stage ? 1e3 : 0);
     }
   }
 

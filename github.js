@@ -21,8 +21,38 @@
       if(e = qs('.d-flex.flex-justify-between.px-3'))
         e.classList.add('container-lg');
 
+      for(e of qsa('table.highlight:not(.ublock-safe)')){
+        e.setAttribute('data-tab-size', '2');
+        removeSpam(e);
+        e.classList.add('ublock-safe');
+      }
+
       if(stage === 0)
         setTimeout(block, 1e3);
+    }
+  }
+
+  function removeSpam(e){
+    var lines = qsa(e, 'tr');
+    var str = [...lines].map(a => a.innerText.trim()).join('\n');
+    var i = 0;
+
+    do{
+      var j = i;
+
+      match(/^(?:\s|(?:'(?:\\.|[^'])*'|"(?:\\.|[^"])*"|`(?:\\.|[^`])*`)\s*\;?)*/s);
+      match(/^(?:(?:\/\/|\#)[^\n]*\n|\/\*.*?\*\/|""".*?""")/s);
+      match(/^\s*/s);
+    }while(i !== j);
+
+    if(i === 0) return;
+
+    var n = str.slice(0, i).replace(/[^\n]/g, '').length;
+    while(n-- > 0) lines[n].remove();
+
+    function match(reg){
+      var m = str.slice(i).match(reg);
+      if(m !== null) i += m[0].length;
     }
   }
 

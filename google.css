@@ -15,6 +15,10 @@ a[href*="123rf"],
 a[href*="envato"],
 a[href*="gettyimages"],
 
+a[href*="flickr"],
+a[href*="dailymail"],
+a[href*="cdninstagram"],
+
 a[href*="w3mirchi"],
 a[href*="astrologypandit"],
 a[href*="lookaside"],
@@ -48,6 +52,9 @@ a[href*="qygjxz"],
 a[href*="teamusa"],
 a[href*="appuals"],
 a[href*="i1.wp"],
+a[href*="researchgate"],
+
+a[href*=".gif&"],
 
 #appbar,
 #taw,

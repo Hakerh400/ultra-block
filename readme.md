@@ -15,7 +15,7 @@ UltraBlock is advertisement blocking extension for Google Chrome. It works bette
 
 ### How it works
 
-UltraBlock injects a certain script in webpages. The script then prepares the environment, overrides almost all built-in functions and controlls the execution of all webpages' scripts. Webpage content is not displayed until all ads are removed or prevented from appearing. Comparing to AdBlock, which is capable of removing about 80% of ads, UltraBlock is capable of removing about 99.9% of ads.
+UltraBlock injects a certain script in webpages. The script then prepares the environment, overrides almost all built-in functions and controlls the execution of all webpages' scripts. Webpage content is not displayed until all ads are removed or prevented from appearing. Comparing to AdBlock, which is capable of removing about 80% of ads, UltraBlock is capable of removing 100% of ads.
 
 ### Other features
 

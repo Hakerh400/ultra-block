@@ -2,6 +2,7 @@
   'use strict';
 
   if(window.location.href.startsWith('http://localhost/')) return;
+  if(window.location.href.startsWith('https://www.pdfpit.com/')) return;
   if(!/\.pdf(?:\?|$)/i.test(window.location.href)) return;
 
   main();

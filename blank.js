@@ -1,6 +1,8 @@
 (() => {
   'use strict';
 
+  const {href} = top.location;
+  
   var stage = 0;
 
   document.addEventListener('DOMContentLoaded', () => {
@@ -20,6 +22,10 @@
 
       if(stage === 0) return setTimeout(block);
     }
+  }
+
+  function show(e){
+    e.classList.add('ublock-safe');
   }
 
   function qs(a, b=null){

@@ -109,19 +109,31 @@
         }
       });
 
-      HTMLVideoElement.prototype.play = new Proxy(HTMLVideoElement.prototype.play, {
-        apply(f, t, args){
-          if(args[0] !== ytObj) return nop;
-          playVideo(t, f);
-        }
-      });
+      ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-      HTMLVideoElement.prototype.pause = new Proxy(HTMLVideoElement.prototype.pause, {
-        apply(f, t, args){
-          if(args[0] !== ytObj) return nop;
-          return f.apply(t, []);
-        }
-      });
+      {
+        HTMLVideoElement.prototype.play = new Proxy(HTMLVideoElement.prototype.play, {
+          apply(f, t, args){
+            if(args[0] !== ytObj) return nop;
+            playVideo(t, f);
+          }
+        });
+
+        HTMLVideoElement.prototype.pause = new Proxy(HTMLVideoElement.prototype.pause, {
+          apply(f, t, args){
+            if(args[0] !== ytObj) return nop;
+            return f.apply(t, []);
+          }
+        });
+
+        const prop = Object.getOwnPropertyDescriptor(HTMLMediaElement.prototype, 'currentTime');
+
+        /*Object.defineProperty(HTMLVideoElement.prototype, 'currentTime', {
+          get(){
+            return prop.get.call(this);
+          },
+        });*/
+      }
 
       ////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -156,7 +168,7 @@
           if(tag === 'INPUT' || tag === 'TEXTAREA') return false;
         }
         
-        if(evt.code === 'Space' || evt.code === 'ArrowLeft' || evt.code === 'ArrowRight'){
+        if(evt.code === 'Space'){
           evt.preventDefault();
           evt.stopPropagation();
           dispatchEvent(evt.code, evt.keyCode);

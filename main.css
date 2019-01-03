@@ -17,7 +17,7 @@ jdiv,
 *[id*="addthis" i],
 *[id*="sponsor" i],
 
-*[class*="footer" i]:not(.main-wrapper-for-sticky-footer):not(.tblFooters):not(*[href*="/morelikethis/"]),
+*[class*="footer" i]:not(.main-wrapper-for-sticky-footer):not(.tblFooters):not(*[href*="/morelikethis/"]):not(.rounded-cr-footer),
 *[class*="copyright" i],
 *[class*="newsletter" i],
 *[class*="countryList" i],
@@ -55,6 +55,7 @@ a[href^="https://simpleshare.io/"],
 #msgb,
 div[role="alert"],
 #actual_password_warning,
+.gb_Ea.gb_Oa,
 
 /* instagram */
 ._j8mem._6in6f,
@@ -85,6 +86,9 @@ a[href*="bitbigs"],
 
 /* desmos */
 .dcg-loading-div-container,
+
+/* pdfpit */
+.footer + div,
 
 ::-webkit-scrollbar,
 #_eEe

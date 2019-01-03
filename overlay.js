@@ -5,6 +5,9 @@
 
   const DEBUG = 0;
 
+  const SCREEN_WIDTH = 1920;
+  const SCREEN_HEIGHT = 1080;
+
   main();
 
   function main(){
@@ -158,9 +161,9 @@
       }
 
       g.clearRect(0, 0, w, h);
-      g.fillStyle = col;
+      g.fillStyle = isFs() ? '#808080' : col;
 
-      if(isYtVideo()){
+      if(isYtVideo() && isFs()){
         var elem = document.querySelector('#ublock_yt-overlay');
         if(!elem) return setTimeout(render);
 
@@ -279,6 +282,10 @@
 
     function setPointerEvents(mode){
       canvas.style.pointerEvents = mode;
+    }
+
+    function isFs(){
+      return document.webkitIsFullScreen || innerHeight > 947;
     }
 
     function isYtVideo(){

@@ -1,4 +1,4 @@
-﻿(() => {
+(() => {
   'use strict';
 
   const O = {
@@ -23,7 +23,10 @@
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  const ENABLE_DOW = 0;
+  const PREVENT_TITLE_TRANSLATION = 0;
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////////
+
   const PORT = 27000;
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -42,13 +45,22 @@
   const requiredWhiteList = [
   ];
 
-  const timeOffsetsList = [
+  const chs = [
   ];
 
-  timeOffsetsList.forEach(a => {
-    if(a.length === 3)
-      a.push([null, null, null, null]);
-  });
+  const timeOffsets = {
+  };
+
+  Object.setPrototypeOf(timeOffsets, null);
+
+  for(let chName in timeOffsets){
+    let ch = timeOffsets[chName];
+
+    if(top.location.href.includes('&u'))
+      ch[2] += 6;
+    if(ch.length === 2)
+      ch.push([null, null, null, null]);
+  }
 
   const symbs = [
     'status',
@@ -56,12 +68,69 @@
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////
 
+  document.addEventListener('DOMContentLoaded', () => {
+    return;
+
+    var video = qs('video');
+    if(!video) return;
+
+    var prev = 0;
+    var curr = 0;
+    var buf = 0;
+    var t = Date.now();
+
+    requestAnimationFrame(check);
+
+    function check(){
+      var f = null;
+
+      curr = video.currentTime;
+
+      if(curr >= prev){
+        if(
+            !buf  &&
+            curr === prev &&
+            Date.now() - t > 2e3 &&
+            !video.paused
+          ){
+          f = onBuffering;
+          buf = 1;
+        }
+
+        if(
+            buf &&
+            curr > prev &&
+            !video.paused
+          ){
+          f = onReady;
+          buf = 0;
+        }
+      }
+
+      prev = curr;
+
+      if(f) f();
+      requestAnimationFrame(check);
+    }
+
+    function onBuffering(){
+    }
+
+    function onReady(){
+      video.currentTime -= 5;
+      t = Date.now();
+    }
+  });
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////////
+
   var musicMode = 0;
+  var enableDow = 1;
 
   var waitTimeBody = 3e3;
   var waitTimeItems = 5e3;
 
-  var emptyTimeOffsets = [null, null, null, [null, null, null, null]];
+  var emptyTimeOffsets = [null, null, [null, null, null, null]];
 
   var safeElem = document.createElement('input');
   safeElem.style.display = 'none';
@@ -74,9 +143,9 @@
   function main(){
     var url = top.location.href;
     var focused = musicMode;
-    var disabledSearch = false;
-    var debugMode = false;
-    var ended = false;
+    var disabledSearch = 0;
+    var debugMode = 0;
+    var ended = 0;
     var currentSrc = null;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -111,13 +180,19 @@
 
         if(activeElem){
           var tag = activeElem.tagName;
-          if(tag === 'INPUT' || tag === 'TEXTAREA') return false;
+          if(tag === 'INPUT' || tag === 'TEXTAREA') return 0;
         }
 
-        if(evt.code === 'Space' || evt.code === 'ArrowLeft' || evt.code === 'ArrowRight')
+        if(evt.altKey || evt.ctrlKey || evt.shiftKey)
           return;
 
+        /*var v = qs('video');
+        if(v) var ct = v.currentTime;*/
+
         switch(evt.code){
+          /*case 'ArrowLeft': pd(); v && v.currentTime = ct - 5; break;
+          case 'ArrowRight': pd(); v && v.currentTime = ct + 5; break;*/
+
           case 'KeyQ': toggleControls(evt); break;
           case 'KeyW': toggleRelated(evt); break;
           case 'KeyE': toggleDescription(evt); break;
@@ -135,16 +210,21 @@
             server({
               type: 'download',
               id: top.location.href.match(/[\?\&]v\=([^\&\#]+)/)[1],
-              channel: qs('#owner-name.ytd-video-owner-renderer').innerText.trim(),
+              channel: getChName(),
               title: document.title.substring(0, document.title.length - 10),
               urls,
             });
             break;
 
           case 'F8':
-            debugMode = true;
+            debugMode = 1;
             evt.preventDefault();
             break;
+        }
+
+        function pd(){
+          evt.preventDefault();
+          evt.stopPropagation();
         }
       });
 
@@ -165,42 +245,42 @@
           }
         }
 
-        toggleVideo(false);
-        toggleRelated(null, true);
+        toggleVideo(0);
+        toggleRelated(null, 1);
 
-        ended = false;
+        ended = 0;
       });
 
       window.addEventListener('mousemove', evt => {
         if(musicMode) return;
 
-        focused = true;
+        focused = 1;
       });
 
       window.addEventListener('focus', evt => {
         if(musicMode) return;
 
         if(focused){
-          toggleRelated(null, true);
+          toggleRelated(null, 1);
         }
 
-        focused = true;
+        focused = 1;
       });
 
       window.addEventListener('blur', evt => {
         if(musicMode) return;
 
         if(focused){
-          toggleRelated(null, true);
+          toggleRelated(null, 1);
         }
 
-        focused = false;
+        focused = 0;
       });
     }
 
     function block(){
       if(debugMode){
-        debugMode = false;
+        debugMode = 0;
         debugger;
       }
 
@@ -252,7 +332,7 @@
         if(e.className === 'A') url = e.href;
         else url = e.closest('a').href;
 
-        if(requiredWhiteList.length !== 0){
+        if(!PREVENT_TITLE_TRANSLATION){
           e.classList.add('ublock_safe');
           continue;
         }
@@ -267,12 +347,12 @@
           if(e[symbs.status]) continue;
           e[symbs.status] = 1;
 
-          if(requiredWhiteList.length !== 0){
+          updateStat(e);
+
+          if(!PREVENT_TITLE_TRANSLATION){
             e.classList.add('ublock_safe');
             continue;
           }
-          
-          updateStat(e);
         }
       }
 
@@ -284,25 +364,57 @@
         }
       }
 
-      var video = document.querySelector('video');
+      var video = qs('video');
       if(video){
         if(!video.ublock_videoListeners){
-          video.ublock_ytVideoListeners = true;
+          video.ublock_ytVideoListeners = 1;
 
           video.onended = () => {
-            ended = true;
+            ended = 1;
           };
         }
 
         checkVideoTime();
 
         if(currentSrc !== video.currentSrc){
-          ended = false;
+          ended = 0;
         }
 
         if(musicMode && !ended && video.paused && currentSrc !== video.currentSrc){
           currentSrc = video.currentSrc;
           playVideo();
+        }
+      }
+
+      if(canShowBody){
+        let e;
+
+        for(e of qsa('ytd-comment-thread-renderer:not(.ublock-safe)')){
+          if(qs(e, '#pinned-comment-badge:not(*[hidden])')){
+            e.remove();
+          }else{
+            e.classList.add('ublock-safe');
+          }
+        }
+
+        for(e of qsa('#description:not(.ublock-safe)')){
+          e.closest('ytd-expander').removeAttribute('collapsed');
+
+          if(getChName() === chs[0]){
+            var v = e.innerText
+              .split(/\r\n|\r|\n/)[0]
+              .split('.');
+            v.pop();
+            v[v.length - 1] = '';
+            v = v.join('.')
+              .split(' ')
+              .slice(5)
+              .join(' ');
+            v = `${v[0].toUpperCase()}${v.slice(1)}`;
+            e.innerText = v;
+          }
+
+          e.classList.add('ublock-safe');
         }
       }
 
@@ -318,21 +430,21 @@
       var video = document.querySelector('video');
       if(!(elem && video)) return;
 
-      toggleVideo(true);
+      toggleVideo(1);
 
       var channel = elem.innerText.trim();
-      var timeOffsets = timeOffsetsList.find(([ch]) => ch === channel);
 
-      if(!timeOffsets){
+      if(!(channel in timeOffsets)){
         updateOverlayElem(emptyTimeOffsets);
         return video.ublock_start = 0;
       }
 
-      updateOverlayElem(timeOffsets);
+      var offsets = timeOffsets[channel];
+      updateOverlayElem(offsets);
 
       var duration = video.duration;
-      var start = timeOffsets[1];
-      var end = duration - timeOffsets[2];
+      var start = offsets[1];
+      var end = duration - offsets[2];
       var time = video.currentTime;
 
       video.ublock_start = start;
@@ -346,7 +458,7 @@
       if(time > end && time != duration){
         pauseVideo();
         video.currentTime = duration;
-        ended = true;
+        ended = 1;
         return;
       }
     }
@@ -362,31 +474,31 @@
         elem.id = 'ublock_yt-overlay';
       }
 
-      elem.value = JSON.stringify(timeOffsets[3]);
+      elem.value = JSON.stringify(timeOffsets[2]);
     }
 
     function tryToDisableSearch(){
       var e = document.querySelector('input[id="search"]');
-      if(!e) return false;
+      if(!e) return 0;
 
       if(e !== document.activeElement){
         e.value = '';
-        e.disabled = true;
+        e.disabled = 1;
       }
 
       var ee = e.parentNode;
 
       ee.addEventListener('click', () => {
-        e.disabled = false;
+        e.disabled = 0;
         e.focus();
       });
 
       e.addEventListener('blur', () => {
         e.value = '';
-        e.disabled = true;
+        e.disabled = 1;
       });
 
-      return true;
+      return 1;
     }
 
     function toggleVideo(s){
@@ -428,17 +540,17 @@
             toggleElem(e, null, mainElem);
           }
 
-          return true;
+          return 1;
         }
 
         return a;
-      }, false);
+      }, 0);
     }
 
-    function toggleRelated(evt, forceHide = false){
+    function toggleRelated(evt, forceHide=0){
       var selector = '#items.style-scope.ytd-watch-next-secondary-results-renderer,yt-next-continuation,*[id*="continuation"],*[class*="continuation"]';
       var toggled = toggleElem(selector, evt, qs('#items.style-scope.ytd-watch-next-secondary-results-renderer'));
-      if(!toggled) return false;
+      if(!toggled) return 0;
 
       if(forceHide){
         var elems = document.querySelectorAll(selector);
@@ -453,7 +565,7 @@
         }
       }
 
-      return true;
+      return 1;
     }
 
     function toggleDescription(evt){
@@ -465,13 +577,13 @@
     }
 
     function playVideo(){
-      var evt = new CustomEvent('ublock_ytVideo', {detail: true});
+      var evt = new CustomEvent('ublock_ytVideo', {detail: 1});
       window.dispatchEvent(evt);
     }
 
     function pauseVideo(){
       hide(document.querySelector('video'));
-      var evt = new CustomEvent('ublock_ytVideo', {detail: false});
+      var evt = new CustomEvent('ublock_ytVideo', {detail: 0});
       window.dispatchEvent(evt);
     }
 
@@ -480,13 +592,13 @@
 
       if(activeElem){
         var tag = activeElem.tagName;
-        if(tag == 'INPUT' || tag == 'TEXTAREA') return false;
+        if(tag == 'INPUT' || tag == 'TEXTAREA') return 0;
       }
 
       if(evt) evt.preventDefault();
 
       var elems = typeof selector == 'string' ? document.querySelectorAll(selector) : [selector];
-      if(!elems.length) return false;
+      if(!elems.length) return 0;
 
       var visible;
 
@@ -504,7 +616,7 @@
         elem.style.setProperty('pointer-events', visible ? 'none' : 'auto', 'important');
       }
 
-      return true;
+      return 1;
     }
 
     function show(elem){
@@ -558,7 +670,7 @@
       server({
         type: 'status',
         id: top.location.href.match(/[\?\&]v\=([^\&\#]+)/)[1],
-        channel: qs('#owner-name.ytd-video-owner-renderer').innerText.trim(),
+        channel: getChName(),
         title: document.title.substring(0, document.title.length - 10),
       }, res => {
         if(res === null){
@@ -589,6 +701,10 @@
       });
     }
 
+    function getChName(){
+      return qs('#owner-name.ytd-video-owner-renderer').innerText.trim();
+    }
+
     function rf(url, data, cb){
       var xhr = new XMLHttpRequest();
 
@@ -602,42 +718,45 @@
     }
 
     function server(data, cb=nop){
-      if(!ENABLE_DOW) return cb(null);
+      if(!enableDow) return cb(null);
       var xhr = new XMLHttpRequest();
 
       xhr.onreadystatechange = () => {
         if(xhr.readyState !== 4) return;
-        if(xhr.status !== 200) return cb(null);
+        if(xhr.status !== 200){
+          enableDow = 0;
+          return cb(null);
+        }
         cb(JSON.parse(xhr.responseText));
       };
 
       xhr.open('POST', `http://localhost:${PORT}`);
       xhr.send(JSON.stringify(data));
     }
+  }
 
-    function qs(a, b=null){
-      if(b === null){
-        b = a;
-        a = document;
-      }
-
-      return a.querySelector(b);
+  function qs(a, b=null){
+    if(b === null){
+      b = a;
+      a = document;
     }
 
-    function qsa(a, b=null){
-      if(b === null){
-        b = a;
-        a = document;
-      }
+    return a.querySelector(b);
+  }
 
-      return a.querySelectorAll(b);
+  function qsa(a, b=null){
+    if(b === null){
+      b = a;
+      a = document;
     }
 
-    function log(...a){
-      console.log(...a);
-      return a[a.length - 1];
-    }
+    return a.querySelectorAll(b);
+  }
 
-    function nop(){}
-  };
+  function log(...a){
+    console.log(...a);
+    return a[a.length - 1];
+  }
+
+  function nop(){}
 })();

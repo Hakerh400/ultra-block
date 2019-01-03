@@ -7,8 +7,11 @@
 .ytp-scrubber-pull-indicator,
 #yt-masthead-user,
 #spinner,
+.ytp-hover-progress,
+*[class*="skeleton"]:not(*[class*="hide-skeleton"]),
 iron-a11y-announcer,
-*[class*="skeleton"]:not(*[class*="hide-skeleton"])
+#less,
+#more
 {
   display: none !important;
   visibility: hidden !important;
@@ -40,16 +43,15 @@ body:not(.ublock-safe){
 }
 
 .style-scope.ytd-watch-next-secondary-results-renderer:not(#items),
-ytd-compact-video-renderer{
-  opacity: 0;
-  pointer-events: none !important;
-}
-
+ytd-compact-video-renderer,
 div[class*="ytp-"]:not(#movie_player),
 div[id="items"][class*="ytd-watch-next-secondary-results-renderer"],
 ytd-expander.ytd-video-secondary-info-renderer,
 ytd-comments,
-#movie_player:not(.ytp-fullscreen){
+#movie_player:not(.ytp-fullscreen),
+ytd-comment-thread-renderer:not(.ublock-safe),
+#description:not(.ublock-safe)
+{
   opacity: 0;
   pointer-events: none !important;
 }

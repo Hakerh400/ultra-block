@@ -3,9 +3,11 @@
 
   if(location.href.startsWith('file:///')){
     onbeforeunload = () => {
-      document.documentElement.scrollTop = 0;
-      document.body.scrollTop = 0;
-      document.body.innerHTML = '';
+      try{
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+        document.body.innerHTML = '';
+      }catch{}
     };
     return;
   }
@@ -79,7 +81,7 @@
           get(){
             if(top.location.href.startsWith('https://github.com/'))
               return 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36';
-            return `Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36`;
+            return 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3624.2 Safari/537.36';
           }
         });
 
@@ -193,9 +195,11 @@
               evt.preventDefault('ublock');
               evt.stopPropagation('ublock');
 
-              document.documentElement.scrollTop = 0;
-              document.body.scrollTop = 0;
-              document.body.innerHTML = '';
+              try{
+                document.documentElement.scrollTop = 0;
+                document.body.scrollTop = 0;
+                document.body.innerHTML = '';
+              }catch{}
               
               w.location.reload();
               break;
