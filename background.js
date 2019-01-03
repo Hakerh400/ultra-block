@@ -8,6 +8,10 @@
   ];
 
   var redirectionsList = [
+    [/^www\.google\.(?!co\.uk)/, /\.google\.[^\/]+/, '.google.co.uk'],
+    [/^www\.google\.co\.uk\/imgres\?/, /[\s\S]*/, a => unescape(a.match(/[\?\&]imgurl=([^\&]*)/)[1])],
+    [/^www\.youtube\.com\/$/, /$/, 'watch?v=7&gl=US'],
+    [/^www\.youtube\.com\/(?:channel|user)\/[^\/]+$/, /$/, '/videos?flow=grid&view=0'],
   ];
 
   chrome.webRequest.onBeforeRequest.addListener(evt => {
