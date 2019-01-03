@@ -17,7 +17,7 @@
     var redirect = redirectionsList.find(([a]) => a.test(url));
     if(redirect) return {redirectUrl: evt.url.replace(redirect[1], redirect[2])};
 
-    var testFunc = a =>{
+    var testFunc = a => {
       if(a instanceof RegExp) return a.test(url);
       return urlLower.includes(a);
     };
