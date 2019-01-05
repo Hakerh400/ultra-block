@@ -1,3 +1,12 @@
+.is-stuck,
+.gh-header-shadow.box-shadow
+{
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
 textarea{
   height: 1000px !important;
   max-height: 1000px !important;

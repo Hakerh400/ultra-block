@@ -9,9 +9,9 @@
 #spinner,
 .ytp-hover-progress,
 *[class*="skeleton"]:not(*[class*="hide-skeleton"]),
-iron-a11y-announcer,
-#less,
-#more
+/*#less,
+#more,*/
+iron-a11y-announcer
 {
   display: none !important;
   visibility: hidden !important;

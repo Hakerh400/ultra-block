@@ -347,12 +347,12 @@
           if(e[symbs.status]) continue;
           e[symbs.status] = 1;
 
-          updateStat(e);
+          //updateStat(e);
 
-          if(!PREVENT_TITLE_TRANSLATION){
+          //if(!PREVENT_TITLE_TRANSLATION){
             e.classList.add('ublock_safe');
-            continue;
-          }
+            //continue;
+          //}
         }
       }
 
@@ -390,7 +390,10 @@
         let e;
 
         for(e of qsa('ytd-comment-thread-renderer:not(.ublock-safe)')){
-          if(qs(e, '#pinned-comment-badge:not(*[hidden])')){
+          if(
+            qs(e, '#pinned-comment-badge:not(*[hidden])') ||
+            qs(e, 'ytd-author-comment-badge-renderer')
+          ){
             e.remove();
           }else{
             e.classList.add('ublock-safe');
@@ -398,7 +401,7 @@
         }
 
         for(e of qsa('#description:not(.ublock-safe)')){
-          e.closest('ytd-expander').removeAttribute('collapsed');
+          //e.closest('ytd-expander').removeAttribute('collapsed');
 
           if(getChName() === chs[0]){
             var v = e.innerText
@@ -443,8 +446,8 @@
       updateOverlayElem(offsets);
 
       var duration = video.duration;
-      var start = offsets[1];
-      var end = duration - offsets[2];
+      var start = offsets[0];
+      var end = duration - offsets[1];
       var time = video.currentTime;
 
       video.ublock_start = start;
