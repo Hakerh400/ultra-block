@@ -57,7 +57,7 @@
     let ch = timeOffsets[chName];
 
     if(top.location.href.includes('&u'))
-      ch[2] += 6;
+      ch[1] += 6;
     if(ch.length === 2)
       ch.push([null, null, null, null]);
   }
