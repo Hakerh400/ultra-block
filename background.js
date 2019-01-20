@@ -63,4 +63,9 @@
       map(a => String.fromCharCode(32 + a)).
       join('');
   }
+
+  function log(...a){
+    console.log(...a);
+    return a[a.length - 1];
+  }
 })();

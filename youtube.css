@@ -11,7 +11,8 @@
 *[class*="skeleton"]:not(*[class*="hide-skeleton"]),
 /*#less,
 #more,*/
-iron-a11y-announcer
+iron-a11y-announcer,
+iron-overlay-backdrop
 {
   display: none !important;
   visibility: hidden !important;
@@ -95,4 +96,12 @@ body.ub1 img.style-scope.yt-img-shadow{
 body.ub2 img.style-scope.yt-img-shadow{
   /* 242 122 */
   clip-path: polygon(25% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 13%, 25% 13%) !important;
+}
+
+#masthead-container{
+  transition-duration: 0s !important;
+}
+
+.html5-video-player{
+  cursor: none !important;
 }

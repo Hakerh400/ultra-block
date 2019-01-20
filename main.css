@@ -42,6 +42,7 @@ img[src*="banner" i],
 *[id*="back-to-top" i],
 *[class*="scrollup" i],
 *[class*="back-to-top" i],
+form[action*="paypal"],
 
 a[href^="https://simpleshare.io/"],
 
@@ -182,4 +183,18 @@ textarea{
 .ublock_hidden{
   opacity: 0 !important;
   pointer-events: none !important;
+}
+
+video{
+  cursor: none !important;
+}
+
+.modal-open{
+  overflow: auto !important;
+  overflow-x: auto !important;
+  overflow-y: auto !important;
+}
+
+.col-md-8{
+  width: 100% !important;
 }

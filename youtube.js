@@ -576,6 +576,9 @@
     }
 
     function toggleComments(evt){
+      if(chrome.extension.inIncognitoContext)
+        return 1;
+      
       return toggleElem('ytd-comments', evt);
     }
 
