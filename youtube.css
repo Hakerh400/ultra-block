@@ -11,6 +11,7 @@
 *[class*="skeleton"]:not(*[class*="hide-skeleton"]),
 /*#less,
 #more,*/
+*[id*="logo"],
 iron-a11y-announcer,
 iron-overlay-backdrop
 {

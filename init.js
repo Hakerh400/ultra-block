@@ -81,7 +81,7 @@
           get(){
             if(top.location.href.startsWith('https://github.com/'))
               return 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36';
-            return 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36';
+            return 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.127 Safari/537.36';
           }
         });
 
@@ -216,7 +216,11 @@
 
         proxify(w.Event.prototype, 'preventDefault', {
           apply(f, t, args){
-            if(args[0] !== 'ublock' && blackListedListeners.some(type => type === t.type)) return nop;
+            if(args[0] !== 'ublock'){
+              if(blackListedListeners.some(type => type === t.type)) return nop;
+              if(t.type === 'auxclick') return nop;
+            }
+
             return f.apply(t, args);
           }
         });

@@ -185,7 +185,7 @@ textarea{
   pointer-events: none !important;
 }
 
-video{
+video:not(*[controls]){
   cursor: none !important;
 }
 
@@ -195,6 +195,6 @@ video{
   overflow-y: auto !important;
 }
 
-.col-md-8{
+/*.col-md-8{
   width: 100% !important;
-}
+}*/

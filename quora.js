@@ -16,7 +16,7 @@
       var e;
 
       for(e of qsa('.pagedlist_item:not(.ublock-safe)')){
-        if(/promoted|sponsored +by /i.test(e.innerText)) e.remove();
+        if(/promoted|(?:sponsored|ads?) +by /i.test(e.innerText)) e.remove();
         else e.classList.add('ublock-safe');
       }
 

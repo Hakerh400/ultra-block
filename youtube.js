@@ -28,6 +28,7 @@
   ////////////////////////////////////////////////////////////////////////////////////////////////////
 
   const PORT = 27000;
+  const TIME = 1e3;
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -422,7 +423,7 @@
       }
 
       url = window.location.href;
-      setTimeout(block, !focused || canShowBody ? 1e3 : 0);
+      setTimeout(block, !focused || canShowBody ? TIME : 0);
     }
 
     function checkVideoTime(){
@@ -576,9 +577,7 @@
     }
 
     function toggleComments(evt){
-      if(chrome.extension.inIncognitoContext)
-        return 1;
-      
+      if(chrome.extension.inIncognitoContext) return 1;
       return toggleElem('ytd-comments', evt);
     }
 
@@ -703,7 +702,7 @@
 
         setTimeout(() => {
           updateStat(e);
-        }, 1e3);
+        }, TIME);
       });
     }
 
