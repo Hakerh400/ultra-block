@@ -95,8 +95,8 @@ body.ub1 img.style-scope.yt-img-shadow{
 }
 
 body.ub2 img.style-scope.yt-img-shadow{
-  /* 242 122 */
-  clip-path: polygon(25% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 13%, 25% 13%) !important;
+  /* 242 250 */
+  clip-path: polygon(25% 0%, 75% 0%, 75% 25%, 100% 25%, 100% 100%, 0% 100%, 0% 25%, 25% 25%) !important;
 }
 
 #masthead-container{
