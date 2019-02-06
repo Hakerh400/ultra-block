@@ -5,6 +5,11 @@
 
   document.addEventListener('DOMContentLoaded', () => {
     stage = 1;
+    scroll();
+  });
+
+  window.addEventListener('load', () => {
+    scroll();
   });
 
   main();
@@ -31,6 +36,16 @@
 
       if(stage === 0) return setTimeout(block);
     }
+  }
+
+  function scroll(){
+    if(top.location.href.startsWith('https://www.youtube.com/'))
+      return;
+    
+    try{
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    }catch{}
   }
 
   function qs(a, b=null){
