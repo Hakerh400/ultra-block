@@ -394,6 +394,231 @@
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+        if(0){
+          const info = (...args) => {
+            log(...args.map(arg => {
+              if(!paths.has(arg)) return arg;
+              return `~${paths.get(arg)}~`;
+            }));
+
+            debugger;
+          };
+
+          const B = Object;
+          const dp = B.defineProperty;
+          const gd = B.getOwnPropertyDescriptors;
+
+          const map = new WeakMap();
+          const proxies = new Set();
+          const paths = new WeakMap();
+          const pds = new WeakMap();
+
+          const P = (t, m=0, prev=null, path=null) => {
+            if(proxies.has(t)) return t;
+            if(pds.has(t)) return pds.get(t);
+
+            let tt = 1;
+
+            if(t === null || !(typeof t === 'object' || typeof t === 'function')){
+              if(!(m && (t === undefined || t === null))) return t;
+
+              if(m === 1) t = {};
+              else if(m === 2) t = function(){ return '1'; };
+
+              if(path === null)
+                path = m === 1 ? 'obj' : 'func';
+
+              tt = 0;
+            }
+
+            let b = map.get(t);
+
+            if(!b){
+              if(tt) info(t, 'PROXIFY');
+
+              b = new Proxy(t, {
+                getPrototypeOf(t){
+                  let r = R.getPrototypeOf(t);
+                  info(t, 'GET_PROTO', r);
+                  return P(r, m, t, '[[proto]]');
+                },
+
+                setPrototypeOf(t, v){
+                  info(t, 'SET_PROTO');
+                  R.setPrototypeOf(t, v);
+                  return 1;
+                },
+
+                isExtensible(t){
+                  let r = R.isExtensible(t);
+                  info(t, 'IS_EXTENSIBLE', r);
+                  return r;
+                },
+
+                preventExtensions(t){
+                  info(t, 'PREVENT_EXTS');
+                  R.preventExtensions(t);
+                  return 1;
+                },
+
+                getOwnPropertyDescriptor(t, p){
+                  let r = m ? gd(Object.create(null), '') : gd(t)[p];
+                  info(t, 'DESC', p, r);
+                  return r;
+                },
+
+                defineProperty(t, p, d){
+                  info(t, 'DEFINE_PROP', p, d);
+                  dp(t, p, d);
+                  return 1;
+                },
+
+                has(t, p){
+                  let r = p in t;
+                  info(t, 'HAS', p, r);
+                  return r;
+                },
+
+                get(t, p){
+                  let r = typeof t === 'function' && [
+                    'length', 'name', 'arguments', 'caller', 'prototype',
+                  ].includes(p) ? null : t[p];
+
+                  info(t, 'GET', p, r);
+
+                  const isSym = typeof p === 'symbol';
+                  let pStr = String(p);
+                  if(isSym) pStr = pStr.slice(7, pStr.length - 1);
+
+                  return P(r, m, t, `${
+                    isSym || !/^[a-zA-Z\_\$][a-zA-Z0-9\_\$]*$/.test(p) ?
+                    `[${pStr}]` : `.${pStr}`
+                  }`);
+                },
+                
+                set(t, p, v){
+                  info(t, 'SET', p, v);
+                  t[p] = v;
+                  return 1;
+                },
+
+                deleteProperty(t, p){
+                  info(t, 'DELETE', p);
+                  delete t[p];
+                  return 1;
+                },
+
+                ownKeys(t){
+                  let r = Reflect.ownKeys(t);
+                  info(t, 'KEYS', r);
+                  return P(r);
+                },
+
+                apply(f, t, args){
+                  let r = f.apply(P(t, m), args);
+                  info(f, 'CALL', t, args, r);
+                  return P(r, m, f, '()');
+                },
+
+                construct(f, args, t){
+                  let r = Reflect.construct(t, P(t, m), args);
+                  info(f, 'NEW', t, args, r);
+                  return P(r, m, t, `[[new]]()`);
+                },
+              });
+
+              map.set(t, b);
+              proxies.add(b);
+
+              if(path !== null && (prev === null || paths.has(prev))){
+                if(prev !== null){
+                  const pathPrev = paths.get(prev);
+                  const pathNew = pathPrev + path;
+                  paths.set(t, pathNew);
+                }else{
+                  paths.set(t, path);
+                }
+              }
+            }
+
+            return b;
+          }
+
+          const L = a => {
+            info(a, 'PROTECT');
+            const obj = Object.create(null);
+            pds.set(obj, a);
+            return obj;
+          };
+
+          const m = new Set;
+
+          proxify(document, 'getElementById', {
+            apply(f, t, args){
+              let a = args[0];
+              let r = f.apply(t, args);
+
+              if(a === 'a'){
+                return {
+                  style: {
+                    display: '',
+                    visibility: '',
+                  },
+                };
+              }
+
+              if(/^a[123]$/.test(a))
+                return r;
+
+              //if(!m.has(a)) m.add(a), log('GI', a);
+              return r;
+            }
+          });
+
+          proxify(document, 'querySelector', {
+            apply(f, t, args){
+              let a = args[0];
+              let r = f.apply(t, args);
+
+              if(/^script/.test(a) || [
+                '#chitikaAdBlock-0',
+                'ins[data-ad-client="ca-pub-8318511014856551"]',
+              ].includes(a)){
+                //log('QS', a);
+                r = P(null, 2, null, `QS(${a})`);
+              }
+              
+              //if(!m.has(a)) m.add(a), log('QS', a);
+              return r;
+            }
+          });
+
+          proxify(document, 'querySelectorAll', {
+            apply(f, t, args){
+              let a = args[0];
+              let r = f.apply(t, args);
+
+              if(a === 'iframe[id^="google_ads_iframe"]'){
+                return [{
+                  clientHeight: 1,
+                  parentNode: document.body,
+                }];
+              }
+
+              if(a === '.aa > div > div > iframe'){
+                return [{
+                  src: '',
+                }];
+              }
+
+              //if(!m.has(a)) m.add(a), log('QSA', a);
+              return r;
+            }
+          });
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
         function proxify(obj, prop, traps=null){
           var b = traps !== null;
           var proxy, t;
