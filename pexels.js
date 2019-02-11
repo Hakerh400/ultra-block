@@ -23,8 +23,9 @@
 
       for(e of qsa('.photo-item:not(.ublock-safe):not(.ublock-unsafe)')){
         var link = qs(e, 'a');
-        link.removeAttribute('title');
+        if(!link) continue;
 
+        link.removeAttribute('title');
         var url = link.href;
 
         var found = blackList.some(item => {

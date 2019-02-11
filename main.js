@@ -2,6 +2,7 @@
   'use strict';
 
   var stage = 0;
+  var scrollScheduled = 1;
 
   document.addEventListener('DOMContentLoaded', () => {
     stage = 1;
@@ -12,9 +13,15 @@
     scroll();
   });
 
+  window.addEventListener('scroll', () => {
+    scrollScheduled = 0;
+  });
+
   main();
 
   function main(){
+    scroll();
+    
     if(!document.body)
       return setTimeout(main);
 
@@ -39,13 +46,17 @@
   }
 
   function scroll(){
-    if(top.location.href.startsWith('https://www.youtube.com/'))
-      return;
+    if(!scrollScheduled) return;
+    if(top.location.href.startsWith('https://www.youtube.com/')) return;
     
     try{
+      window.scrollTo(0, 0);
       document.documentElement.scrollTop = 0;
       document.body.scrollTop = 0;
     }catch{}
+
+    if(window.scrollY !== 0)
+      setTimeout(scroll);
   }
 
   function qs(a, b=null){

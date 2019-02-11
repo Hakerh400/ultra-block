@@ -1,16 +1,17 @@
 (() => {
   'use strict';
 
-  if(location.href.startsWith('file:///')){
-    onbeforeunload = () => {
-      try{
-        document.documentElement.scrollTop = 0;
-        document.body.scrollTop = 0;
-        document.body.innerHTML = '';
-      }catch{}
-    };
-    return;
-  }
+  onbeforeunload = () => {
+    if(sessionStorage['ublock-prevent-hard-reload'])
+      return;
+
+    try{
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+      document.body.innerHTML = '';
+    }catch{}
+  };
 
   if(location.href.startsWith('http://localhost/')) return;
   if(location.href.startsWith('https://hakerh400.github.io/')) return;
@@ -192,10 +193,14 @@
         w.addEventListener('keydown', evt => {
           switch(evt.code){
             case 'F5':
+              if(sessionStorage['ublock-prevent-hard-reload'])
+                break;
+
               evt.preventDefault('ublock');
               evt.stopPropagation('ublock');
 
               try{
+                window.scrollTo(0, 0);
                 document.documentElement.scrollTop = 0;
                 document.body.scrollTop = 0;
                 document.body.innerHTML = '';
@@ -438,26 +443,26 @@
 
               b = new Proxy(t, {
                 getPrototypeOf(t){
-                  let r = R.getPrototypeOf(t);
+                  let r = B.getPrototypeOf(t);
                   info(t, 'GET_PROTO', r);
                   return P(r, m, t, '[[proto]]');
                 },
 
                 setPrototypeOf(t, v){
                   info(t, 'SET_PROTO');
-                  R.setPrototypeOf(t, v);
+                  B.setPrototypeOf(t, v);
                   return 1;
                 },
 
                 isExtensible(t){
-                  let r = R.isExtensible(t);
+                  let r = B.isExtensible(t);
                   info(t, 'IS_EXTENSIBLE', r);
                   return r;
                 },
 
                 preventExtensions(t){
                   info(t, 'PREVENT_EXTS');
-                  R.preventExtensions(t);
+                  B.preventExtensions(t);
                   return 1;
                 },
 
@@ -521,7 +526,7 @@
                 },
 
                 construct(f, args, t){
-                  let r = Reflect.construct(t, P(t, m), args);
+                  let r = Reflect.construct(t, args, P(t, m));
                   info(f, 'NEW', t, args, r);
                   return P(r, m, t, `[[new]]()`);
                 },
