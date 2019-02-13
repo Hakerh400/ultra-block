@@ -7,9 +7,9 @@
 
     try{
       window.scrollTo(0, 0);
-      document.documentElement.scrollTop = 0;
-      document.body.scrollTop = 0;
-      document.body.innerHTML = '';
+      const d = document;
+      const e = d.body || d.documentElement;
+      e.innerHTML = '';
     }catch{}
   };
 
@@ -201,9 +201,9 @@
 
               try{
                 window.scrollTo(0, 0);
-                document.documentElement.scrollTop = 0;
-                document.body.scrollTop = 0;
-                document.body.innerHTML = '';
+                const d = document;
+                const e = d.body || d.documentElement;
+                e.innerHTML = '';
               }catch{}
               
               w.location.reload();
