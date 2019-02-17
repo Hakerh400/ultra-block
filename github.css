@@ -1,6 +1,6 @@
 .is-stuck,
-.gh-header-shadow.box-shadow
-{
+.drag-and-drop .default,
+.gh-header-shadow.box-shadow{
   display: none !important;
   visibility: hidden !important;
   opacity: 0 !important;
