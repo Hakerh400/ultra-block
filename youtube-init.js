@@ -44,6 +44,7 @@
       var attemptTimeDelay = 100;
 
       var func = null;
+      var rot = 0;
 
       EventTarget.prototype.addEventListener = new Proxy(EventTarget.prototype.addEventListener, {
         apply(f, t, args){
@@ -62,8 +63,19 @@
                 var video = document.querySelector('video');
                 if(!video) return;
 
-                if(evt.code === 'Space' || evt.code === 'ArrowLeft' || evt.code === 'ArrowRight')
-                  return;
+                if(evt.code === 'Space') return;
+
+                if(evt.code === 'ArrowLeft' || evt.code === 'ArrowRight'){
+                  if(!evt.ctrlKey) return;
+
+                  rot = rot + (evt.code === 'ArrowLeft' ? -1 : 1) & 3;
+
+                  const c = document.body.classList;
+                  const index = [...c].findIndex(a => /^ublock-rot-[0123]$/.test(a));
+
+                  if(index !== -1) c.remove(c[index]);
+                  c.add(`ublock-rot-${rot}`);
+                }
 
                 if(evt.code === 'Home' || evt.code === 'End'){
                   videoHiddenLevel++;
@@ -233,6 +245,7 @@
 
           preventDefault: () => {},
           stopPropagation: () => {},
+          composedPath: () => [],
         };
 
         Object.setPrototypeOf(evt, KeyboardEvent.prototype);
