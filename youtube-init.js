@@ -75,6 +75,8 @@
 
                   if(index !== -1) c.remove(c[index]);
                   c.add(`ublock-rot-${rot}`);
+
+                  return;
                 }
 
                 if(evt.code === 'Home' || evt.code === 'End'){

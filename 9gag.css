@@ -1,0 +1,19 @@
+#top-nav,
+#sidebar,
+.simple-spinner,
+
+.section-sidebar,
+.featured-tag,
+.post-section,
+.post-meta,
+.post-afterbar-a,
+.sound-toggle,
+.length,
+
+#jsid-sticky-button
+{
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
