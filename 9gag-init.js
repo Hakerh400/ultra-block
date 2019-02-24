@@ -74,11 +74,13 @@
         const vidSym = Symbol('video');
 
         w.addEventListener('click', evt => {
-          const vid = evt.target.closest('video');
-          if(!vid) return;
+          let e;
 
-          if(vid.paused) vid.play(vidSym);
-          else vid.pause(vidSym);
+          if(!(e = evt.target.closest('.post-view'))) return;
+          if(!(e = e.querySelector('video'))) return;
+
+          if(e.paused) e.play(vidSym);
+          else e.pause(vidSym);
         });
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
