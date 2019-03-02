@@ -46,8 +46,6 @@ img[src*="banner" i],
 *[class*="back-to-top" i],
 form[action*="paypal"],
 
-a[href^="https://simpleshare.io/"],
-
 /* google */
 #snackbar,
 #fbar,

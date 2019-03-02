@@ -69,7 +69,10 @@
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////
 
+  let loaded = 0;
+
   document.addEventListener('DOMContentLoaded', () => {
+    loaded = 1;
     return;
 
     var video = qs('video');
@@ -128,9 +131,6 @@
   var musicMode = 0;
   var enableDow = 1;
 
-  var waitTimeBody = 3e3;
-  var waitTimeItems = 5e3;
-
   var emptyTimeOffsets = [null, null, [null, null, null, null]];
 
   var safeElem = document.createElement('input');
@@ -161,6 +161,8 @@
       }
 
       e.classList.add('ublock-safe');
+
+      block();
     });
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -168,12 +170,6 @@
     var lastAction = Date.now();
 
     aels();
-
-    ((f,g=()=>f(g)) => g())(f => {
-      if(!document.body) return setTimeout(f);
-      lastAction = Date.now();
-      block();
-    });
 
     function aels(){
       window.addEventListener('keydown', evt => {
@@ -285,9 +281,6 @@
         debugger;
       }
 
-      var canShowBody = Date.now() - lastAction > waitTimeBody;
-      var canShowItems = Date.now() - lastAction > waitTimeItems;
-
       var eee, ee, e, i, j;
 
       if(!disabledSearch)
@@ -314,11 +307,11 @@
             if(1){
               e.remove();
             }else{
-              if(canShowItems) show(e);
+              show(e);
               e.style.backgroundColor = 'red';
             }
           }else{
-            if(canShowItems) show(e);
+            show(e);
           }
         }
       }
@@ -387,7 +380,7 @@
         }
       }
 
-      if(canShowBody){
+      {
         let e;
 
         for(e of qsa('ytd-comment-thread-renderer:not(.ublock-safe)')){
@@ -423,7 +416,7 @@
       }
 
       url = window.location.href;
-      setTimeout(block, !focused || canShowBody ? TIME : 0);
+      setTimeout(block, TIME);
     }
 
     function checkVideoTime(){
