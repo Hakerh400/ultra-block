@@ -98,6 +98,9 @@ a[href*="bitbigs"],
 /* npm */
 #upsell,
 
+/* monorail */
+*[icon="settings"],
+
 ::-webkit-scrollbar,
 #_eEe
 {
@@ -171,6 +174,19 @@ textarea{
 /* desmos */
 #graph-container{
   top: 0px !important;
+}
+
+/* monorail */
+mr-header,
+#summary-float,
+#meta-float{
+  position: relative !important;
+  top: 0px !important;
+}
+
+/* monorail */
+.emphasized{
+  background: none !important;
 }
 
 #content{

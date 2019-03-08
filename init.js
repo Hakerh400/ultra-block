@@ -34,6 +34,7 @@
 
         w.console_ = w.console;
         w.alert_ = w.alert;
+        w.prompt_ = w.prompt;
 
         var log = w.console_.log.bind(w.console_);
         var document = w.document;
@@ -78,17 +79,48 @@
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+        {
+          const scripts = [
+            ['Video', () => (q=>((v,S,s=v.style)=>{'controls,autoplay'.split`,`.map(a=>v.removeAttribute(a)),s.width=s.height='100%',addEventListener('keydown',(a,b=a.keyCode,c='currentTime')=>b-37?b-39?b-77?b-116?1:(a.preventDefault(),v.pause(),S.src=(a=>(a=a.split`?`,a[1]='a='+Date.now()+Math.random(),a.join`?`))(S.src),v.load()):v.muted^=1:v[c]+=5:v[c]-=5);sessionStorage['ublock-prevent-hard-reload']=1})(q('video')[0],q('source')[0]))(a=>[...document.querySelectorAll(a)])],
+            ['Visited links', () => ((a,Y,M)=>(a('pre',a=>a.innerHTML=a.innerHTML.replace(/\<[^\.]*\>/g,'').trim().split(/\r\n|\r|\n/).map(a=>`<a href=&quot;${a.match(/\b[a-z]+?:\/\/[\S]+/)||((M=a.match(/\[([a-zA-Z0-9\_\-]{11})\]/))?Y+'watch?v='+M[1]:Y+'results?search_query='+a.split(/\-{2,}/)[0].split(/\*{2,}/).pop().trim().split('').map(a=>a<'~'?escape(a):a).join(''))}&quot;>${a}</a>`).join('<br>')),a('a',a=>a.addEventListener('mousedown',b=>b.button===1&&a.style.setProperty('color','red','important')))))((a,b)=>[...document.querySelectorAll(a)].map(b),'https://www.youtube.com/')],
+            ['Remove emoji', () => ((a=>(a(document,'title'),[...document.querySelectorAll('h1.title')].forEach(b=>a(b,'innerText'))))((a,b)=>a[b]=a[b]?a[b].replace(/[^ -~]+/gu,' ').replace(/\s+/g,' ').trim():'\u034f'),Object.defineProperty(document,'title',{}))],
+            ['Extract videos', () => (document.documentElement.innerText=[...document.querySelectorAll`#contents a[href]`].map(a=>a.href).filter((a,b,c)=>c.indexOf(a)==b).map(a=>a.slice(-11)).reverse().join`\n`)],
+            ['Prevent unload', () => (onbeforeunload=a=>'')],
+          ];
+
+          w.addEventListener('keydown', evt => {
+            if(!(evt.code === 'KeyS' && evt.ctrlKey)) return;
+
+            evt.preventDefault('ublock');
+            evt.stopPropagation('ublock');
+
+            const i = w.prompt_(scripts.map((a, b) => {
+              return `${b + 1}. ${a[0]}`;
+            }).join('\n'));
+            if(i === null) return;
+
+            try{
+              scripts[(i | 0) - 1][1]();
+            }catch(e){
+              alert_(e);
+            }
+          });
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
         Object.defineProperty(w.navigator, 'userAgent', {
           get(){
             if(top.location.href.startsWith('https://github.com/'))
               return 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36';
-            return 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.81 Safari/537.36';
+            return 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36';
           }
         });
 
         [
           'console',
           'alert',
+          'prompt',
           'confirm',
           'open',
 
