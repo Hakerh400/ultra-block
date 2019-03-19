@@ -8,13 +8,21 @@
 #yt-masthead-user,
 #spinner,
 .ytp-hover-progress,
-*[class*="skeleton"]:not(*[class*="hide-skeleton"]),
+.annotation,
 /*#less,
 #more,*/
+
+*[id*="promot" i],
+*[class*="promot" i],
+*[arial-label*="promot" i],
+
+*[class*="skeleton"]:not(*[class*="hide-skeleton"]),
 *[id*="logo"],
+*[icon="paper-tabs:chevron-left"],
+
 iron-a11y-announcer,
-iron-overlay-backdrop
-{
+iron-overlay-backdrop,
+ytd-thumbnail-overlay-resume-playback-renderer{
   display: none !important;
   visibility: hidden !important;
   opacity: 0 !important;

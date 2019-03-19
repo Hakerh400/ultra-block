@@ -16,6 +16,7 @@ jdiv,
 *[id*="share" i],
 *[id*="addthis" i],
 *[id*="sponsor" i],
+*[id*="promos" i],
 *[id*="feedlink" i],
 
 *[class*="footer" i]:not(.main-wrapper-for-sticky-footer):not(.tblFooters):not(*[href*="/morelikethis/"]):not(.rounded-cr-footer),
@@ -32,6 +33,7 @@ jdiv,
 *[class*="share" i],
 *[class*="addthis" i],
 *[class*="sponsor" i],
+*[class*="promos" i],
 *[class*="feedlink" i],
 
 div[id*="hero-"],
@@ -100,6 +102,7 @@ a[href*="bitbigs"],
 
 /* monorail */
 *[icon="settings"],
+#makechanges .h4,
 
 ::-webkit-scrollbar,
 #_eEe
@@ -120,11 +123,17 @@ img[src*=".gif?" i],
   visibility: hidden !important;
 }
 
-a,
-a:link,
-a:visited,
-a:hover,
-a:active{
+body:not(.env-production) a,
+body:not(.env-production) a:link,
+body:not(.env-production) a:visited,
+body:not(.env-production) a:hover,
+body:not(.env-production) a:active,
+:host(.ublock-shadow) a,
+:host(.ublock-shadow) a:link,
+:host(.ublock-shadow) a:visited,
+:host(.ublock-shadow) a:hover,
+:host(.ublock-shadow) a:active
+{
   color: blue !important;
 }
 
@@ -177,9 +186,9 @@ textarea{
 }
 
 /* monorail */
-mr-header,
 #summary-float,
-#meta-float{
+#meta-float,
+mr-header{
   position: relative !important;
   top: 0px !important;
 }
@@ -221,3 +230,13 @@ video:not(*[controls]){
 /*.col-md-8{
   width: 100% !important;
 }*/
+
+/* chromium */
+
+.comment-options,
+video[controls]{
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}

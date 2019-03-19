@@ -5,7 +5,7 @@
 
   const {href} = top.location;
   const inco = chrome.extension.inIncognitoContext;
-  const kws = href.match(/\?[^=]+=([^&]+)/)[1].split('+').filter(a => !a.startsWith('-') && a.length >= 4);
+  const kws = href.match(/[\?\&]search_query=([^&]+)/)[1].split('+').filter(a => !a.startsWith('-'));
 
   const blackList = [
   ];
@@ -72,7 +72,7 @@
   }
 
   function checkMeta(e){
-    if(!inco) return 1;
+    //if(!inco) return 1;
     dbgType = types.META;
 
     const str = e.innerText;
@@ -83,13 +83,18 @@
       return 0;
     }
 
+    if(/(?:week|month|year|(?:[2-9]|\d{2,}) day)s? ago\b/.test(str)){
+      if(DEBUG) dbg = 'Too old';
+      return 0;
+    }
+
     if(blackListMeta.some(func)) return 0;
 
     return 1;
   }
 
   function checkTitle(e){
-    if(!inco) return 1;
+    //if(!inco) return 1;
     dbgType = types.TITLE;
 
     const str = e.innerText;
@@ -104,8 +109,9 @@
       return 0;
     }
 
-    if(!kws.every(kw => lcStr.includes(kw))){
-      if(DEBUG) dbg = 'No keywords';
+    let mkw = null;
+    if(!kws.every(kw => lcStr.includes(mkw = kw))){
+      if(DEBUG) dbg = `Missing keyword "${mkw}"`;
       return 0;
     }
 

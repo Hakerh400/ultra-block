@@ -139,7 +139,7 @@
       "all_frames": true
     }, {
       "matches": ["https://bugs.chromium.org/*"],
-      "js": ["chromium.js"],
+      "js": ["chromium-init.js"],
       "css": ["chromium.css"],
       "run_at": "document_start",
       "all_frames": true

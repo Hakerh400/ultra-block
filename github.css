@@ -33,3 +33,7 @@ table.highlight:not(.ublock-safe){
   opacity: 0 !important;
   pointer-events: none !important;
 }
+
+*{
+  transition: none !important;
+}

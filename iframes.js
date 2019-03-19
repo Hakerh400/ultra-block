@@ -1,7 +1,7 @@
 (() => {
   'use strict';
 
-  if(location.href.startsWith('http://localhost/')) return;
+  if(location.href.startsWith('http://localhost')) return;
   if(location.href.startsWith('https://code.google.com/')) return;
   if(location.href.startsWith('https://mail.google.com/')) return;
 

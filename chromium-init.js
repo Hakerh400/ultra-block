@@ -5,7 +5,7 @@
     'use strict';
 
     var ublockFunc = (w=top) => {
-      const scriptName = 'blank';
+      const scriptName = 'chromium';
 
       const wScriptProp = `ublock-${scriptName}-init.js`;
       if(w[wScriptProp]) return;
@@ -53,7 +53,39 @@
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        // Code goes here
+        if(w === top){
+          let stage = 0;
+
+          document.addEventListener('DOMContentLoaded', () => {
+            stage = 1;
+          });
+
+          const f = () => {
+            if(!('_shadows' in w))
+              return setTimeout(f);
+
+            for(const e of qsa('video[controls]'))
+              e.removeAttribute('controls');
+
+            if(stage === 0)
+              setTimeout(f);
+          };
+
+          setTimeout(f);
+        }
+
+        function qsa(a){
+          const set = new Set();
+
+          for(const e of document.querySelectorAll(a))
+            set.add(e);
+
+          for(const sr of w._shadows)
+            for(const e of sr.querySelectorAll(a))
+              set.add(e);
+
+          return set;
+        }
         
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
