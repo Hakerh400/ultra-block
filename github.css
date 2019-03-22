@@ -37,3 +37,7 @@ table.highlight:not(.ublock-safe){
 *{
   transition: none !important;
 }
+
+.sticky-file-header{
+  position: static !important;
+}

@@ -104,6 +104,9 @@ a[href*="bitbigs"],
 *[icon="settings"],
 #makechanges .h4,
 
+/* travis */
+.loading-screen,
+
 ::-webkit-scrollbar,
 #_eEe
 {
@@ -234,7 +237,7 @@ video:not(*[controls]){
 /* chromium */
 
 .comment-options,
-video[controls]{
+/*video[controls]*/{
   display: none !important;
   visibility: hidden !important;
   opacity: 0 !important;
