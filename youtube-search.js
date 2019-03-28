@@ -72,19 +72,25 @@
   }
 
   function checkMeta(e){
-    //if(!inco) return 1;
+    if(!inco) return 1;
     dbgType = types.META;
 
     const str = e.innerText;
     const func = checkFunc(str);
 
-    if(/(?:\d{2,}|[2-9](?:\.\d+)?)K views/.test(str)){
-      if(DEBUG) dbg = 'Too many views';
+    const reg = inco ?
+      /(?:week|month|year|(?:[2-9]|\d{2,}) day)s? ago\b/ :
+      /(?:month|year)s? ago\b/;
+
+    if(reg.test(str)){
+      if(DEBUG) dbg = 'Too old';
       return 0;
     }
 
-    if(/(?:week|month|year|(?:[2-9]|\d{2,}) day)s? ago\b/.test(str)){
-      if(DEBUG) dbg = 'Too old';
+    if(!inco) return 1;
+
+    if(/(?:\d{2,}|[2-9](?:\.\d+)?)K views/.test(str)){
+      if(DEBUG) dbg = 'Too many views';
       return 0;
     }
 
@@ -94,7 +100,7 @@
   }
 
   function checkTitle(e){
-    //if(!inco) return 1;
+    if(!inco) return 1;
     dbgType = types.TITLE;
 
     const str = e.innerText;
