@@ -28,7 +28,7 @@
       }
 
       if(stage === 0)
-        setTimeout(block, 1e3);
+        setTimeout(block);
     }
   }
 

@@ -82,7 +82,7 @@
       /(?:week|month|year|(?:[2-9]|\d{2,}) day)s? ago\b/ :
       /(?:month|year)s? ago\b/;
 
-    if(reg.test(str)){
+    if(0 && reg.test(str)){
       if(DEBUG) dbg = 'Too old';
       return 0;
     }

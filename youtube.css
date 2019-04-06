@@ -107,6 +107,11 @@ body.ub2 img.style-scope.yt-img-shadow{
   clip-path: polygon(25% 0%, 75% 0%, 75% 25%, 100% 25%, 100% 100%, 0% 100%, 0% 25%, 25% 25%) !important;
 }
 
+body.ub3 img.style-scope.yt-img-shadow{
+  /* 122 1000 */
+  clip-path: polygon(13% 0%, 100% 0%, 100% 100%, 0% 100%, 13% 100%) !important;
+}
+
 #masthead-container{
   transition-duration: 0s !important;
 }

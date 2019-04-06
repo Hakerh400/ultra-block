@@ -18,6 +18,8 @@ jdiv,
 *[id*="sponsor" i],
 *[id*="promos" i],
 *[id*="feedlink" i],
+*[id*="loading" i]:not(.is-loading):not(.is-graph-loading),
+*[id*="spinn" i],
 
 *[class*="footer" i]:not(.main-wrapper-for-sticky-footer):not(.tblFooters):not(*[href*="/morelikethis/"]):not(.rounded-cr-footer),
 *[class*="copyright" i],
@@ -35,6 +37,8 @@ jdiv,
 *[class*="sponsor" i],
 *[class*="promos" i],
 *[class*="feedlink" i],
+*[class*="loading" i]:not(.is-loading):not(.is-graph-loading),
+*[class*="spinn" i],
 
 div[id*="hero-"],
 div[id*="herobox"],
@@ -82,6 +86,18 @@ canvas#error + div,
 
 /* outlook.office.com */
 ._lvv_Z,
+
+/* stack exchange */
+#hireme,
+.module.sidebar-related,
+.sidebar-linked,
+#tm-header,
+#sidebar,
+.tm-unicorn-back,
+div[aria-label="ask new question"],
+.post-menu,
+div[id^="comments-link-"],
+.js-cursor-container,
 
 /* wikipedia */
 .uls-lcd-region-section.uls-lcd-quicklist,
