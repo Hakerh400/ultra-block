@@ -30,7 +30,7 @@
       main();
 
       function main(){
-        w.qsa = a => [...document.querySelectorAll(a)];
+        w.qsa = a => document.querySelectorAll(a);
 
         w.console_ = w.console;
         w.alert_ = w.alert;
@@ -113,7 +113,7 @@
           get(){
             if(top.location.href.startsWith('https://github.com/'))
               return 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36';
-            return 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36';
+            return 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36';
           }
         });
 
@@ -308,6 +308,45 @@
         });
 
         disableEventListeners();
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        if(!location.href.startsWith('https://www.youtube.com/')){
+          let loaded = 0;
+
+          document.addEventListener('DOMContentLoaded', () => {
+            loaded = 1;
+          });
+
+          const f = () => {
+            let e;
+
+            for(e of qsa('video')){
+              e.autoplay = false;
+              e.currentTime = 0;
+            }
+
+            if(!loaded) setTimeout(f);
+          };
+
+          f();
+
+          proxify(w.Node.prototype, 'appendChild', {
+            apply(f, t, args){
+              const e = args[0];
+
+              if(e.tagName === 'VIDEO'){
+                e.autoplay = false;
+                e.currentTime = 0;
+              }
+
+              args[0] = e;
+              const result = f.apply(t, args);
+
+              return result;
+            }
+          });
+        }
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

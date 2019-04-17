@@ -138,9 +138,9 @@ img[src*=".gif?" i],
   visibility: hidden !important;
 }
 
-::-webkit-input-placeholder{
+/*::-webkit-input-placeholder{
   visibility: hidden !important;
-}
+}*/
 
 body:not(.env-production) a,
 body:not(.env-production) a:link,
@@ -252,8 +252,7 @@ video:not(*[controls]){
 
 /* chromium */
 
-.comment-options,
-/*video[controls]*/{
+.comment-options{
   display: none !important;
   visibility: hidden !important;
   opacity: 0 !important;

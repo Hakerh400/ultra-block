@@ -9,6 +9,7 @@
 #spinner,
 .ytp-hover-progress,
 .annotation,
+#contentContainer,
 /*#less,
 #more,*/
 
@@ -113,11 +114,26 @@ body.ub3 img.style-scope.yt-img-shadow{
 }
 
 #masthead-container{
+  position: static !important;
   transition-duration: 0s !important;
+}
+
+#search::-webkit-input-placeholder{
+  visibility: hidden !important;
 }
 
 .html5-video-player{
   cursor: none !important;
+}
+
+#page-manager{
+  margin-top: 0px !important;
+}
+
+#header{
+  position: static !important;
+  margin-top: 0px !important;
+  transform: none !important;
 }
 
 .ublock-rot-0 video{ transform: rotate(0deg) !important; }
