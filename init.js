@@ -86,6 +86,7 @@
             ['Remove emoji', () => ((a=>(a(document,'title'),[...document.querySelectorAll('h1.title')].forEach(b=>a(b,'innerText'))))((a,b)=>a[b]=a[b]?a[b].replace(/[^ -~]+/gu,' ').replace(/\s+/g,' ').trim():'\u034f'),Object.defineProperty(document,'title',{}))],
             ['Extract videos', () => (document.documentElement.innerText=[...document.querySelectorAll`#contents a[href]`].map(a=>a.href).filter((a,b,c)=>c.indexOf(a)==b).map(a=>a.slice(-11)).reverse().join`\n`)],
             ['Prevent unload', () => (onbeforeunload=a=>'')],
+            ['Extract embedded video', () => (a=>location.href='https://www.youtube.com/watch?v='+document.querySelector(`iframe[src^="${a}"]`).src.slice(a=a.length,a+11))('https://www.youtube.com/embed/')],
           ];
 
           w.addEventListener('keydown', evt => {
@@ -106,6 +107,8 @@
             }
           });
         }
+
+        const url = top.location.href;
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -285,23 +288,32 @@
             w._shadows.add(sr);
             t.classList.add('ublock-shadow');
 
-            const sTemp = d.createElement('style');
-            sTemp.innerText = `
+            const style = d.createElement('style');
+            style.innerHTML = `
               *{
                 opacity: 0 !important;
                 pointer-events: none !important;
               }
             `;
-            sr.appendChild(sTemp);
-
-            var style = d.createElement('link');
-            style.rel = 'stylesheet';
-            style.href = STYLE_URL;
             sr.appendChild(style);
 
-            style.addEventListener('load', () => {
-              sTemp.remove();
-            });
+            const xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = () => {
+              if(xhr.readyState !== 4 || xhr.status !== 200) return;
+
+              let s = xhr.responseText;
+
+              s = s.replace(/\/\* #{3} (\S+)\s*(.*?)\*\//gs, (a, b, c) => {
+                if(!url.startsWith(b)) return a;
+                return c;
+              });
+
+              w.requestAnimationFrame(() => {
+                style.innerHTML = s;
+              })
+            };
+            xhr.open('GET', STYLE_URL);
+            xhr.send(null);
 
             return sr;
           }
@@ -311,41 +323,47 @@
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        if(!location.href.startsWith('https://www.youtube.com/')){
-          let loaded = 0;
+        {
+          const whiteList = [
+            'https://www.youtube.com/',
+          ];
 
-          document.addEventListener('DOMContentLoaded', () => {
-            loaded = 1;
-          });
+          if(!whiteList.some(a => url.startsWith(a))){
+            let loaded = 0;
 
-          const f = () => {
-            let e;
+            document.addEventListener('DOMContentLoaded', () => {
+              loaded = 1;
+            });
 
-            for(e of qsa('video')){
-              e.autoplay = false;
-              e.currentTime = 0;
-            }
+            const f = () => {
+              let e;
 
-            if(!loaded) setTimeout(f);
-          };
-
-          f();
-
-          proxify(w.Node.prototype, 'appendChild', {
-            apply(f, t, args){
-              const e = args[0];
-
-              if(e.tagName === 'VIDEO'){
+              for(e of qsa('video')){
                 e.autoplay = false;
                 e.currentTime = 0;
               }
 
-              args[0] = e;
-              const result = f.apply(t, args);
+              if(!loaded) setTimeout(f);
+            };
 
-              return result;
-            }
-          });
+            f();
+
+            proxify(w.Node.prototype, 'appendChild', {
+              apply(f, t, args){
+                const e = args[0];
+
+                if(e.tagName === 'VIDEO'){
+                  e.autoplay = false;
+                  e.currentTime = 0;
+                }
+
+                args[0] = e;
+                const result = f.apply(t, args);
+
+                return result;
+              }
+            });
+          }
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

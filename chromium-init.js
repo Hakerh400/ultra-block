@@ -54,12 +54,6 @@
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         if(w === top){
-          let stage = 0;
-
-          document.addEventListener('DOMContentLoaded', () => {
-            stage = 1;
-          });
-
           const f = () => {
             if(!('_shadows' in w))
               return setTimeout(f);
@@ -67,11 +61,10 @@
             for(const e of qsa('video[controls]'))
               e.removeAttribute('controls');
 
-            if(stage === 0)
-              setTimeout(f);
+            setTimeout(f, 1e3);
           };
 
-          setTimeout(f);
+          f();
         }
 
         function qsa(a){

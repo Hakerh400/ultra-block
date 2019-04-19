@@ -250,7 +250,16 @@ video:not(*[controls]){
   width: 100% !important;
 }*/
 
-/* chromium */
+/* ### https://bugs.chromium.org/
+.comment-options,
+.bottom-section-cell,
+#makechanges,
+video{
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
 
 .comment-options{
   display: none !important;
@@ -258,3 +267,14 @@ video:not(*[controls]){
   opacity: 0 !important;
   pointer-events: none !important;
 }
+
+.issueheader,
+.issue-header-container,
+mr-issue-metadata{
+  position: static !important;
+}
+
+::-webkit-input-placeholder{
+  visibility: hidden !important;
+}
+*/

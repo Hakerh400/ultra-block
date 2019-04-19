@@ -72,6 +72,8 @@
   }
 
   function checkMeta(e){
+    return 1;
+
     if(!inco) return 1;
     dbgType = types.META;
 
