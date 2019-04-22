@@ -310,7 +310,7 @@
 
               w.requestAnimationFrame(() => {
                 style.innerHTML = s;
-              })
+              });
             };
             xhr.open('GET', STYLE_URL);
             xhr.send(null);

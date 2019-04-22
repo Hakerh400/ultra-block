@@ -1,6 +1,8 @@
 (() => {
   'use strict';
 
+  const A = 1;
+
   var blackList = [
   ];
 
