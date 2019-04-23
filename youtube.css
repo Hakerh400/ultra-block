@@ -135,8 +135,3 @@ body.ub3 img.style-scope.yt-img-shadow{
   margin-top: 0px !important;
   transform: none !important;
 }
-
-.ublock-rot-0 video{ transform: rotate(0deg) !important; }
-.ublock-rot-1 video{ transform: rotate(90deg) !important; }
-.ublock-rot-2 video{ transform: rotate(180deg) !important; }
-.ublock-rot-3 video{ transform: rotate(270deg) !important; }
