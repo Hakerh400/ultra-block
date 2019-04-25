@@ -21,7 +21,7 @@
   var script = () => {
     'use strict';
 
-    var ublockFunc = (w=top) => {
+    var ublockFunc = (w=window) => {
       if(w['ublock-init.js']) return;
       w['ublock-init.js'] = true;
 
@@ -30,7 +30,7 @@
       main();
 
       function main(){
-        w.qsa = a => document.querySelectorAll(a);
+        const qsa = a => document.querySelectorAll(a);
 
         w.console_ = w.console;
         w.alert_ = w.alert;
@@ -79,7 +79,7 @@
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        const url = top.location.href;
+        const url = w.location.href;
 
         {
           const scripts = [
@@ -135,7 +135,7 @@
 
         Object.defineProperty(w.navigator, 'userAgent', {
           get(){
-            if(top.location.href.startsWith('https://github.com/'))
+            if(w.location.href.startsWith('https://github.com/'))
               return 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36';
             return 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36';
           }
@@ -467,7 +467,7 @@
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        var href = top.location.href;
+        var href = w.location.href;
 
         if(href.startsWith('https://www.youtube.com/') && !href.includes('&list=')) (() => {
           proxify(w.Node.prototype, 'appendChild', {
@@ -489,8 +489,8 @@
             apply(f, t, args){
               var url = args[2];
 
-              top.location.href = url;
-              top.document.body.innerHTML = '';
+              w.location.href = url;
+              w.document.body.innerHTML = '';
 
               return nop;
             }
@@ -500,11 +500,11 @@
             apply(f, t, args){
               var url = args[2];
 
-              if(url === top.location.href)
+              if(url === w.location.href)
                 return nop;
 
-              top.location.href = url;
-              top.document.body.innerHTML = '';
+              w.location.href = url;
+              w.document.body.innerHTML = '';
 
               return nop;
             }

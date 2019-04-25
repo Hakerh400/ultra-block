@@ -4,7 +4,7 @@
   var script = () => {
     'use strict';
 
-    var ublockFunc = (w=top) => {
+    var ublockFunc = (w=window) => {
       const scriptName = 'blank';
 
       const wScriptProp = `ublock-${scriptName}-init.js`;

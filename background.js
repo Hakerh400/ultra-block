@@ -34,30 +34,6 @@
     ['blocking'],
   );
 
-  chrome.webRequest.onHeadersReceived.addListener(evt => {
-    var headers = evt.responseHeaders;
-
-    for(var i = 0; i < headers.length; i++){
-      var header = headers[i];
-      var name = header.name.toLowerCase();
-      var value = header.value;
-
-      if(name === 'content-security-policy'){
-        header.value = '';
-      }
-    }
-
-    return {
-      responseHeaders: headers,
-    };
-  }, {
-    urls: ['<all_urls>'],
-    types: ['main_frame', 'sub_frame'],
-  }, [
-    'blocking',
-    'responseHeaders',
-  ]);
-
   function decode(str){
     return str.split('').
       map(a => a.charCodeAt(0) - 32).

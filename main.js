@@ -47,7 +47,7 @@
 
   function scroll(){
     if(!scrollScheduled) return;
-    if(top.location.href.startsWith('https://www.youtube.com/')) return;
+    if(window.location.href.startsWith('https://www.youtube.com/')) return;
     
     try{
       window.scrollTo(0, 0);
