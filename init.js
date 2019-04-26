@@ -118,6 +118,12 @@
           window.addEventListener('keydown', evt => {
             if(!(evt.ctrlKey && (evt.code === 'ArrowLeft' || evt.code === 'ArrowRight'))) return;
 
+            const elem = document.activeElement;
+            if(elem !== null){
+              const tag = elem.tagName.toLowerCase();
+              if(tag === 'input' || tag === 'textarea') return;
+            }
+
             evt.preventDefault('ublock');
             evt.stopPropagation('ublock');
 

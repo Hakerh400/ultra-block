@@ -254,6 +254,8 @@ video:not(*[controls]){
 .comment-options,
 .bottom-section-cell,
 #makechanges,
+.code-font-and-description-edit,
+.material-icons.expand-icon,
 video{
   display: none !important;
   visibility: hidden !important;
@@ -279,7 +281,7 @@ mr-issue-metadata{
 }
 */
 
-.ublock-rot-0 video{ transform: rotate(0deg) !important; }
-.ublock-rot-1 video{ transform: rotate(90deg) !important; }
-.ublock-rot-2 video{ transform: rotate(180deg) !important; }
-.ublock-rot-3 video{ transform: rotate(270deg) !important; }
+.ublock-rot-0{ transform: rotate(0deg) !important; }
+.ublock-rot-1{ transform: rotate(90deg) !important; }
+.ublock-rot-2{ transform: rotate(180deg) !important; }
+.ublock-rot-3{ transform: rotate(270deg) !important; }
