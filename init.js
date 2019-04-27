@@ -21,7 +21,7 @@
   var script = () => {
     'use strict';
 
-    var ublockFunc = (w=window) => {
+    var ublockFunc = (w=window, url=w.location.href) => {
       if(w['ublock-init.js']) return;
       w['ublock-init.js'] = true;
 
@@ -79,8 +79,6 @@
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        const url = w.location.href;
-
         {
           const scripts = [
             ['Video', () => (q=>((v,S,s=v.style)=>{'controls,autoplay'.split`,`.map(a=>v.removeAttribute(a)),s.width=s.height='100%',addEventListener('keydown',(a,b=!a.ctrlKey?a.keyCode:0,c='currentTime')=>b-37?b-39?b-77?b-116?1:(a.preventDefault(),v.pause(),S.src=(a=>(a=a.split`?`,a[1]='a='+Date.now()+Math.random(),a.join`?`))(S.src),v.load()):v.muted^=1:v[c]+=5:v[c]-=5);sessionStorage['ublock-prevent-hard-reload']=1})(q('video')[0],q('source')[0]))(a=>[...document.querySelectorAll(a)])],
@@ -112,7 +110,7 @@
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        {
+        if(!url.startsWith('https://bugs.chromium.org/')){
           let rot = 0;
 
           window.addEventListener('keydown', evt => {
@@ -141,9 +139,7 @@
 
         Object.defineProperty(w.navigator, 'userAgent', {
           get(){
-            if(w.location.href.startsWith('https://github.com/'))
-              return 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36';
-            return 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36';
+            return 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.108 Safari/537.36';
           }
         });
 
@@ -473,9 +469,7 @@
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        var href = w.location.href;
-
-        if(href.startsWith('https://www.youtube.com/') && !href.includes('&list=')) (() => {
+        if(url.startsWith('https://www.youtube.com/') && !url.includes('&list=')) (() => {
           proxify(w.Node.prototype, 'appendChild', {
             apply(f, t, args){
               var result = f.apply(t, args);
@@ -483,7 +477,7 @@
 
               if(elem.tagName === 'IFRAME'){
                 try{
-                  ublockFunc(elem.contentWindow);
+                  ublockFunc(elem.contentWindow, url);
                 }catch(e){}
               }
 
@@ -495,7 +489,7 @@
             apply(f, t, args){
               var url = args[2];
 
-              w.location.href = url;
+              top.location.href = url;
               w.document.body.innerHTML = '';
 
               return nop;
@@ -509,7 +503,7 @@
               if(url === w.location.href)
                 return nop;
 
-              w.location.href = url;
+              top.location.href = url;
               w.document.body.innerHTML = '';
 
               return nop;

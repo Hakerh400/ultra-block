@@ -78,14 +78,24 @@ a[href*=".gif&"],
 
 #appbar,
 #taw,
+.sfbgx,
+#sfcnt,
+#extrares,
+.gb_Ja.gb_7f.gb_f.gb_6f.gb_of,
 
 a[href="#"]{
   display: none !important;
   visibility: hidden !important;
   opacity: 0 !important;
+  pointer-events: none !important;
 }
 
 #center_col:not(.ublock-safe){
   opacity: 0 !important;
   pointer-events: none !important;
+}
+
+#searchform{
+  position: static !important;
+  margin-top: 30px;
 }

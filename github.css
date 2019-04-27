@@ -43,6 +43,7 @@ table.highlight:not(.ublock-safe){
 }
 
 .sticky-file-header,
+.toolbar-shadow,
 .is-stuck{
   position: static !important;
 }
