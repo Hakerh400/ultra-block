@@ -1,10 +1,14 @@
 .ultra-block.overlay{
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+
   margin: 0px !important;
   padding: 0px !important;
-  display: block !important;
   position: absolute !important;
   z-index: 2147483647 !important;
   background-color: rgba(0, 0, 0, 0) !important;
+  cursor: default !important;
 
   pointer-events: none;
   left: 0px;

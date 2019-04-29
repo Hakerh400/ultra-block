@@ -274,10 +274,12 @@
     }
 
     function refreshCanvas(){
-      document.documentElement.appendChild(canvas);
+      (document.fullscreenElement || document.documentElement).appendChild(canvas);
       canvas.style.setProperty('display', 'block', 'important');
+      canvas.style.setProperty('visibility', 'visible', 'important');
+      canvas.style.setProperty('opacity', '1', 'important');
 
-      //setTimeout(refreshCanvas, 1e3);
+      requestAnimationFrame(refreshCanvas);
     }
 
     function setPointerEvents(mode){
