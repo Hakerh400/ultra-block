@@ -274,7 +274,9 @@
     }
 
     function refreshCanvas(){
-      (document.fullscreenElement || document.documentElement).appendChild(canvas);
+      const parent = document.fullscreenElement || document.documentElement;
+      if(canvas.parentNode !== parent) parent.appendChild(canvas);
+
       canvas.style.setProperty('display', 'block', 'important');
       canvas.style.setProperty('visibility', 'visible', 'important');
       canvas.style.setProperty('opacity', '1', 'important');
