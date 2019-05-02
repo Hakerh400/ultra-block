@@ -69,6 +69,30 @@
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////
 
+  {
+    const raf = requestAnimationFrame;
+    let a = 0;
+    const f = () => {
+      let e;
+
+      if(e = qs('#movie_player')){
+        const e1 = qs('#masthead-container');
+        if(e1){
+          if(e.classList.contains('ytp-fullscreen')){
+            e1.classList.add('ublock-hidden');
+          }else{
+            e1.classList.remove('ublock-hidden');
+          }
+        }
+      }
+
+      raf(f);
+    };
+    f();
+  }
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////////
+
   let loaded = 0;
 
   document.addEventListener('DOMContentLoaded', () => {

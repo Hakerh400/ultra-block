@@ -124,8 +124,8 @@ a[href*="bitbigs"],
 .loading-screen,
 
 ::-webkit-scrollbar,
-#_eEe
-{
+#_eEe,
+.ublock-hidden{
   display: none !important;
   visibility: hidden !important;
   opacity: 0 !important;
