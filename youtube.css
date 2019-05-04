@@ -62,8 +62,8 @@ ytd-expander.ytd-video-secondary-info-renderer,
 ytd-comments,
 #movie_player:not(.ytp-fullscreen),
 ytd-comment-thread-renderer:not(.ublock-safe),
-#description:not(.ublock-safe)
-{
+#description:not(.ublock-safe),
+yt-view-count-renderer{
   opacity: 0;
   pointer-events: none !important;
 }

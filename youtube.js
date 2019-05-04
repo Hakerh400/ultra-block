@@ -72,6 +72,7 @@
   {
     const raf = requestAnimationFrame;
     let a = 0;
+
     const f = () => {
       let e;
 
@@ -88,6 +89,7 @@
 
       raf(f);
     };
+    
     f();
   }
 
