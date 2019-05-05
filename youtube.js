@@ -730,7 +730,9 @@
     }
 
     function getChName(){
-      return qs('#owner-name.ytd-video-owner-renderer').innerText.trim();
+      const e = qs('#owner-name.ytd-video-owner-renderer');
+      if(!e) return null;
+      return e.innerText.trim();
     }
 
     function rf(url, data, cb){
