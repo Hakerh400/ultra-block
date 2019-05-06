@@ -4,6 +4,7 @@
   if(location.href.startsWith('http://localhost')) return;
   if(location.href.startsWith('https://code.google.com/')) return;
   if(location.href.startsWith('https://mail.google.com/')) return;
+  if(location.href.startsWith('https://npm.runkit.com/')) return;
 
   var whiteList = [
     'mail.google.com',
