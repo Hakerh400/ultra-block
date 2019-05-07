@@ -153,8 +153,7 @@ body:not(.env-production) a:active,
 :host(.ublock-shadow) a:link,
 :host(.ublock-shadow) a:visited,
 :host(.ublock-shadow) a:hover,
-:host(.ublock-shadow) a:active
-{
+:host(.ublock-shadow) a:active{
   color: blue !important;
 }
 
