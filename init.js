@@ -302,45 +302,62 @@
           }
         });
 
-        w._shadows = new Set();
-        proxify(w.Element.prototype, 'attachShadow', {
-          apply(f, t, args){
-            const d = w.document;
-            const sr = f.apply(t, args);
+        {
+          const styles = new WeakSet();
 
-            w._shadows.add(sr);
-            t.classList.add('ublock-shadow');
+          proxify(w.Node.prototype, 'removeChild', {
+            apply(f, t, args){
+              if(styles.has(args[0])) return nop;
+              return f.apply(t, args);
+            }
+          });
 
-            const style = d.createElement('style');
-            style.innerHTML = `
-              *{
-                opacity: 0 !important;
-                pointer-events: none !important;
-              }
-            `;
-            sr.appendChild(style);
+          proxify(w.Element.prototype, 'remove', {
+            apply(f, t, args){
+              if(styles.has(t)) return nop;
+              return f.apply(t, args);
+            }
+          });
 
-            const xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = () => {
-              if(xhr.readyState !== 4 || xhr.status !== 200) return;
+          proxify(w.Element.prototype, 'attachShadow', {
+            apply(f, t, args){
+              const d = w.document;
+              const sr = f.apply(t, args);
 
-              let s = xhr.responseText;
+              t.classList.add('ublock-shadow');
 
-              s = s.replace(/\/\* #{3} (\S+)\s*(.*?)\*\//gs, (a, b, c) => {
-                if(!url.startsWith(b)) return a;
-                return c;
-              });
+              const style = d.createElement('style');
+              style.innerHTML = `
+                *{
+                  opacity: 0 !important;
+                  pointer-events: none !important;
+                }
+              `;
+              sr.appendChild(style);
+              styles.add(style);
 
-              w.requestAnimationFrame(() => {
-                style.innerHTML = s;
-              });
-            };
-            xhr.open('GET', STYLE_URL);
-            xhr.send(null);
+              const xhr = new XMLHttpRequest();
+              xhr.onreadystatechange = () => {
+                if(xhr.readyState !== 4 || xhr.status !== 200) return;
 
-            return sr;
-          }
-        });
+                let s = xhr.responseText;
+
+                s = s.replace(/\/\* #{3} (\S+)\s*(.*?)\*\//gs, (a, b, c) => {
+                  if(!url.startsWith(b)) return a;
+                  return c;
+                });
+
+                w.requestAnimationFrame(() => {
+                  style.innerHTML = s;
+                });
+              };
+              xhr.open('GET', STYLE_URL);
+              xhr.send(null);
+
+              return sr;
+            }
+          });
+        }
 
         disableEventListeners();
 

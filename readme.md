@@ -1,21 +1,3 @@
-UltraBlock is advertisement blocking extension for Google Chrome. It works better if combined with AdBlock.
+UltraBlock is an advertisement blocking extension for Google Chrome.
 
-### What types of ads UltraBlock can remove
-
-1. Ads on YouTube
-2. Recommended videos on YouTube and all videos that are irrelevant to the currently playing video
-3. Prevents websited from detecting that ads are removed
-4. Bypasses url shorteners that display ads
-5. Pop-ups and alerts
-6. Google analytics and other tracking scripts
-7. Website usage reporting scripts
-8. Recommended articles, posts, images, etc
-9. Enables selecting and copying protected content
-
-### How it works
-
-UltraBlock injects a certain script in webpages. The script then prepares the environment, overrides almost all built-in functions and controlls the execution of all webpages' scripts. Webpage content is not displayed until all ads are removed or prevented from appearing. Comparing to AdBlock, which is capable of removing about 80% of ads, UltraBlock is capable of removing 100% of ads.
-
-### Other features
-
-This extension provides a way for downloading YouTube videos.
+**Note:** As of Chrome version 74.0.3729.108 (or probably even earlier) this extension doesn't work anymore, as Chrome decided not to permit disabling [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) from extension's script, and thus inline events can't be dispatched on the majority of websites, making this extension useless. However, that can be solved by either compiling Chrome from source and making it ignore CORS header, or if you're on Windows, you can open `chrome.dll` and `resources.pak` (located in `C:\Program Files (x86)\Google\Chrome\Application\74.0.3729.108`, or similar) in a hex editor (like [this one](https://mh-nexus.de/en/hxd/)) and replace each occurence of the ASCII string `content-security-policy` with `content-security-polic1`. Then this extension will work properly. Keep in mind that you should either disable Chrome updates, or you need to perform the replacement each time you install a new Chrome version.
