@@ -72,8 +72,6 @@
   }
 
   function checkMeta(e){
-    return 1;
-
     if(!inco) return 1;
     dbgType = types.META;
 
@@ -91,9 +89,13 @@
 
     if(!inco) return 1;
 
-    if(/(?:\d{2,}|[2-9](?:\.\d+)?)K views/.test(str)){
-      if(DEBUG) dbg = 'Too many views';
-      return 0;
+    const match = str.match(/(\d+(?:\.\d+)?)([KM]?) views/);
+    if(match !== null){
+      const views = match[1] * 10 ** (['', 'K', 'M'].indexOf(match[2]) * 3) + .5 | 0;
+      if(views > 5e3){
+        if(DEBUG) dbg = 'Too many views';
+        return 0;
+      }
     }
 
     if(blackListMeta.some(func)) return 0;

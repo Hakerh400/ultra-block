@@ -220,6 +220,7 @@
           case 'KeyW': toggleRelated(evt); break;
           case 'KeyE': toggleDescription(evt); break;
           case 'KeyR': toggleComments(evt); break;
+          case 'KeyY': exitPlaylist(evt); break;
           case 'KeyA': evt.preventDefault(); musicMode ^= 1; break;
 
           case 'KeyD':
@@ -602,6 +603,12 @@
     function toggleComments(evt){
       if(chrome.extension.inIncognitoContext) return 1;
       return toggleElem('ytd-comments', evt);
+    }
+
+    function exitPlaylist(evt){
+      evt.preventDefault('ublock');
+      evt.stopPropagation('ublock');
+      location.href = `/watch?v=${location.href.match(/[\?\&]v=(.{11})/)[1]}`;
     }
 
     function playVideo(){
