@@ -608,7 +608,7 @@
     function exitPlaylist(evt){
       evt.preventDefault('ublock');
       evt.stopPropagation('ublock');
-      location.href = `/watch?v=${location.href.match(/[\?\&]v=(.{11})/)[1]}`;
+      location.href = `/watch?v=${location.href.match(/[\?\&]v=((?:[^\&]|$)*)/)[1]}`;
     }
 
     function playVideo(){

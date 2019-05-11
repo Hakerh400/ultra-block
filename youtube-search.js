@@ -89,9 +89,9 @@
 
     if(!inco) return 1;
 
-    const match = str.match(/(\d+(?:\.\d+)?)([KM]?) views/);
+    const match = str.match(/(\d+(?:\.\d+)?)([KMB]?) views/);
     if(match !== null){
-      const views = match[1] * 10 ** (['', 'K', 'M'].indexOf(match[2]) * 3) + .5 | 0;
+      const views = match[1] * 10 ** (['', 'K', 'M', 'B'].indexOf(match[2]) * 3) + .5 | 0;
       if(views > 5e3){
         if(DEBUG) dbg = 'Too many views';
         return 0;
