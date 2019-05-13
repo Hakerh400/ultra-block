@@ -15,10 +15,6 @@ textarea{
   max-height: 1000px !important;
 }
 
-{
-  opacity: 0 !important;
-}
-
 /*.tooltipped:active:after,
 .tooltipped:active:before,
 .tooltipped:focus:after,
