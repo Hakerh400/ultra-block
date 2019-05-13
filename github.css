@@ -3,7 +3,6 @@
 .css-truncate > include-fragment,
 span[aria-label^="Request review from "],
 span[aria-label^="Request review from "] ~ *,
-.js-sticky.js-sticky-offset-scroll.top-0.gh-header-sticky.is-stuck,
 .gh-header-shadow.box-shadow{
   display: none !important;
   visibility: hidden !important;
@@ -16,11 +15,7 @@ textarea{
   max-height: 1000px !important;
 }
 
-input.form-control.header-search-input{
-  color: transparent !important;
-}
-
-.d-flex.flex-justify-between.px-3:not(.container-lg){
+{
   opacity: 0 !important;
 }
 
@@ -33,6 +28,8 @@ input.form-control.header-search-input{
   display: none !important;
 }*/
 
+.is-stuck,
+.d-flex.flex-justify-between.px-3:not(.container-lg),
 table.highlight:not(.ublock-safe){
   opacity: 0 !important;
   pointer-events: none !important;
@@ -43,7 +40,10 @@ table.highlight:not(.ublock-safe){
 }
 
 .sticky-file-header,
-.toolbar-shadow,
-.is-stuck{
+.toolbar-shadow{
   position: static !important;
+}
+
+::-webkit-input-placeholder{
+  visibility: hidden !important;
 }
