@@ -178,9 +178,12 @@
 
                 function exists(index){
                   return new Promise(res => {
+                    const b = res.bind;
+                    const r = b.call(b, res, null);
                     const img = new Image();
-                    img.onload = () => res(1);
-                    img.onerror = () => res(0);
+                    
+                    img.onload = r(1);
+                    img.onerror = r(0);
                     img.src = getUrl(index);
                   });
                 }
