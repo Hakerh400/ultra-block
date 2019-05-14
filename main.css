@@ -66,6 +66,7 @@ div[role="alert"],
 #actual_password_warning,
 .gb_Ea.gb_Oa,
 #makechangesarea .updates,
+.material-icons,
 
 /* instagram */
 ._j8mem._6in6f,
@@ -151,12 +152,7 @@ body:not(.env-production) a,
 body:not(.env-production) a:link,
 body:not(.env-production) a:visited,
 body:not(.env-production) a:hover,
-body:not(.env-production) a:active,
-:host(.ublock-shadow) a,
-:host(.ublock-shadow) a:link,
-:host(.ublock-shadow) a:visited,
-:host(.ublock-shadow) a:hover,
-:host(.ublock-shadow) a:active{
+body:not(.env-production) a:active{
   color: blue !important;
 }
 
@@ -240,6 +236,7 @@ mr-header{
   pointer-events: none !important;
 }
 
+img[src*="wixmp"],
 video:not(*[controls]){
   cursor: none !important;
 }
