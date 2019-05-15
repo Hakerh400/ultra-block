@@ -16,7 +16,7 @@
   if(location.href.startsWith('http://localhost')) return;
   if(location.href.startsWith('https://hakerh400.github.io/')) return;
 
-  var STYLE_URL = chrome.runtime.getURL('main.css');
+  const STYLE_URL = chrome.runtime.getURL('main.css');
 
   var script = () => {
     'use strict';
