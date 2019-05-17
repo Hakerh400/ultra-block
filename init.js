@@ -79,14 +79,23 @@
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+        const enhanceVideo = () => {
+          const shouldBeMuted = url.startsWith('file:///D:/Videos/');
+
+          (q=>((v,S,s=v.style)=>{'controls,autoplay'.split`,`.map(a=>v.removeAttribute(a)),v.muted=shouldBeMuted,s.width=s.height='100%',addEventListener('keydown',(a,b=!a.ctrlKey?a.keyCode:0,c='currentTime')=>b-37?b-39?b-77?b-116?1:(a.preventDefault(),v.pause(),S.src=(a=>(a=a.split`?`,a[1]='a='+Date.now()+Math.random(),a.join`?`))(S.src),v.load()):v.muted^=1:v[c]+=5:v[c]-=5);sessionStorage['ublock-prevent-hard-reload']=1})(q('video')[0],q('source')[0]))(a=>[...document.querySelectorAll(a)]);
+        };
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
         {
           const scripts = [
-            ['Video', () => (q=>((v,S,s=v.style)=>{'controls,autoplay'.split`,`.map(a=>v.removeAttribute(a)),s.width=s.height='100%',addEventListener('keydown',(a,b=!a.ctrlKey?a.keyCode:0,c='currentTime')=>b-37?b-39?b-77?b-116?1:(a.preventDefault(),v.pause(),S.src=(a=>(a=a.split`?`,a[1]='a='+Date.now()+Math.random(),a.join`?`))(S.src),v.load()):v.muted^=1:v[c]+=5:v[c]-=5);sessionStorage['ublock-prevent-hard-reload']=1})(q('video')[0],q('source')[0]))(a=>[...document.querySelectorAll(a)])],
+            ['Video', () => enhanceVideo()],
             ['Visited links', () => ((a,Y,M)=>(a('pre',a=>a.innerHTML=a.innerHTML.replace(/\<[^\.]*\>/g,'').trim().split(/\r\n|\r|\n/).map(a=>`<a href=${a.match(/\b[a-z]+?:\/\/[\S]+/)||((M=a.match(/\[([a-zA-Z0-9\_\-]{11})\]/))?Y+'watch?v='+M[1]:Y+'results?search_query='+a.split(/\-{2,}/)[0].split(/\*{2,}/).pop().trim().split('').map(a=>a<'~'?escape(a):a).join(''))}>${a}</a>`).join('<br>')),a('a',a=>a.addEventListener('mousedown',b=>b.button===1&&a.style.setProperty('color','red','important')))))((a,b)=>[...document.querySelectorAll(a)].map(b),'https://www.youtube.com/')],
             ['Remove emoji', () => ((a=>(a(document,'title'),[...document.querySelectorAll('h1.title')].forEach(b=>a(b,'innerText'))))((a,b)=>a[b]=a[b]?a[b].replace(/[^ -~]+/gu,' ').replace(/\s+/g,' ').trim():'\u034f'),Object.defineProperty(document,'title',{}))],
             ['Extract videos', () => (document.documentElement.innerText=[...document.querySelectorAll`#contents a[href]`].map(a=>a.href).filter((a,b,c)=>c.indexOf(a)==b).map(a=>a.slice(-11)).reverse().join`\n`)],
             ['Prevent unload', () => (onbeforeunload=a=>'')],
             ['Extract embedded video', () => (a=>location.href='https://www.youtube.com/watch?v='+document.querySelector(`iframe[src^="${a}"]`).src.slice(a=a.length,a+11))('https://www.youtube.com/embed/')],
+            ['Extract magnet link', ()=> location.href = document.querySelector('a[href^="magnet:"]').href],
           ];
 
           w.addEventListener('keydown', evt => {
@@ -444,14 +453,18 @@
             });
 
             const f = () => {
+              const elems = qsa('video');
               let e;
 
-              for(e of qsa('video')){
+              for(e of elems){
                 e.autoplay = false;
                 e.currentTime = 0;
               }
 
-              if(!loaded) setTimeout(f);
+              if(!loaded) return setTimeout(f);
+              if(elems.length === 0) return;
+
+              enhanceVideo();
             };
 
             f();

@@ -144,9 +144,9 @@ img[src*=".gif?" i],
   visibility: hidden !important;
 }
 
-/*::-webkit-input-placeholder{
+::-webkit-input-placeholder{
   visibility: hidden !important;
-}*/
+}
 
 body:not(.env-production) a,
 body:not(.env-production) a:link,
@@ -300,4 +300,9 @@ a:active
 .param,
 .param:hover{
   border: 0px !important;
+}
+
+/* virustotal */
+.url.style-scope.vt-app{
+  position: static !important;
 }
