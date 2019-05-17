@@ -43,3 +43,7 @@ table.highlight:not(.ublock-safe){
 ::-webkit-input-placeholder{
   visibility: hidden !important;
 }
+
+.header-search-input{
+  color: transparent !important;
+}
