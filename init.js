@@ -117,6 +117,13 @@
           });
         }
 
+        proxify(w, 'setTimeout', {
+          apply(f, t, args){
+            if(args[1] === 3e3) return nop;
+            return f.apply(t, args);
+          }
+        });
+
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         if(!url.startsWith('https://bugs.chromium.org/')){
