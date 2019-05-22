@@ -468,7 +468,10 @@
 
       var duration = video.duration;
 
-      if(duration < offsets[0] + offsets[1] + 60)
+      // if(duration < offsets[0] + offsets[1] + 60)
+      //   offsets[0] = offsets[1] = 0;
+
+      if(location.href.includes('&uof'))
         offsets[0] = offsets[1] = 0;
 
       var start = offsets[0];
