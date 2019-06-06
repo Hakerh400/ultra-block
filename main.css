@@ -238,7 +238,7 @@ mr-header{
   pointer-events: none !important;
 }
 
-img[src*="wixmp"],
+img[src*="wixmp"]:not(*[alt]),
 video:not(*[controls]){
   cursor: none !important;
 }
@@ -307,4 +307,9 @@ a:active
 /* virustotal */
 .url.style-scope.vt-app{
   position: static !important;
+}
+
+/* translate.google.co.uk */
+body.displaying-homepage .frame{
+  height: 100% !important;
 }
