@@ -25,6 +25,9 @@
 iron-a11y-announcer,
 iron-overlay-backdrop,
 yt-page-navigation-progress,
+ytd-channel-renderer,
+ytd-shelf-renderer,
+ytd-horizontal-card-list-renderer,
 ytd-thumbnail-overlay-resume-playback-renderer{
   display: none !important;
   visibility: hidden !important;
@@ -136,4 +139,12 @@ body.ub3 img.style-scope.yt-img-shadow{
   position: static !important;
   margin-top: 0px !important;
   transform: none !important;
+}
+
+.ytp-progress-bar-container{
+  height: 5px !important;
+}
+
+.ytp-scrubber-button{
+  height: 20px !important;
 }
