@@ -353,6 +353,18 @@
         if(e.className === 'A') url = e.href;
         else url = e.closest('a').href;
 
+        if(top.location.href.startsWith('https://www.youtube.com/channel/')){
+          const channel = document.title.slice(0, document.title.length - 10);
+          let title = e.textContent.trim();
+
+          if(title.startsWith(channel)){
+            title = title.slice(channel.length);
+            title = title.replace(/^(?:\s*[\:\-\~]\s*)/, '');
+          }
+
+          e.textContent = title;
+        }
+
         if(!PREVENT_TITLE_TRANSLATION){
           e.classList.add('ublock_safe');
           continue;
@@ -366,14 +378,29 @@
         for(i = 0; i < ee.length; i++){
           e = ee[i];
           if(e[symbs.status]) continue;
+
+          const channelElem = qs('#owner-name.ytd-video-owner-renderer');
+          if(!channelElem) continue;
+          const channel = channelElem.textContent.trim();
+          if(!channel) continue;
+          let title = e.textContent.trim();
+          if(!title) continue;
+
           e[symbs.status] = 1;
 
-          //updateStat(e);
+          // updateStat(e);
 
-          //if(!PREVENT_TITLE_TRANSLATION){
+          if(title.startsWith(channel)){
+            title = title.slice(channel.length);
+            title = title.replace(/^(?:\s*[\:\-\~]\s*)/, '');
+          }
+
+          e.textContent = title;
+
+          if(!PREVENT_TITLE_TRANSLATION){
             e.classList.add('ublock_safe');
-            //continue;
-          //}
+            continue;
+          }
         }
       }
 
@@ -425,7 +452,7 @@
           //e.closest('ytd-expander').removeAttribute('collapsed');
 
           if(getChName() === chs[0]){
-            var v = e.innerText
+            var v = e.textContent
               .split(/\r\n|\r|\n/)[0]
               .split('.');
             v.pop();
@@ -435,7 +462,7 @@
               .slice(5)
               .join(' ');
             v = `${v[0].toUpperCase()}${v.slice(1)}`;
-            e.innerText = v;
+            e.textContent = v;
           }
 
           e.classList.add('ublock-safe');
@@ -456,7 +483,7 @@
 
       toggleVideo(1);
 
-      var channel = elem.innerText.trim();
+      var channel = elem.textContent.trim();
 
       if(!(channel in timeOffsets)){
         updateOverlayElem(emptyTimeOffsets);
@@ -730,7 +757,7 @@
 
         if(res.stat !== stats.NOT_QUEUED){
           var stat = O.cap(stats.name(res.stat), 1);
-          span.innerText = `[${stat}]`;
+          span.textContent = `[${stat}]`;
         }
 
         setTimeout(() => {
@@ -742,7 +769,7 @@
     function getChName(){
       const e = qs('#owner-name.ytd-video-owner-renderer');
       if(!e) return null;
-      return e.innerText.trim();
+      return e.textContent.trim();
     }
 
     function rf(url, data, cb){
