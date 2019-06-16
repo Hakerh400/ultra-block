@@ -363,6 +363,7 @@
           }
 
           e.textContent = title;
+          e.title = title;
         }
 
         if(!PREVENT_TITLE_TRANSLATION){
@@ -393,6 +394,13 @@
           if(title.startsWith(channel)){
             title = title.slice(channel.length);
             title = title.replace(/^(?:\s*[\:\-\~]\s*)/, '');
+
+            const f = () => {
+              document.title = title;
+              if(!loaded) setTimeout(f);
+            };
+
+            f();
           }
 
           e.textContent = title;

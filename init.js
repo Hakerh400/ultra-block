@@ -119,6 +119,53 @@
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+        {
+          const blackList = [
+            'https://www.youtube.com/',
+          ];
+
+          const blackListed = blackList.some(a => url.startsWith(a));
+
+          const desc = Object.getOwnPropertyDescriptor(Document.prototype, 'title');
+          delete Document.prototype.title;
+
+          let origTitle = '';
+          let curTitle = '';
+
+          Object.defineProperty(Document.prototype, 'title', {
+            get(){
+              return curTitle;
+            },
+
+            set(title){
+              if(blackListed){
+                if(!Array.isArray(title)) return;
+                if(title.length !== 2) return;
+                if(title[0] !== 'ublock-title') return;
+                title = title[1];
+              }
+
+              title = String(title);
+              curTitle = title;
+
+              if(title === '') title = '\u034F';
+              desc.set.call(document, title);
+            },
+          });
+
+          const f = () => {
+            const title = desc.get.call(document);
+            if(title === '') return setTimeout(f);
+
+            origTitle = title;
+            document.title = blackListed ? ['ublock-title', ''] : origTitle;
+          };
+
+          f();
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
         if(!url.startsWith('https://bugs.chromium.org/')){
           let rot = 0;
           let nav = 0;
