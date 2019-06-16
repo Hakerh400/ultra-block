@@ -347,14 +347,22 @@
       for(i = 0; i < ee.length; i++){
         e = ee[i];
         if(e[symbs.status]) continue;
-        e[symbs.status] = 1;
 
         var url;
         if(e.className === 'A') url = e.href;
         else url = e.closest('a').href;
 
         if(top.location.href.startsWith('https://www.youtube.com/channel/')){
-          const channel = document.title.slice(0, document.title.length - 10);
+          const channelElem = [...qsa('title')].find(a => {
+            const title = a.textContent.trim();
+            return title && title !== '\u034f';
+          });
+          
+          if(!channelElem) continue;
+          const channel = channelElem.textContent.trim();
+          if(!channel) continue;
+          log(channel[0].charCodeAt``.toString`16`);
+
           let title = e.textContent.trim();
 
           if(title.startsWith(channel)){
@@ -365,6 +373,8 @@
           e.textContent = title;
           e.title = title;
         }
+
+        e[symbs.status] = 1;
 
         if(!PREVENT_TITLE_TRANSLATION){
           e.classList.add('ublock_safe');
