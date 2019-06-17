@@ -357,11 +357,11 @@
             const title = a.textContent.trim();
             return title && title !== '\u034f';
           });
-          
+
           if(!channelElem) continue;
           const channel = channelElem.textContent.trim();
           if(!channel) continue;
-          log(channel[0].charCodeAt``.toString`16`);
+          document.title = channel;
 
           let title = e.textContent.trim();
 
@@ -404,14 +404,14 @@
           if(title.startsWith(channel)){
             title = title.slice(channel.length);
             title = title.replace(/^(?:\s*[\:\-\~]\s*)/, '');
-
-            const f = () => {
-              document.title = title;
-              if(!loaded) setTimeout(f);
-            };
-
-            f();
           }
+
+          const f = () => {
+            document.title = title;
+            if(!loaded) setTimeout(f);
+          };
+
+          f();
 
           e.textContent = title;
 

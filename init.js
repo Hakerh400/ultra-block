@@ -539,8 +539,7 @@
         proxify(w, 'Promise', {
           construct(f, args){
             var promise = new f(...args);
-            promise.catch(a => { throw log(a); });
-            return promise;
+            return promise.catch(nop);
           }
         });
 
