@@ -28,7 +28,11 @@
       return urlLower.includes(a);
     };
 
-    return {cancel: !whiteList.some(testFunc) && blackList.some(testFunc)};
+    return {
+      cancel: !evt.url.startsWith('file:///') &&
+        !whiteList.some(testFunc) &&
+        blackList.some(testFunc),
+    };
   },
     {urls: ['<all_urls>']},
     ['blocking'],
