@@ -259,6 +259,10 @@ video:not(*[controls]){
 #makechanges,
 .code-font-and-description-edit,
 .material-icons.expand-icon,
+#editForm .star-line,
+#message.cue,
+chops-toggle,
+.role-label,
 video{
   display: none !important;
   visibility: hidden !important;
