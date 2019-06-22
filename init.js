@@ -1,6 +1,9 @@
 (() => {
   'use strict';
 
+  if(location.href.startsWith('http://localhost')) return;
+  if(location.href.startsWith('https://hakerh400.github.io/')) return;
+
   onbeforeunload = () => {
     if(sessionStorage['ublock-prevent-hard-reload'])
       return;
@@ -12,9 +15,6 @@
       e.innerHTML = '';
     }catch{}
   };
-
-  if(location.href.startsWith('http://localhost')) return;
-  if(location.href.startsWith('https://hakerh400.github.io/')) return;
 
   const STYLE_URL = chrome.runtime.getURL('main.css');
 
@@ -91,7 +91,7 @@
           const scripts = [
             ['Video', () => enhanceVideo()],
             ['Visited links', () => ((a,Y,M)=>(a('pre',a=>a.innerHTML=a.innerHTML.replace(/\<[^\.]*\>/g,'').trim().split(/\r\n|\r|\n/).map(a=>`<a href=${a.match(/\b[a-z]+?:\/\/[\S]+/)||((M=a.match(/\[([a-zA-Z0-9\_\-]{11})\]/))?Y+'watch?v='+M[1]:Y+'results?search_query='+a.split(/\-{2,}/)[0].split(/\*{2,}/).pop().trim().split('').map(a=>a<'~'?escape(a):a).join(''))}>${a}</a>`).join('<br>')),a('a',a=>a.addEventListener('mousedown',b=>b.button===1&&a.style.setProperty('color','red','important')))))((a,b)=>[...document.querySelectorAll(a)].map(b),'https://www.youtube.com/')],
-            ['Remove emoji', () => ((a=>(a(document,'title'),[...document.querySelectorAll('h1.title')].forEach(b=>a(b,'innerText'))))((a,b)=>a[b]=a[b]?a[b].replace(/[^ -~]+/gu,' ').replace(/\s+/g,' ').trim():'\u034f'),Object.defineProperty(document,'title',{}))],
+            ['Remove emoji', () => (((a,b)=>(document.title=['ublock-title',''],document.title='\u034F',[...document.querySelectorAll('h1.title')].forEach(b=>a(b,'innerText'))))((a,b)=>a[b]=a[b]?a[b].replace(/[^ -~]+/gu,' ').replace(/\s+/g,' ').trim():'\u034f',{a:document.title}))],
             ['Extract videos', () => (document.documentElement.innerText=[...document.querySelectorAll`#contents a[href]`].map(a=>a.href).filter((a,b,c)=>c.indexOf(a)==b).map(a=>a.slice(-11)).reverse().join`\n`)],
             ['Prevent unload', () => (onbeforeunload=a=>'')],
             ['Extract embedded video', () => (a=>location.href='https://www.youtube.com/watch?v='+document.querySelector(`iframe[src^="${a}"]`).src.slice(a=a.length,a+11))('https://www.youtube.com/embed/')],
