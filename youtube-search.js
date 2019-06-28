@@ -104,7 +104,7 @@
   }
 
   function checkTitle(e){
-    if(!inco) return 1;
+    // if(!inco) return 1;
     dbgType = types.TITLE;
 
     const str = e.innerText;
