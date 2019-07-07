@@ -80,7 +80,7 @@
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         const enhanceVideo = () => {
-          const shouldBeMuted = url.startsWith('file:///D:/Videos/');
+          const shouldBeMuted = url.startsWith('file:///');
 
           (q=>((v,S,s=v.style)=>{'controls,autoplay'.split`,`.map(a=>v.removeAttribute(a)),v.muted=shouldBeMuted,s.width=s.height='100%',addEventListener('keydown',(a,b=!a.ctrlKey?a.keyCode:0,c='currentTime')=>b-37?b-39?b-77?b-116?1:(a.preventDefault(),v.pause(),S.src=(a=>(a=a.split`?`,a[1]='a='+Date.now()+Math.random(),a.join`?`))(S.src),v.load()):v.muted^=1:v[c]+=5:v[c]-=5);sessionStorage['ublock-prevent-hard-reload']=1})(q('video')[0],q('source')[0]))(a=>[...document.querySelectorAll(a)]);
         };

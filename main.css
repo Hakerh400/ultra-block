@@ -263,6 +263,7 @@ video:not(*[controls]){
 #message.cue,
 chops-toggle,
 .role-label,
+chops-snackbar,
 video{
   display: none !important;
   visibility: hidden !important;
