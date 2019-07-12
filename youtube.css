@@ -69,7 +69,13 @@ ytd-comment-thread-renderer:not(.ublock-safe),
 #description:not(.ublock-safe),
 yt-view-count-renderer{
   opacity: 0;
-  pointer-events: none !important;
+  pointer-events: none;
+}
+
+.ytp-popup,
+.ytp-popup *{
+  opacity: 1 !important;
+  pointer-events: auto !important;
 }
 
 video{
