@@ -3,6 +3,7 @@
 .css-truncate > include-fragment,
 span[aria-label^="Request review from "],
 span[aria-label^="Request review from "] ~ *,
+.js-issue-row:not(.ublock-safe),
 .octicon-mark-github,
 .gh-header-shadow.box-shadow{
   display: none !important;

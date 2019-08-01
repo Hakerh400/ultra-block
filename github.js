@@ -1,6 +1,9 @@
 (() => {
   'use strict';
 
+  const blackListedUsers = [
+  ];
+
   var stage = 0;
 
   document.addEventListener('DOMContentLoaded', () => {
@@ -27,8 +30,20 @@
         e.classList.add('ublock-safe');
       }
 
-      if(stage === 0)
-        setTimeout(block);
+      for(e of qsa('.js-issue-row:not(.ublock-safe)')){
+        const e1 = qs(e, '.opened-by a');
+        if(e1 === null) continue;
+
+        const user = e1.innerText.trim().toLowerCase();
+        if(blackListedUsers.includes(user)){
+          e.remove();
+          continue;
+        }
+
+        e.classList.add('ublock-safe');
+      }
+
+      if(stage === 0) setTimeout(block);
     }
   }
 
