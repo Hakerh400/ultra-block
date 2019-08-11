@@ -1,9 +1,7 @@
 (() => {
   'use strict';
 
-  if(!/^https\:\/\/[^\.]+\.tumblr\.com\/post/.test(window.location.href)) return;
-
-  var stage = 0;
+  let stage = 0;
 
   document.addEventListener('DOMContentLoaded', () => {
     stage = 1;
@@ -18,7 +16,7 @@
     block();
 
     function block(){
-      var ee, e, i;
+      let e;
 
       e = document.querySelector('.main>.photo img');
       if(e){
@@ -26,10 +24,45 @@
         window.location.href = src;
       }
 
-      if(stage === 1)
-        return;
+      for(e of qsa('.tx-button.show-me'))
+        e.click();
 
-      setTimeout(block, 1e3);
+      setTimeout(block, stage === 0 ? 1 : 1e3);
     }
+  }
+
+  function show(e){
+    e.classList.add('ublock-safe');
+  }
+
+  function qs(a, b=null){
+    if(b === null){
+      b = a;
+      a = document;
+    }
+
+    return a.querySelector(b);
+  }
+
+  function qsa(a, b=null){
+    if(b === null){
+      b = a;
+      a = document;
+    }
+
+    return a.querySelectorAll(b);
+  }
+
+  function decode(str){
+    return str.split('').
+      map(a => a.charCodeAt(0) - 32).
+      map(a => 94 - a).
+      map(a => String.fromCharCode(32 + a)).
+      join('');
+  }
+
+  function log(...a){
+    console.log(...a);
+    return a[a.length - 1];
   }
 })();

@@ -1,0 +1,14 @@
+.l-container.l-container--two-column-dashboard,
+.post_content_inner.safemode,
+.tx-button.show-me,
+.indash_blog > .header{
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.drawer.peepr-drawer-container.open{
+  right: 0px;
+  width: 100%;
+}
