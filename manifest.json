@@ -111,7 +111,7 @@
       "run_at": "document_start",
       "all_frames": true
     }, {
-      "matches": ["*://*.tumblr.com/*"],
+      "matches": ["https://www.tumblr.com/*"],
       "js": ["tumblr.js"],
       "css": ["tumblr.css"],
       "run_at": "document_start",

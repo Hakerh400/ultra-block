@@ -133,6 +133,8 @@ a[href*="bitbigs"],
 /* chromedevtools */
 #mainToolbar,
 
+.beta-preloader,
+
 ::-webkit-scrollbar,
 #_eEe,
 .ublock-hidden{
@@ -145,7 +147,7 @@ a[href*="bitbigs"],
 img[src$=".gif" i],
 img[src*=".gif?" i],
 *[style*=".gif" i]{
-  visibility: hidden !important;
+  /*visibility: hidden !important;*/
 }
 
 ::-webkit-input-placeholder{

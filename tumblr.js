@@ -18,14 +18,33 @@
     function block(){
       let e;
 
-      e = document.querySelector('.main>.photo img');
+      for(e of qsa('.tx-button.show-me'))
+        e.click();
+
+      for(e of qsa('.post_media:not(.ublock-safe),.reblog-content:not(.ublock-safe)')){
+        const img = qs(e, 'img');
+        if(!img) continue;
+
+        const link = qs(e, 'a');
+        if(link){
+          link.href = link.hasAttribute('data-big-photo') ?
+            link.getAttribute('data-big-photo') :
+            img.src;
+        }else{
+          const link = document.createElement('a');
+          link.href = img.src;
+          e.appendChild(link);
+          link.appendChild(img);
+        }
+
+        show(e);
+      }
+
+      /*e = document.querySelector('.main>.photo img');
       if(e){
         var src = e.src;
         window.location.href = src;
-      }
-
-      for(e of qsa('.tx-button.show-me'))
-        e.click();
+      }*/
 
       setTimeout(block, stage === 0 ? 1 : 1e3);
     }

@@ -14,6 +14,9 @@
     [/^www\.google\.co\.uk\/imgres\?/, /[\s\S]*/, a => unescape(a.match(/[\?\&]imgurl=([^\&]*)/)[1])],
     [/^www\.youtube\.com\/$/, /$/, 'watch?v=7&gl=US'],
     [/^www\.youtube\.com\/(?:channel|user)\/[^\/]+$/, /$/, '/videos?flow=grid&view=0'],
+    [/^www\.tumblr\.com\/safe-mode\?/, /safe-mode\?[\s\S]*/, a => {
+      return `dashboard/blog/${a.match(/(?:\/|%2F)([^%]*?)\.tumblr.com/i)[1]}`;
+    }],
   ];
 
   chrome.webRequest.onBeforeRequest.addListener(evt => {
