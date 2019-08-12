@@ -9,7 +9,7 @@
 
       const wScriptProp = `ublock-${scriptName}-init.js`;
       if(w[wScriptProp]) return;
-      w[wScriptProp] = true;
+      w[wScriptProp] = 1;
 
       main();
 

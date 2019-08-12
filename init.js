@@ -23,7 +23,7 @@
 
     var ublockFunc = (w=window, url=w.location.href) => {
       if(w['ublock-init.js']) return;
-      w['ublock-init.js'] = true;
+      w['ublock-init.js'] = 1;
 
       var injectedWorkerCode = `(${injectedWorkerFunc})();`;
 
@@ -95,7 +95,7 @@
             ['Extract videos', () => (document.documentElement.innerText=[...document.querySelectorAll`#contents a[href]`].map(a=>a.href).filter((a,b,c)=>c.indexOf(a)==b).map(a=>a.slice(-11)).reverse().join`\n`)],
             ['Prevent unload', () => (onbeforeunload=a=>'')],
             ['Extract embedded video', () => (a=>location.href='https://www.youtube.com/watch?v='+document.querySelector(`iframe[src^="${a}"]`).src.slice(a=a.length,a+11))('https://www.youtube.com/embed/')],
-            ['Extract magnet link', ()=> location.href = document.querySelector('a[href^="magnet:"]').href],
+            ['Extract magnet link', () => location.href = document.querySelector('a[href^="magnet:"]').href],
           ];
 
           w.addEventListener('keydown', evt => {
@@ -115,6 +115,147 @@
               alert_(e);
             }
           });
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        const disableListeners = () => {
+          const blackListedListeners = [
+            'contextmenu',
+            'beforeunload',
+            'unload',
+            'error',
+
+            ...0 ? [
+              ...1 ? [
+                'keydown',
+                'keypress',
+                'keyup',
+              ] : [],
+
+              ...1 ? [
+                'mouseenter',
+                'mouseover',
+                'mousemove',
+                'mousedown',
+                'mouseup',
+                'auxclick',
+                'click',
+                'dblclick',
+                'contextmenu',
+                'wheel',
+                'mouseleave',
+                'mouseout',
+                'select',
+                'pointerlockchange',
+                'pointerlockerror',
+              ] : [],
+            ] : [],
+          ];
+
+          [
+            w,
+            document,
+          ].forEach(target => {
+            blackListedListeners.forEach(type => {
+              Object.defineProperty(target, `on${type}`, {
+                get: nop,
+                set: nop,
+              });
+            });
+          });
+
+          w.addEventListener('keydown', evt => {
+            switch(evt.code){
+              case 'F5':
+                if(sessionStorage['ublock-prevent-hard-reload']) break;
+
+                evt.preventDefault('ublock');
+                evt.stopPropagation('ublock');
+
+                try{
+                  window.scrollTo(0, 0);
+                  const d = document;
+                  const e = d.body || d.documentElement;
+                  e.innerHTML = '';
+                }catch{}
+                
+                w.location.reload();
+                break;
+            }
+          });
+
+          proxify(w.EventTarget.prototype, 'addEventListener', {
+            apply(f, t, args){
+              var type = args[0];
+              if(blackListedListeners.some(a => a === type)) return nop;
+              return f.apply(t, args);
+            }
+          });
+
+          proxify(w.Event.prototype, 'preventDefault', {
+            apply(f, t, args){
+              if(args[0] !== 'ublock'){
+                if(blackListedListeners.some(type => type === t.type)) return nop;
+                if(t.type === 'auxclick') return nop;
+              }
+
+              return f.apply(t, args);
+            }
+          });
+
+          proxify(w.Event.prototype, 'stopPropagation', {
+            apply(f, t, args){
+              if(args[0] !== 'ublock' && blackListedListeners.some(type => type === t.type)) return nop;
+              return f.apply(t, args);
+            }
+          });
+
+          proxify(w.Node.prototype, 'dispatchEvent', {
+            apply(f, t, args){
+              if(t.target) return nop;
+              return f.apply(t, args);
+            }
+          });
+
+          {
+            let whiteList = [
+            ];
+
+            let url = (w.location.href.match(/^[^\/]+?\:\/{2,3}(.+)/) || [])[1];
+            if(whiteList.some(a => url.startsWith(a)))
+              return;
+
+            let stage = 0;
+
+            w.addEventListener('load', () => {
+              stage = 1;
+            });
+
+            const block = () => {
+              let body = document.body;
+
+              if(body){
+                let ee = document.querySelectorAll('*');
+                for(let i = 0; i !== ee.length; i++){
+                  let e = ee[i];
+
+                  blackListedListeners.forEach(type => {
+                    e.removeAttribute(`on${type}`);
+                  });
+                }
+              }
+
+              if(stage === 0) w.setTimeout(block);
+            };
+
+            block();
+          }
+        };
+
+        if(location.href.startsWith('https://mail.google.com/')){
+          disableListeners();
+          return;
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -329,105 +470,6 @@
           set: nop,
         });
 
-        var blackListedListeners = [
-          'contextmenu',
-          'beforeunload',
-          'unload',
-          'error',
-
-          ...0 ? [
-            ...1 ? [
-              'keydown',
-              'keypress',
-              'keyup',
-            ] : [],
-
-            ...1 ? [
-              'mouseenter',
-              'mouseover',
-              'mousemove',
-              'mousedown',
-              'mouseup',
-              'auxclick',
-              'click',
-              'dblclick',
-              'contextmenu',
-              'wheel',
-              'mouseleave',
-              'mouseout',
-              'select',
-              'pointerlockchange',
-              'pointerlockerror',
-            ] : [],
-          ] : [],
-        ];
-
-        [
-          w,
-          document,
-        ].forEach(target => {
-          blackListedListeners.forEach(type => {
-            Object.defineProperty(target, `on${type}`, {
-              get: nop,
-              set: nop,
-            });
-          });
-        });
-
-        w.addEventListener('keydown', evt => {
-          switch(evt.code){
-            case 'F5':
-              if(sessionStorage['ublock-prevent-hard-reload'])
-                break;
-
-              evt.preventDefault('ublock');
-              evt.stopPropagation('ublock');
-
-              try{
-                window.scrollTo(0, 0);
-                const d = document;
-                const e = d.body || d.documentElement;
-                e.innerHTML = '';
-              }catch{}
-              
-              w.location.reload();
-              break;
-          }
-        });
-
-        proxify(w.EventTarget.prototype, 'addEventListener', {
-          apply(f, t, args){
-            var type = args[0];
-            if(blackListedListeners.some(a => a === type)) return nop;
-            return f.apply(t, args);
-          }
-        });
-
-        proxify(w.Event.prototype, 'preventDefault', {
-          apply(f, t, args){
-            if(args[0] !== 'ublock'){
-              if(blackListedListeners.some(type => type === t.type)) return nop;
-              if(t.type === 'auxclick') return nop;
-            }
-
-            return f.apply(t, args);
-          }
-        });
-
-        proxify(w.Event.prototype, 'stopPropagation', {
-          apply(f, t, args){
-            if(args[0] !== 'ublock' && blackListedListeners.some(type => type === t.type)) return nop;
-            return f.apply(t, args);
-          }
-        });
-
-        proxify(w.Node.prototype, 'dispatchEvent', {
-          apply(f, t, args){
-            if(t.target) return nop;
-            return f.apply(t, args);
-          }
-        });
-
         {
           const styles = new WeakSet();
 
@@ -482,8 +524,6 @@
             }
           });
         }
-
-        disableEventListeners();
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -566,6 +606,8 @@
         });
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        disableListeners();
 
         (proxify => {
           var textBlackList = [
@@ -676,41 +718,6 @@
           }
 
           return proxy;
-        }
-
-        function disableEventListeners(){
-          var whiteList = [
-          ];
-
-          var url = (w.location.href.match(/^[^\/]+?\:\/{2,3}(.+)/) || [])[1];
-          if(whiteList.some(a => url.startsWith(a)))
-            return;
-
-          var stage = 0;
-
-          w.addEventListener('load', () => {
-            stage = 1;
-          });
-
-          block();
-
-          function block(){
-            var body = document.body;
-
-            if(body){
-              var ee = document.querySelectorAll('*');
-              for(var i = 0; i < ee.length; i++){
-                var e = ee[i];
-
-                blackListedListeners.forEach(type => {
-                  e.removeAttribute(`on${type}`);
-                });
-              }
-            }
-
-            if(stage === 0)
-              w.setTimeout(block, 0);
-          }
         }
       }
 
