@@ -17,6 +17,7 @@
     [/^www\.tumblr\.com\/safe-mode\?/, /safe-mode\?[\s\S]*/, a => {
       return `dashboard/blog/${a.match(/(?:\/|%2F)([^%]*?)\.tumblr.com/i)[1]}`;
     }],
+    [/www\.watzatsong\.com\/uploads\/profiles\//, /uploads\/profiles\/[\s\S]*/, 'bundles/wzsfrontend/images/profile-default-med.jpg'],
   ];
 
   chrome.webRequest.onBeforeRequest.addListener(evt => {

@@ -3,7 +3,7 @@
 
   const {href} = top.location;
   
-  var stage = 0;
+  let stage = 0;
 
   document.addEventListener('DOMContentLoaded', () => {
     stage = 1;
@@ -18,7 +18,7 @@
     block();
 
     function block(){
-      var e;
+      let e;
 
       if(stage === 0) return setTimeout(block);
     }
