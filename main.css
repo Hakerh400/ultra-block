@@ -288,6 +288,10 @@ mr-issue-metadata{
   position: static !important;
 }
 
+:host{
+  padding-top: 0px !important;
+}
+
 ::-webkit-input-placeholder{
   visibility: hidden !important;
 }
