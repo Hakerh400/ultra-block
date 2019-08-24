@@ -1,4 +1,5 @@
 .photo-item--overlay:before,
+.photo-item__link:before,
 .hero__background-image{
   display: none !important;
   visibility: hidden !important;
