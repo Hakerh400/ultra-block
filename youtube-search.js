@@ -1,7 +1,7 @@
 (() => {
   'use strict';
 
-  const DEBUG = 0;
+  const DEBUG = 1;
 
   const {href} = top.location;
   const inco = chrome.extension.inIncognitoContext;
@@ -16,16 +16,21 @@
   const blackListTitle = [
   ];
 
+  const blackListChannel = arr2obj([
+  ]);
+
   const types = createEnum([
     'META',
     'TITLE',
     'DESC',
+    'CHANNEL',
   ]);
 
   const dbgTypes = {
     [types.META]: 'Meta',
     [types.TITLE]: 'Title',
     [types.DESC]: 'Description',
+    [types.CHANNEL]: 'Channel',
   };
   
   var stage = 0;
@@ -52,9 +57,10 @@
         const meta = qs(e, '#metadata');
         const title = qs(e, '#title-wrapper');
         const desc = qs(e, '#description-text');
-        if(!(meta && title && desc)) continue;
+        const channel = qs(e, '#byline a');
+        if(!(meta && title && desc && channel)) continue;
 
-        if(checkMeta(meta) && checkTitle(title) && checkDesc(desc)){
+        if(checkMeta(meta) && checkTitle(title) && checkDesc(desc) && checkChannel(channel)){
           show(e);
         }else if(DEBUG){
           e.style.backgroundColor = 'red';
@@ -138,9 +144,15 @@
     const str = e.innerText;
     const func = checkFunc(str);
     
-    if(blackList.some(func)) return 0;
-
+    if(blackList.find(func)) return 0;
     return 1;
+  }
+
+  function checkChannel(e){
+    dbgType = types.CHANNEL;
+
+    const channel = dbg = e.href.match(/\/[^\/]+$/)[0].slice(1);
+    return !(channel in blackListChannel);
   }
 
   function checkFunc(str){
@@ -200,5 +212,11 @@
   function log(...a){
     console.log(...a);
     return a[a.length - 1];
+  }
+
+  function arr2obj(arr, val=1){
+    const obj = Object.create(null);
+    for(const key of arr) obj[key] = val;
+    return obj;
   }
 })();
