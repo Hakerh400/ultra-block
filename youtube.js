@@ -385,12 +385,12 @@
       }
 
       if(/[\?\&]v\=/.test(top.location.href)){
-        ee = document.querySelectorAll('h1.title');
+        ee = document.querySelectorAll('h1.title:not(.ublock_safe)');
         for(i = 0; i < ee.length; i++){
           e = ee[i];
           if(e[symbs.status]) continue;
 
-          const channelElem = qs('#owner-name.ytd-video-owner-renderer');
+          const channelElem = qs('#channel-name.ytd-video-owner-renderer');
           if(!channelElem) continue;
           const channel = channelElem.textContent.trim();
           if(!channel) continue;
@@ -785,7 +785,7 @@
     }
 
     function getChName(){
-      const e = qs('#owner-name.ytd-video-owner-renderer');
+      const e = qs('#channel-name.ytd-video-owner-renderer');
       if(!e) return null;
       return e.textContent.trim();
     }

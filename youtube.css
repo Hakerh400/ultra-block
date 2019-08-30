@@ -93,8 +93,8 @@ ytd-searchbox{
   display: block !important;
 }
 
-#video-title:not(*[class*="ublock_safe"]),
-h1.title:not(*[class*="ublock_safe"]){
+#video-title:not(.ublock_safe),
+h1.title:not(.ublock_safe){
   visibility: hidden !important;
 }
 
