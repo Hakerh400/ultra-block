@@ -1,7 +1,7 @@
 (() => {
   'use strict';
 
-  const DEBUG = 1;
+  const DEBUG = 0;
 
   const {href} = top.location;
   const inco = chrome.extension.inIncognitoContext;
@@ -51,13 +51,11 @@
     function block(){
       let e;
 
-      for(e of qsa('ytd-video-renderer:not(.ublock-safe)')){
-        if(!e.classList.contains('ublock-safe-maybe')) continue;
-
+      for(e of qsa('ytd-video-renderer.ublock-safe-maybe:not(.ublock-safe)')){
         const meta = qs(e, '#metadata');
         const title = qs(e, '#title-wrapper');
         const desc = qs(e, '#description-text');
-        const channel = qs(e, '#byline a');
+        const channel = qs(e, '#byline-container a');
         if(!(meta && title && desc && channel)) continue;
 
         if(checkMeta(meta) && checkTitle(title) && checkDesc(desc) && checkChannel(channel)){
