@@ -6,6 +6,7 @@ span[aria-label^="Request review from "] ~ *,
 .js-issue-row:not(.ublock-safe),
 .octicon-mark-github,
 .Header-item.d-none.d-lg-flex,
+.up-tree.js-navigation-item,
 .gh-header-shadow.box-shadow{
   display: none !important;
   visibility: hidden !important;

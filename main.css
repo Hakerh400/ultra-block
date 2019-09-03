@@ -144,11 +144,11 @@ a[href*="bitbigs"],
   pointer-events: none !important;
 }
 
-/*img[src$=".gif" i],
+img[src$=".gif" i],
 img[src*=".gif?" i],
 *[style*=".gif" i]{
   visibility: hidden !important;
-}*/
+}
 
 ::-webkit-input-placeholder{
   visibility: hidden !important;
