@@ -155,3 +155,7 @@ body.ub3 img.style-scope.yt-img-shadow{
 .ytp-scrubber-button{
   height: 20px !important;
 }
+
+#video-title.ytd-grid-video-renderer{
+  max-height: none !important;
+}
