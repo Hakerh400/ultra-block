@@ -51,7 +51,7 @@
     function block(){
       let e;
 
-      for(e of qsa('ytd-video-renderer.ublock-safe-maybe:not(.ublock-safe)')){
+      for(e of qsa('ytd-video-renderer:not(.ublock-safe)')){
         const meta = qs(e, '#metadata');
         const title = qs(e, '#title-wrapper');
         const desc = qs(e, '#description-text');
@@ -82,14 +82,14 @@
     const str = e.innerText;
     const func = checkFunc(str);
 
-    const reg = inco ?
-      /(?:week|month|year|(?:[2-9]|\d{2,}) day)s? ago\b/ :
-      /(?:month|year)s? ago\b/;
+    // const reg = inco ?
+    //   /(?:week|month|year|(?:[2-9]|\d{2,}) day)s? ago\b/ :
+    //   /(?:month|year)s? ago\b/;
 
-    if(0 && reg.test(str)){
-      if(DEBUG) dbg = 'Too old';
-      return 0;
-    }
+    // if(reg.test(str)){
+    //   if(DEBUG) dbg = 'Too old';
+    //   return 0;
+    // }
 
     if(!inco) return 1;
 
