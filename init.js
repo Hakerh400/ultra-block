@@ -121,7 +121,7 @@
 
         const disableListeners = () => {
           const blackListedListeners = [
-            'contextmenu',
+            // 'contextmenu',
             'beforeunload',
             'unload',
             'error',

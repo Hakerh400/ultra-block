@@ -181,7 +181,7 @@
 
   "web_accessible_resources": [
     "new-tab.htm",
-    "main.css"
+    "main.css",
   ],
 
   "chrome_url_overrides": {
