@@ -343,7 +343,7 @@
         }
       }
 
-      ee = document.querySelectorAll('#video-title:not(*[class*="ublock_safe"])');
+      ee = document.querySelectorAll('#video-title:not(.ublock_safe)');
       for(i = 0; i < ee.length; i++){
         e = ee[i];
         if(e[symbs.status]) continue;
