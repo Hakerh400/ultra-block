@@ -16,12 +16,14 @@
       var e;
 
       for(e of qsa('.pagedlist_item:not(.ublock-safe)')){
-        if(/promoted|(?:sponsored|ads?) +by /i.test(e.innerText)) e.remove();
+        if(!e.closest('.answer_text_small')) e.remove();
+        else if(/promoted|(?:sponsored|ads?) +by /i.test(e.innerText)) e.remove();
         else e.classList.add('ublock-safe');
       }
 
       for(e of qsa('.UnifiedAnswerPagedList:not(.ublock-safe)')){
-        if(/\bad +by /i.test(e.innerText)) e.remove();
+        if(!e.closest('.answer_text_small')) e.remove();
+        else if(/\bad +by /i.test(e.innerText)) e.remove();
         else e.classList.add('ublock-safe');
       }
 
