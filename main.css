@@ -271,6 +271,7 @@ video:not(*[controls]){
 chops-toggle,
 .role-label,
 chops-snackbar,
+mr-cue[cueprefname="availability_msgs"],
 video{
   display: none !important;
   visibility: hidden !important;
