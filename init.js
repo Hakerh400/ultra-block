@@ -96,6 +96,19 @@
             ['Prevent unload', () => (onbeforeunload=a=>'')],
             ['Extract embedded video', () => (a=>location.href='https://www.youtube.com/watch?v='+document.querySelector(`iframe[src^="${a}"]`).src.slice(a=a.length,a+11))('https://www.youtube.com/embed/')],
             ['Extract magnet link', () => location.href = document.querySelector('a[href^="magnet:"]').href],
+            ['Extract lyrics', () => {
+              const lyrics = [];
+              w.lyrics = '';
+
+              setInterval(()=>{
+                let a = document.querySelector('.ytp-caption-segment');
+                a = a ? a.innerText.trim() : '';
+                if(lyrics[lyrics.length - 1] === a) return;
+
+                lyrics.push(a);
+                w.lyrics = lyrics.join('\n').trim();
+              });
+            }],
           ];
 
           w.addEventListener('keydown', evt => {

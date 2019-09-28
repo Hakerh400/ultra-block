@@ -159,3 +159,13 @@ body.ub3 img.style-scope.yt-img-shadow{
 #video-title.ytd-grid-video-renderer{
   max-height: none !important;
 }
+
+#date.style-scope.ytd-video-primary-info-renderer{
+  margin-left: 0px !important;
+  color: transparent !important;
+}
+
+#date.style-scope.ytd-video-primary-info-renderer yt-formatted-string.style-scope.ytd-video-primary-info-renderer{
+  margin-left: -4.703125px !important;
+  color: rgb(96, 96, 96) !important;
+}
