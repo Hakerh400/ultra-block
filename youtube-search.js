@@ -19,6 +19,9 @@
   const blackListChannel = arr2obj([
   ]);
 
+  const blackListUser = arr2obj([
+  ]);
+
   const types = createEnum([
     'META',
     'TITLE',
@@ -150,7 +153,7 @@
     dbgType = types.CHANNEL;
 
     const channel = dbg = e.href.match(/\/[^\/]+$/)[0].slice(1);
-    return !(channel in blackListChannel);
+    return !(channel in blackListChannel || channel in blackListUser);
   }
 
   function checkFunc(str){
