@@ -7,8 +7,14 @@
   padding: 0px !important;
   position: absolute !important;
   z-index: 2147483647 !important;
-  background-color: rgba(0, 0, 0, 0) !important;
   cursor: default !important;
+  max-width: none !important;
+  max-height: none !important;
+  color: #000 !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
 
   pointer-events: none;
   left: 0px;
