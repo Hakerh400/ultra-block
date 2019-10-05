@@ -1,6 +1,7 @@
 (() => {
   'use strict';
 
+  if(window.parent.frames.length > 0) return;
   if(window.location.href.startsWith('http://localhost/')) return;
 
   const DEBUG = 0;

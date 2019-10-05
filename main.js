@@ -49,14 +49,16 @@
     if(!scrollScheduled) return;
     if(window.location.href.startsWith('https://www.youtube.com/')) return;
     
-    try{
-      window.scrollTo(0, 0);
-      document.documentElement.scrollTop = 0;
-      document.body.scrollTop = 0;
-    }catch{}
+    if(window.parent.frames.length === 0){
+      try{
+        window.scrollTo(0, 0);
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+      }catch{}
 
-    if(window.scrollY !== 0)
-      setTimeout(scroll);
+      if(window.scrollY !== 0)
+        setTimeout(scroll);
+    }
   }
 
   function qs(a, b=null){

@@ -8,12 +8,14 @@
     if(sessionStorage['ublock-prevent-hard-reload'])
       return;
 
-    try{
-      window.scrollTo(0, 0);
-      const d = document;
-      const e = d.body || d.documentElement;
-      e.innerHTML = '';
-    }catch{}
+    if(window.parent.frames.length === 0){
+      try{
+        window.scrollTo(0, 0);
+        const d = document;
+        const e = d.body || d.documentElement;
+        e.innerHTML = '';
+      }catch{}
+    }
   };
 
   const STYLE_URL = chrome.runtime.getURL('main.css');
@@ -94,7 +96,17 @@
             ['Remove emoji', () => (((a,b)=>(document.title=['ublock-title',''],document.title='\u034F',[...document.querySelectorAll('h1.title')].forEach(b=>a(b,'innerText'))))((a,b)=>a[b]=a[b]?a[b].replace(/[^ -~]+/gu,' ').replace(/\s+/g,' ').trim():'\u034f',{a:document.title}))],
             ['Extract videos', () => (document.documentElement.innerText=[...document.querySelectorAll`#contents a[href]`].map(a=>a.href).filter((a,b,c)=>c.indexOf(a)==b).map(a=>a.slice(-11)).reverse().join`\n`)],
             ['Prevent unload', () => (onbeforeunload=a=>'')],
-            ['Extract embedded video', () => (a=>location.href='https://www.youtube.com/watch?v='+document.querySelector(`iframe[src^="${a}"]`).src.slice(a=a.length,a+11))('https://www.youtube.com/embed/')],
+            ['Extract embedded video', () => {
+              // (a=>location.href='https://www.youtube.com/watch?v='+document.querySelector(`iframe[src^="${a}"]`).src.slice(a=a.length,a+11))('https://www.youtube.com/embed/')
+              const f = () => {
+                const ee = qsa('iframe');
+                if(ee.length === 0) return setTimeout(f);
+
+                const e = ee[0];
+                location.href = e.src;
+              };
+              f();
+            }],
             ['Extract magnet link', () => location.href = document.querySelector('a[href^="magnet:"]').href],
             ['Extract lyrics', () => {
               const lyrics = [];
@@ -186,12 +198,14 @@
                 evt.preventDefault('ublock');
                 evt.stopPropagation('ublock');
 
-                try{
-                  window.scrollTo(0, 0);
-                  const d = document;
-                  const e = d.body || d.documentElement;
-                  e.innerHTML = '';
-                }catch{}
+                if(window.parent.frames.length === 0){
+                  try{
+                    window.scrollTo(0, 0);
+                    const d = document;
+                    const e = d.body || d.documentElement;
+                    e.innerHTML = '';
+                  }catch{}
+                }
                 
                 w.location.reload();
                 break;
