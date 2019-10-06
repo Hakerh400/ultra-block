@@ -38,7 +38,7 @@
       for(e of qsa('a[href="https://bitcoin.org"]')){
         const e1 = e.parentNode;
         if(e1){
-          const e2 = e1 && e1.parentNode;
+          const e2 = e1.parentNode;
           if(e2 && !qs(e2, '.download')) e2.remove();
           else e1.remove();
         }
