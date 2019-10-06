@@ -39,7 +39,7 @@
         const e1 = e.parentNode;
         if(e1){
           const e2 = e1.parentNode;
-          if(e2 && !qs(e2, '.download')) e2.remove();
+          if(e2 && e2 !== document.body && !qs(e2, '.download')) e2.remove();
           else e1.remove();
         }
       }
