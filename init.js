@@ -283,7 +283,8 @@
         if(
           location.href.startsWith('https://mail.google.com/') ||
           location.href.startsWith('https://translate.google.co.uk/') ||
-          location.href.startsWith('https://esolangs.org/w/index.php')
+          location.href.startsWith('https://esolangs.org/w/index.php') ||
+          location.href.startsWith('https://outlook.office.com/')
         ){
           disableListeners();
           return;
