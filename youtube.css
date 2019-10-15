@@ -12,6 +12,9 @@
 #contentContainer,
 .ytp-fullerscreen-edu-button,
 #hover-overlays,
+#header-container,
+#sort-menu,
+#dot,
 /*#less,
 #more,*/
 
@@ -166,6 +169,6 @@ body.ub3 img.style-scope.yt-img-shadow{
 }
 
 #date.style-scope.ytd-video-primary-info-renderer yt-formatted-string.style-scope.ytd-video-primary-info-renderer{
-  margin-left: -4.703125px !important;
+  /*margin-left: -4.703125px !important;*/
   color: rgb(96, 96, 96) !important;
 }
