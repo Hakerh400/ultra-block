@@ -17,6 +17,8 @@
     var isBottomVisible = true;
 
     ael('keydown', evt => {
+      if(evt.shiftKey || evt.ctrlKey) return;
+
       switch(evt.code){
         case 'KeyT':
           isBottomVisible = !isBottomVisible;

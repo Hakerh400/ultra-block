@@ -12,9 +12,11 @@
     "default_popup": "popup.htm"
   },
 
+  "incognito": "split",
+
   "permissions": [
-    "tabs",
     "<all_urls>",
+    "tabs",
     "contextMenus",
     "webRequest",
     "webRequestBlocking",

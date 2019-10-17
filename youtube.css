@@ -172,3 +172,7 @@ body.ub3 img.style-scope.yt-img-shadow{
   /*margin-left: -4.703125px !important;*/
   color: rgb(96, 96, 96) !important;
 }
+
+ytd-search.style-scope.ytd-page-manager{
+  outline: none !important;
+}

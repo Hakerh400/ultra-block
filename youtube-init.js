@@ -1,8 +1,6 @@
 (() => {
   'use strict';
 
-  if(window.location.href.startsWith('http://localhost/')) return;
-
   var script = () => {
     (() => {
       'use strict';
