@@ -152,6 +152,12 @@
       "run_at": "document_start",
       "all_frames": true
     }, {
+      "matches": ["https://unsplash.com/*"],
+      "js": ["unsplash.js"],
+      "css": ["unsplash.css"],
+      "run_at": "document_start",
+      "all_frames": true
+    }, {
       "matches": ["https://www.instagram.com/*"],
       "css": ["instagram.css"],
       "run_at": "document_start",

@@ -3,6 +3,8 @@
 
   const A = 1;
 
+  const inco = chrome.extension.inIncognitoContext;
+
   var blackList = [
   ];
 
@@ -26,6 +28,9 @@
     var redirect = redirectionsList.find(([a]) => a.test(url));
     if(redirect) return {redirectUrl: evt.url.replace(redirect[1], redirect[2])};
 
+    if(inco){
+    }
+    
     var testFunc = a => {
       if(a instanceof RegExp) return a.test(url);
       return urlLower.includes(a);

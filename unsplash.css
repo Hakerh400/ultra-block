@@ -1,0 +1,7 @@
+._2IASm,
+figure[itemprop="image"]:not(.ublock-safe){
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}

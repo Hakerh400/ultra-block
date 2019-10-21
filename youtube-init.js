@@ -1,6 +1,11 @@
 (() => {
   'use strict';
 
+  const inco = chrome.extension.inIncognitoContext;
+
+  if(inco){
+  }
+
   var script = () => {
     (() => {
       'use strict';
