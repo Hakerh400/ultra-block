@@ -7,14 +7,14 @@
   const inco = chrome.extension.inIncognitoContext;
   const kws = href.match(/[\?\&]search_query=([^&]+)/)[1].split('+').filter(a => !a.startsWith('-'));
 
-  const blackList = [
-  ];
+  const blackList = inco ? [
+  ] : [];
 
-  const blackListMeta = [
-  ];
+  const blackListMeta = inco ? [
+  ] : [];
 
-  const blackListTitle = [
-  ];
+  const blackListTitle = inco ? [
+  ] : [];
 
   const blackListChannel = arr2obj([
   ]);
@@ -111,7 +111,7 @@
   }
 
   function checkTitle(e){
-    // if(!inco) return 1;
+    if(!inco) return 1;
     dbgType = types.TITLE;
 
     const str = e.innerText;
