@@ -143,8 +143,7 @@
       requestAnimationFrame(check);
     }
 
-    function onBuffering(){
-    }
+    function onBuffering(){}
 
     function onReady(){
       video.currentTime -= 5;
@@ -382,6 +381,18 @@
         }
         
         rf(url, e, updateTitle);
+      }
+
+      for(const e of qsa('ytd-grid-video-renderer:not(.ublock-safe)')){
+        const e1 = qs(e, '#byline-container');
+        if(!e1) continue;
+
+        if(!e1.hasAttribute('hidden')){
+          e.remove();
+          continue;
+        }
+
+        show(e);
       }
 
       if(/[\?\&]v\=/.test(top.location.href)){
