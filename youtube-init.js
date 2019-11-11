@@ -94,9 +94,11 @@
                       videoHiddenLevel--;
                     }, 2e3);
                   }, 2e3);
-                }else{
-                  callFunc(func, evt);
+
+                  return;
                 }
+                
+                callFunc(func, evt);
               };
             }
           }

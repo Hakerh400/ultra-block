@@ -219,7 +219,7 @@
           case 'KeyW': toggleRelated(evt); break;
           case 'KeyE': toggleDescription(evt); break;
           case 'KeyR': toggleComments(evt); break;
-          case 'KeyY': exitPlaylist(evt); break;
+          // case 'KeyY': exitPlaylist(evt); break;
           case 'KeyA': evt.preventDefault(); musicMode ^= 1; break;
 
           case 'KeyD':
