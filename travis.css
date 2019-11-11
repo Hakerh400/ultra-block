@@ -1,0 +1,7 @@
+div[class="log-body"] .log-line:hover:not(:first-of-type){
+  background-color: transparent !important;
+}
+
+div[class="log-body"] .log-line:hover:first-of-type{
+  background-color: #2b2b2b !important;
+}

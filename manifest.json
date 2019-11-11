@@ -179,6 +179,11 @@
       "css": ["codechef.css"],
       "run_at": "document_start",
       "all_frames": true
+    }, {
+      "matches": ["https://travis-ci.org/*"],
+      "css": ["travis.css"],
+      "run_at": "document_start",
+      "all_frames": true
     }
   ],
 

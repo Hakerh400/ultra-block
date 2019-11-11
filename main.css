@@ -334,3 +334,20 @@ a:active
 body.displaying-homepage .frame{
   height: 100% !important;
 }
+
+.ublock-video{
+  width: auto !important;
+  height: auto !important;
+}
+
+.ublock-rot-0 .ublock-video,
+.ublock-rot-2 .ublock-video{
+  min-width: 1920px !important;
+  min-height: 1080px !important;
+}
+
+.ublock-rot-1 .ublock-video,
+.ublock-rot-3 .ublock-video{
+  min-width: 1080px !important;
+  min-height: 1920px !important;
+}
