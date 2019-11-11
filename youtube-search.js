@@ -7,6 +7,8 @@
   const inco = chrome.extension.inIncognitoContext;
   const kws = href.match(/[\?\&]search_query=([^&]+)/)[1].split('+').filter(a => !a.startsWith('-'));
 
+  let capsReg = /\b[A-Z]/g;
+
   const blackList = inco ? [
   ] : [];
 
@@ -105,7 +107,8 @@
       }
     }
 
-    if(blackListMeta.some(func)) return 0;
+    if(blackListMeta.some(func))
+      return 0;
 
     return 1;
   }
@@ -118,10 +121,10 @@
     const lcStr = str.toLowerCase();
     const func = checkFunc(str);
 
-    const caps = str.replace(/[^A-Z]+/g, '').length;
+    const caps = str.replace(capsReg, '').replace(/[^A-Z]+/g, '').length;
     const ncaps = str.replace(/[^a-z]+/g, '').length;
 
-    if(caps >= 8 && ncaps <= 3){
+    if(caps >= 3 && (caps + 1) / (caps + ncaps + 2) > .2){
       if(DEBUG) dbg = 'Too many capital letters';
       return 0;
     }

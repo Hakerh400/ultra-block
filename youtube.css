@@ -12,7 +12,7 @@
 #contentContainer,
 .ytp-fullerscreen-edu-button,
 #hover-overlays,
-#header-container,
+/*#header-container,*/
 #sort-menu,
 #dot,
 #donation-shelf,
@@ -33,6 +33,8 @@ yt-page-navigation-progress,
 ytd-channel-renderer,
 ytd-shelf-renderer,
 ytd-horizontal-card-list-renderer,
+ytd-miniplayer,
+ytd-badge-supported-renderer,
 ytd-thumbnail-overlay-resume-playback-renderer{
   display: none !important;
   visibility: hidden !important;
