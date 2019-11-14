@@ -161,12 +161,18 @@ img[src*=".gif?" i],
   visibility: hidden !important;
 }
 
-body:not(.env-production) a,
-body:not(.env-production) a:link,
-body:not(.env-production) a:visited,
-body:not(.env-production) a:hover,
-body:not(.env-production) a:active{
+body:not(.env-production) a:not(.ublock-safe-link),
+body:not(.env-production) a:link:not(.ublock-safe-link),
+body:not(.env-production) a:visited:not(.ublock-safe-link),
+body:not(.env-production) a:hover:not(.ublock-safe-link),
+body:not(.env-production) a:active:not(.ublock-safe-link){
   color: blue !important;
+  pointer-events: none !important;
+}
+
+.ublock-safe-link{
+  color: blue !important;
+  cursor: pointer !important;
 }
 
 /*body,
@@ -342,12 +348,12 @@ body.displaying-homepage .frame{
 
 .ublock-rot-0 .ublock-video,
 .ublock-rot-2 .ublock-video{
-  min-width: 1920px !important;
-  min-height: 1080px !important;
+  width: 100% !important;
+  height: 100% !important;
 }
 
 .ublock-rot-1 .ublock-video,
 .ublock-rot-3 .ublock-video{
-  min-width: 1080px !important;
-  min-height: 1920px !important;
+  width: 100% !important;
+  height: 100% !important;
 }
