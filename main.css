@@ -169,22 +169,6 @@ body:not(.env-production) a:active{
   color: blue !important;
 }
 
-a:not(.ublock-safe-link),
-a:link:not(.ublock-safe-link),
-a:visited:not(.ublock-safe-link),
-a:hover:not(.ublock-safe-link),
-a:active:not(.ublock-safe-link){
-  pointer-events: none !important;
-}
-
-a.ublock-safe-link,
-a:link.ublock-safe-link,
-a:visited.ublock-safe-link,
-a:hover.ublock-safe-link,
-a:active.ublock-safe-link{
-  cursor: pointer !important;
-}
-
 /*body,
 header{
   margin-top: 0px !important;

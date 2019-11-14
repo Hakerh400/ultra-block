@@ -12,6 +12,7 @@
 #contentContainer,
 .ytp-fullerscreen-edu-button,
 #hover-overlays,
+.yt-simple-endpoint.style-scope.ytd-video-owner-renderer,
 /*#header-container,*/
 #sort-menu,
 #dot,
@@ -35,6 +36,7 @@ ytd-shelf-renderer,
 ytd-horizontal-card-list-renderer,
 ytd-miniplayer,
 ytd-badge-supported-renderer,
+ytd-channel-sub-menu-renderer,
 ytd-thumbnail-overlay-resume-playback-renderer{
   display: none !important;
   visibility: hidden !important;

@@ -16,24 +16,10 @@
       return setTimeout(main);
 
     const block = () => {
-      if(stage === 0){
-        for(const e of qsa('a,form'))
-          e.removeAttribute('target');
-      }
+      for(const e of qsa('a,form'))
+        e.removeAttribute('target');
 
-      for(const e of qsa('a:not(.ublock-safe-link)')){
-        const {href} = e;
-
-        e.removeAttribute('href');
-        show(e);
-
-        e.addEventListener('mousedown', evt => {
-          e.href = href;
-          setTimeout(() => e.removeAttribute('href'), 1e3);
-        });
-      }
-
-      setTimeout(() => requestAnimationFrame(block), 100);
+      if(stage === 0) setTimeout(block);
     };
 
     block();
