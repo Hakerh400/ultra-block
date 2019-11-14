@@ -161,11 +161,11 @@ img[src*=".gif?" i],
   visibility: hidden !important;
 }
 
-body:not(.env-production) a:not(.ublock-safe-link),
-body:not(.env-production) a:link:not(.ublock-safe-link),
-body:not(.env-production) a:visited:not(.ublock-safe-link),
-body:not(.env-production) a:hover:not(.ublock-safe-link),
-body:not(.env-production) a:active:not(.ublock-safe-link){
+body:not(.env-production) a,
+body:not(.env-production) a:link,
+body:not(.env-production) a:visited,
+body:not(.env-production) a:hover,
+body:not(.env-production) a:active{
   color: blue !important;
 }
 
