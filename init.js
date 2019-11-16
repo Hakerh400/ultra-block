@@ -81,6 +81,27 @@
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+        Object.defineProperty(window, 'scrollTop', {value:nop});
+        Object.defineProperty(window, 'scrollLeft', {value:nop});
+        Object.defineProperty(window, 'scrollWidth', {value:nop});
+        Object.defineProperty(window, 'scrollHeight', {value:nop});
+        Object.defineProperty(window, 'scrollIntoView', {value:nop});
+        Object.defineProperty(window, 'scroll', {value:nop});
+        Object.defineProperty(window, 'scrollTo', {value:nop});
+        Object.defineProperty(window, 'scrollBy', {value:nop});
+        Object.defineProperty(window, 'scrollIntoViewIfNeeded', {value:nop});
+        Object.defineProperty(Element.prototype, 'scrollTop', {value:nop});
+        Object.defineProperty(Element.prototype, 'scrollLeft', {value:nop});
+        Object.defineProperty(Element.prototype, 'scrollWidth', {value:nop});
+        Object.defineProperty(Element.prototype, 'scrollHeight', {value:nop});
+        Object.defineProperty(Element.prototype, 'scrollIntoView', {value:nop});
+        Object.defineProperty(Element.prototype, 'scroll', {value:nop});
+        Object.defineProperty(Element.prototype, 'scrollTo', {value:nop});
+        Object.defineProperty(Element.prototype, 'scrollBy', {value:nop});
+        Object.defineProperty(Element.prototype, 'scrollIntoViewIfNeeded', {value:nop});
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
         const enhanceVideo = () => {
           const shouldBeMuted = url.startsWith('file:///') && !url.startsWith('file:///D:/Music/');
 
