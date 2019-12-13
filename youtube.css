@@ -119,21 +119,6 @@ h1.title:not(.ublock_safe){
   margin-left: 0px !important;
 }
 
-body.ub1 img.style-scope.yt-img-shadow{
-  /* 280 250 */
-  clip-path: polygon(0% 0%, 100% 0%, 100% 75%, 72% 75%, 72% 100%, 0% 100%, 0% 0%) !important;
-}
-
-body.ub2 img.style-scope.yt-img-shadow{
-  /* 242 250 */
-  clip-path: polygon(25% 0%, 75% 0%, 75% 25%, 100% 25%, 100% 100%, 0% 100%, 0% 25%, 25% 25%) !important;
-}
-
-body.ub3 img.style-scope.yt-img-shadow{
-  /* 122 1000 */
-  clip-path: polygon(13% 0%, 100% 0%, 100% 100%, 0% 100%, 13% 100%) !important;
-}
-
 #masthead-container{
   position: static !important;
   transition-duration: 0s !important;
@@ -181,4 +166,24 @@ body.ub3 img.style-scope.yt-img-shadow{
 
 ytd-search.style-scope.ytd-page-manager{
   outline: none !important;
+}
+
+body.ub1 img.style-scope.yt-img-shadow{
+  /* 280 250 */
+  clip-path: polygon(0% 0%, 100% 0%, 100% 75%, 72% 75%, 72% 100%, 0% 100%, 0% 0%) !important;
+}
+
+body.ub2 img.style-scope.yt-img-shadow{
+  /* 242 250 */
+  clip-path: polygon(25% 0%, 75% 0%, 75% 25%, 100% 25%, 100% 100%, 0% 100%, 0% 25%, 25% 25%) !important;
+}
+
+body.ub3 img.style-scope.yt-img-shadow{
+  /* 122 1000 */
+  clip-path: polygon(13% 0%, 100% 0%, 100% 100%, 0% 100%, 13% 100%) !important;
+}
+
+body.ub4 img.style-scope.yt-img-shadow{
+  /* 190 214 */
+  clip-path: polygon(19% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 22%, 19% 22%) !important;
 }
