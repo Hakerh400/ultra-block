@@ -3,6 +3,8 @@
 
   const DEBUG = 0;
 
+  const DURATION_MIN = 60 * 2;
+
   const {href} = top.location;
   const inco = chrome.extension.inIncognitoContext;
   const kws = href.match(/[\?\&]search_query=([^&]+)/)[1].split('+').filter(a => !a.startsWith('-'));
@@ -25,6 +27,7 @@
   ]);
 
   const types = createEnum([
+    'DURATION',
     'META',
     'TITLE',
     'DESC',
@@ -32,6 +35,7 @@
   ]);
 
   const dbgTypes = {
+    [types.DURATION]: 'Duration',
     [types.META]: 'Meta',
     [types.TITLE]: 'Title',
     [types.DESC]: 'Description',
@@ -57,13 +61,20 @@
       let e;
 
       for(e of qsa('ytd-video-renderer:not(.ublock-safe)')){
+        const duration = qs(e, 'ytd-thumbnail-overlay-time-status-renderer');
         const meta = qs(e, '#metadata');
         const title = qs(e, '#title-wrapper');
         const desc = qs(e, '#description-text');
         const channel = qs(e, '#byline-container a');
-        if(!(meta && title && desc && channel)) continue;
+        if(!(duration && meta && title && desc && channel)) continue;
 
-        if(checkMeta(meta) && checkTitle(title) && checkDesc(desc) && checkChannel(channel)){
+        if(
+          checkDuration(duration) &&
+          checkMeta(meta) &&
+          checkTitle(title) &&
+          checkDesc(desc) &&
+          checkChannel(channel)
+        ){
           show(e);
         }else if(DEBUG){
           e.style.backgroundColor = 'red';
@@ -80,9 +91,26 @@
     }
   }
 
+  function checkDuration(e){
+    if(!inco) return 1;
+    if(DEBUG) dbgType = types.DURATION;
+
+    const str = e.innerText.trim();
+    const dur = str.split(':').reduce((a, b) => {
+      return a * 60 + (b.trim() | 0);
+    }, 0);
+
+    if(dur < DURATION_MIN){
+      if(DEBUG) dbg = 'Too short';
+      return 0;
+    }
+
+    return 1;
+  }
+
   function checkMeta(e){
     if(!inco) return 1;
-    dbgType = types.META;
+    if(DEBUG) dbgType = types.META;
 
     const str = e.innerText;
     const func = checkFunc(str);
@@ -115,7 +143,7 @@
 
   function checkTitle(e){
     if(!inco) return 1;
-    dbgType = types.TITLE;
+    if(DEBUG) dbgType = types.TITLE;
 
     const str = e.innerText;
     const lcStr = str.toLowerCase();
@@ -143,7 +171,7 @@
 
   function checkDesc(e){
     if(!inco) return 1;
-    dbgType = types.DESC;
+    if(DEBUG) dbgType = types.DESC;
 
     const str = e.innerText;
     const func = checkFunc(str);
@@ -153,7 +181,7 @@
   }
 
   function checkChannel(e){
-    dbgType = types.CHANNEL;
+    if(DEBUG) dbgType = types.CHANNEL;
 
     const channel = dbg = e.href.match(/\/[^\/]+$/)[0].slice(1);
     return !(channel in blackListChannel || channel in blackListUser);
