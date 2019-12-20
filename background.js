@@ -22,6 +22,8 @@
   ];
 
   chrome.webRequest.onBeforeRequest.addListener(evt => {
+    if(evt.initiator === 'https://drive.google.com') return;
+
     var url = evt.url.match(/^[^\/]+?\:\/{2,3}(.+)/)[1];
     var urlLower = url.toLowerCase();
 

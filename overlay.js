@@ -14,14 +14,20 @@
   function main(){
     if(!document.body) return setTimeout(main);
 
-    var isBottomVisible = true;
+    let isTopVisible = 1;
+    let isBottomVisible = 1;
 
     ael('keydown', evt => {
       if(evt.shiftKey || evt.ctrlKey) return;
 
       switch(evt.code){
+        case 'Backquote':
+          isTopVisible ^= 1;
+          render();
+          break;
+
         case 'KeyT':
-          isBottomVisible = !isBottomVisible;
+          isBottomVisible ^= 1;
           render();
           break;
       }
@@ -198,8 +204,10 @@
 
       var [a, b, c, d] = blocks;
 
-      g.fillRect(0, 0, a[0], a[1]);
-      g.fillRect(b[0], 0, w - b[0], b[1]);
+      if(isTopVisible){
+        g.fillRect(0, 0, a[0], a[1]);
+        g.fillRect(b[0], 0, w - b[0], b[1]);
+      }
 
       if(isBottomVisible){
         g.fillRect(0, c[1], c[0], h - c[1]);
