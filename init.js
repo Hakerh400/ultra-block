@@ -331,7 +331,7 @@
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        {
+        if(w === top){
           const blackList = [
             'https://www.youtube.com/',
           ];
@@ -726,7 +726,7 @@
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        if(url.startsWith('https://www.youtube.com/') && !url.includes('&list=')) (() => {
+        if(1/*url.startsWith('https://www.youtube.com/') && !url.includes('&list=')*/) (() => {
           proxify(w.Node.prototype, 'appendChild', {
             apply(f, t, args){
               var result = f.apply(t, args);
@@ -735,7 +735,9 @@
               if(elem.tagName === 'IFRAME'){
                 try{
                   ublockFunc(elem.contentWindow, url);
-                }catch(e){}
+                }catch(e){
+                  alert_(e.stack);
+                }
               }
 
               return result;

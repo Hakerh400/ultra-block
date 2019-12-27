@@ -111,3 +111,9 @@ table.highlight:not(.ublock-safe){
 .header-search-input{
   color: transparent !important;
 }
+
+.pl-token:hover{
+  background: transparent !important;
+  cursor: default !important;
+  pointer-events: none !important;
+}
