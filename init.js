@@ -726,7 +726,10 @@
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        if(1/*url.startsWith('https://www.youtube.com/') && !url.includes('&list=')*/) (() => {
+        if(
+          url.startsWith('https://www.youtube.com/') && !url.includes('&list=') ||
+          url.startsWith('https://github.com/')
+        ) (() => {
           proxify(w.Node.prototype, 'appendChild', {
             apply(f, t, args){
               var result = f.apply(t, args);
@@ -736,7 +739,7 @@
                 try{
                   ublockFunc(elem.contentWindow, url);
                 }catch(e){
-                  alert_(e.stack);
+                  // alert_(e.stack);
                 }
               }
 

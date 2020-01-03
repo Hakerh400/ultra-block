@@ -58,6 +58,9 @@ img[src*="banner" i],
 *[id*="back-to-top" i],
 *[class*="scrollup" i],
 *[class*="back-to-top" i],
+#to-top,
+.to-top,
+
 form[action*="paypal"],
 
 /* google */
@@ -109,6 +112,9 @@ div[aria-label="ask new question"],
 .post-menu,
 div[id^="comments-link-"],
 .js-cursor-container,
+header.top-bar.js-top-bar,
+header.site-header,
+a[href="/questions/ask"],
 
 /* wikipedia */
 .uls-lcd-region-section.uls-lcd-quicklist,

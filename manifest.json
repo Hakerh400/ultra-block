@@ -180,7 +180,10 @@
       "run_at": "document_start",
       "all_frames": true
     }, {
-      "matches": ["https://travis-ci.org/*"],
+      "matches": [
+        "https://travis-ci.org/*",
+        "https://travis-ci.com/*"
+      ],
       "css": ["travis.css"],
       "run_at": "document_start",
       "all_frames": true
