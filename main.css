@@ -284,6 +284,7 @@ chops-toggle,
 .role-label,
 chops-snackbar,
 mr-cue[cueprefname="availability_msgs"],
+mr-cue[cueprefname="code_of_conduct"],
 video{
   display: none !important;
   visibility: hidden !important;
