@@ -148,6 +148,9 @@ a[href*="bitbigs"],
 .scroll-to-top,
 #scroll-to-top,
 
+/* chromium */
+.new-link,
+
 a[href*="bitlord.me/"],
 
 ::-webkit-scrollbar,
@@ -285,6 +288,7 @@ chops-toggle,
 chops-snackbar,
 mr-cue[cueprefname="availability_msgs"],
 mr-cue[cueprefname="code_of_conduct"],
+.new-link,
 video{
   display: none !important;
   visibility: hidden !important;
