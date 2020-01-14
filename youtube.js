@@ -358,15 +358,16 @@
           });
 
           if(!channelElem) continue;
-          const channel = channelElem.textContent.trim();
+          const channel = channelElem.textContent.trim().replace(/[\r\n].*/s, '').trim();
           if(!channel) continue;
           document.title = channel;
 
-          let title = e.textContent.trim();
-
           if(title.startsWith(channel)){
-            title = title.slice(channel.length);
-            title = title.replace(/^(?:\s*[\:\-\~]\s*)/, '');
+            title = title.slice(channel.length).
+              replace(/^(?:\s*[\:\-\~]\s*)/, '');
+          }else if(title.endsWith(channel)){
+            title = title.slice(0, title.length - channel.length).
+              replace(/(?:\s*[\:\-\~]\s*)$/, '');
           }
 
           e.textContent = title;
@@ -403,7 +404,7 @@
 
           const channelElem = qs('#channel-name.ytd-video-owner-renderer');
           if(!channelElem) continue;
-          const channel = channelElem.textContent.trim();
+          const channel = channelElem.textContent.trim().replace(/[\r\n].*/s, '').trim();
           if(!channel) continue;
           let title = e.textContent.trim();
           if(!title) continue;
@@ -413,8 +414,11 @@
           // updateStat(e);
 
           if(title.startsWith(channel)){
-            title = title.slice(channel.length);
-            title = title.replace(/^(?:\s*[\:\-\~]\s*)/, '');
+            title = title.slice(channel.length).
+              replace(/^(?:\s*[\:\-\~]\s*)/, '');
+          }else if(title.endsWith(channel)){
+            title = title.slice(0, title.length - channel.length).
+              replace(/(?:\s*[\:\-\~]\s*)$/, '');
           }
 
           const f = () => {
