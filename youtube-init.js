@@ -49,6 +49,16 @@
       var func = null;
       var rot = 0;
 
+      {
+        const f = () => {
+          if(document.title === '\u034f') return;
+          document.title = ['ublock-title', ''];
+          document.title = '\u034F';
+          setTimeout(f);
+        };
+        f();
+      }
+
       EventTarget.prototype.addEventListener = new Proxy(EventTarget.prototype.addEventListener, {
         apply(f, t, args){
           if(args[0] === 'keydown'){

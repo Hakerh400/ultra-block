@@ -362,6 +362,8 @@
           if(!channel) continue;
           document.title = channel;
 
+          let title = e.textContent.trim();
+
           if(title.startsWith(channel)){
             title = title.slice(channel.length).
               replace(/^(?:\s*[\:\-\~]\s*)/, '');
