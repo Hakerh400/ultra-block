@@ -53,8 +53,8 @@
         const f = () => {
           if(document.title === '\u034f') return;
           document.title = ['ublock-title', ''];
-          document.title = '\u034F';
-          setTimeout(f);
+          // document.title = '\u034F';
+          setTimeout(f, 1e3);
         };
         f();
       }
