@@ -26,6 +26,10 @@
   const blackListUser = arr2obj([
   ]);
 
+  const blackListChannelName = [
+    /^[A-Z][a-z]+ [A-Z][a-z]+ic$/,
+  ];
+
   const types = createEnum([
     'DURATION',
     'META',
@@ -184,14 +188,20 @@
     if(DEBUG) dbgType = types.CHANNEL;
 
     const channel = dbg = e.href.match(/\/[^\/]+$/)[0].slice(1);
-    return !(channel in blackListChannel || channel in blackListUser);
+    if(channel in blackListChannel || channel in blackListUser) return 1;
+
+    const name = e.innerText.trim();
+    const func = checkFunc(name);
+    
+    if(blackListChannelName.find(func)) return 0;
+    return 1;
   }
 
   function checkFunc(str){
     return reg => {
       const found = reg.test(str);
       if(!found) return 0;
-      if(DEBUG) dbg = JSON.stringify(str.match(reg)[0]);
+      if(DEBUG) dbg = `${reg} ---> ${JSON.stringify(str.match(reg)[0])}`;
       return 1;
     };
   }
