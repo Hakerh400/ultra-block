@@ -27,7 +27,6 @@
   ]);
 
   const blackListChannelName = [
-    /^[A-Z][a-z]+ [A-Z][a-z]+ic$/,
   ];
 
   const types = createEnum([
