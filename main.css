@@ -115,6 +115,7 @@ div[id^="comments-link-"],
 header.top-bar.js-top-bar,
 header.site-header,
 a[href="/questions/ask"],
+svg.iconHistory,
 
 /* wikipedia */
 .uls-lcd-region-section.uls-lcd-quicklist,
@@ -142,7 +143,6 @@ a[href*="bitbigs"],
 
 /* chromedevtools */
 #mainToolbar,
-
 .beta-preloader,
 .networkLag,
 .scroll-to-top,
@@ -363,4 +363,10 @@ body.displaying-homepage .frame{
 .ublock-rot-3 .ublock-video{
   width: 100% !important;
   height: 100% !important;
+}
+
+/* esolangs */
+#eof.n{
+  opacity: 0 !important;
+  pointer-events: none !important;
 }
