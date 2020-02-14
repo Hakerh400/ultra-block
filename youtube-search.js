@@ -187,7 +187,7 @@
     if(DEBUG) dbgType = types.CHANNEL;
 
     const channel = dbg = e.href.match(/\/[^\/]+$/)[0].slice(1);
-    if(channel in blackListChannel || channel in blackListUser) return 1;
+    if(channel in blackListChannel || channel in blackListUser) return 0;
 
     const name = e.innerText.trim();
     const func = checkFunc(name);

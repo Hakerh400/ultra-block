@@ -60,7 +60,9 @@
 
       EventTarget.prototype.addEventListener = new Proxy(EventTarget.prototype.addEventListener, {
         apply(f, t, args){
-          if(args[0] === 'keydown'){
+          const type = args[0];
+
+          if(type === 'keydown'){
             args[1] = (func => {
               return evt => {
                 if(evt.code === 'KeyT' && !('' in func)) return nop;
@@ -110,6 +112,16 @@
                 callFunc(func, evt);
               };
             }
+          }else if(type === 'mouseenter'){
+            const f = args[1];
+
+            args[1] = evt => {
+              const {clientX: x, clientY: y} = evt;
+              const ee = [...document.elementsFromPoint(x, y)];
+              const ok = ee.some(e => e.tagName.toLowerCase() === 'ytd-thumbnail');
+
+              if(ok) return f(evt);
+            };
           }
 
           return f.apply(t, args);
