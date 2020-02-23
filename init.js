@@ -160,6 +160,9 @@
                 w.lyrics = lyrics.join('\n').trim();
               });
             }],
+            ['Go to YouTube', () => {
+              location.href = `https://www.youtube.com/watch?v=${location.href.match(/([a-zA-Z0-9\-\_]{11})\.[^\.]+$/)[1]}`;
+            }],
           ];
 
           w.addEventListener('keydown', evt => {
