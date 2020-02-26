@@ -161,7 +161,7 @@
               });
             }],
             ['Go to YouTube', () => {
-              location.href = `https://www.youtube.com/watch?v=${location.href.match(/([a-zA-Z0-9\-\_]{11})\.[^\.]+$/)[1]}`;
+              location.href = `https://www.youtube.com/watch?v=${location.href.match(/([a-zA-Z0-9\-\_]{11})\]?\.[^\.]+$/)[1]}`;
             }],
           ];
 
@@ -400,12 +400,12 @@
             const isLeft = evt.code === 'ArrowLeft';
             const isRight = evt.code === 'ArrowRight';
 
-            if(/^file.*\.png$/.test(url)){
+            if(/^file.*\.(?:png|jpg)$/.test(url)){
               if(nav) return;
               nav = 1;
 
               (async () => {
-                const match = url.match(/(\d+)\.png$/)[1];
+                const [prefix, match] = url.match(/\/(.*?)(\d+)\)?\.(?:png|jpg)$/).slice(1);
                 const index = match | 0;
                 const len = match.length;
 
@@ -413,7 +413,11 @@
 
                 async function getNextImgUrl(){
                   const indexNext = await getNextIndex(index);
-                  return getUrl(indexNext);
+
+                  if(await exists(indexNext, 1))
+                    return getUrl(indexNext, 1);
+
+                  return getUrl(indexNext, 0);
                 }
 
                 async function getNextIndex(index){
@@ -447,7 +451,7 @@
                   return start;
                 }
 
-                function exists(index){
+                function exists(index, pad=1){
                   return new Promise(res => {
                     const b = res.bind;
                     const r = b.call(b, res, null);
@@ -455,12 +459,15 @@
                     
                     img.onload = r(1);
                     img.onerror = r(0);
-                    img.src = getUrl(index);
+                    img.src = getUrl(index, pad);
                   });
                 }
 
-                function getUrl(index){
-                  return url.replace(/\d+\.png/, a => a.replace(/\d+/, String(index).padStart(len, '0')));
+                function getUrl(index, pad=1){
+                  return url.replace(/(\/.*?)(\d+)(\)?\.(?:png|jpg))$/, (a, b, c, d) => {
+                    const s = pad ? String(index).padStart(len, '0') : String(index);
+                    return `${b}${s}${d}`;
+                  });
                 }
               })().catch(log);
               return;
@@ -469,7 +476,7 @@
             rot = rot + (isLeft ? -1 : 1) & 3;
 
             const c = document.body.classList;
-            const index = [...c].findIndex(a => /^ublock-rot-[0123]$/.test(a));
+            const index = [...c].findIndex(a => /^ublock-rot-[0123]\)?$/.test(a));
 
             if(index !== -1) c.remove(c[index]);
             c.add(`ublock-rot-${rot}`);
