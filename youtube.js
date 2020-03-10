@@ -749,14 +749,17 @@
     }
 
     function updateTitle(url, str, e){
-      const id = url.match(/[?&]v=(.{11})/)[1];
-      const match = str.match(new RegExp(`"videoId":"${id}","title":("(?:[^\\\\"]|\\\\.)+")`));
+      const match = url.match(/[?&]v=(.{11})/);
+      if(match === null) return;
+
+      const id = match[1];
+      const m = str.match(new RegExp(`"videoId":"${id}","title":("(?:[^\\\\"]|\\\\.)+")`));
       let title;
 
-      if(match === null){
+      if(m === null){
         title = '_ublock_error_';
       }else{
-        title = JSON.parse(match[1]);
+        title = JSON.parse(m[1]);
       }
 
       e.innerHTML = '';
