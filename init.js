@@ -476,7 +476,7 @@
             rot = rot + (isLeft ? -1 : 1) & 3;
 
             const c = document.body.classList;
-            const index = [...c].findIndex(a => /^ublock-rot-[0123]\)?$/.test(a));
+            const index = [...c].findIndex(a => /^ublock-rot-[0123]$/.test(a));
 
             if(index !== -1) c.remove(c[index]);
             c.add(`ublock-rot-${rot}`);

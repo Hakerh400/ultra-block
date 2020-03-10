@@ -23,7 +23,7 @@
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  const PREVENT_TITLE_TRANSLATION = 0;
+  const PREVENT_TITLE_TRANSLATION = 1;
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -399,43 +399,49 @@
       }
 
       if(/[\?\&]v\=/.test(top.location.href)){
-        ee = document.querySelectorAll('h1.title:not(.ublock_safe)');
-        for(i = 0; i < ee.length; i++){
-          e = ee[i];
+        const ee = document.querySelectorAll('h1.title:not(.ublock_safe)');
+        for(let i = 0; i < ee.length; i++){
+          const e = ee[i];
           if(e[symbs.status]) continue;
 
-          const channelElem = qs('#channel-name.ytd-video-owner-renderer');
-          if(!channelElem) continue;
-          const channel = channelElem.textContent.trim().replace(/[\r\n].*/s, '').trim();
-          if(!channel) continue;
-          let title = e.textContent.trim();
-          if(!title) continue;
+          const next = () => {
+            const channelElem = qs('#channel-name.ytd-video-owner-renderer');
+            if(!channelElem) return;
+            const channel = channelElem.textContent.trim().replace(/[\r\n].*/s, '').trim();
+            if(!channel) return;
+            let title = e.textContent.trim();
+            if(!title) return;
 
-          e[symbs.status] = 1;
+            e[symbs.status] = 1;
 
-          // updateStat(e);
+            if(title.startsWith(channel)){
+              title = title.slice(channel.length).
+                replace(/^(?:\s*[\:\-\~]\s*)/, '');
+            }else if(title.endsWith(channel)){
+              title = title.slice(0, title.length - channel.length).
+                replace(/(?:\s*[\:\-\~]\s*)$/, '');
+            }
 
-          if(title.startsWith(channel)){
-            title = title.slice(channel.length).
-              replace(/^(?:\s*[\:\-\~]\s*)/, '');
-          }else if(title.endsWith(channel)){
-            title = title.slice(0, title.length - channel.length).
-              replace(/(?:\s*[\:\-\~]\s*)$/, '');
-          }
+            const f = () => {
+              document.title = title;
+              if(!loaded) setTimeout(f);
+            };
 
-          const f = () => {
-            document.title = title;
-            if(!loaded) setTimeout(f);
+            f();
+
+            e.textContent = title;
+            e.classList.add('ublock_safe');
           };
 
-          f();
-
-          e.textContent = title;
-
           if(!PREVENT_TITLE_TRANSLATION){
-            e.classList.add('ublock_safe');
+            next();
             continue;
           }
+
+          rf(top.location.href, e, (...args) => {
+            updateTitle(...args);
+            next();
+          });
         }
       }
 
@@ -742,63 +748,22 @@
       elem.style.setProperty('pointer-events', 'none', 'important');
     }
 
-    function updateTitle(str, e){
-      var title;
+    function updateTitle(url, str, e){
+      const id = url.match(/[?&]v=(.{11})/)[1];
+      const match = str.match(new RegExp(`"videoId":"${id}","title":("(?:[^\\\\"]|\\\\.)+")`));
+      let title;
 
-      if(str === null){
-        title = document.title;
-        title = title.substring(0, title.length - 10);
+      if(match === null){
+        title = '_ublock_error_';
       }else{
-        title = str.match(/^\s*document.title = (".*");$/m);
-
-        if(title === null){
-          title = '_ublock_error_';
-        }else{
-          title = JSON.parse(title[1]);
-          title = title.substring(0, title.length - 10);
-        }
+        title = JSON.parse(match[1]);
       }
 
       e.innerHTML = '';
-      var text = document.createTextNode(title);
+      let text = document.createTextNode(title);
       e.appendChild(text);
 
       e.classList.add('ublock_safe');
-    }
-
-    function updateStat(e){
-      server({
-        type: 'status',
-        id: top.location.href.match(/[\?\&]v\=([^\&\#]+)/)[1],
-        channel: getChName(),
-        title: document.title.substring(0, document.title.length - 10),
-      }, res => {
-        if(res === null){
-          updateTitle(null, e);
-          return;
-        }
-
-        var span = e.querySelector('span');
-
-        if(!span){
-          updateTitle(null, e);
-          span = document.createElement('span');
-          e.appendChild(span);
-        }
-
-        var {style} = span;
-        style.marginLeft = '10px';
-        style.color = res.stat === stats.DOWNLOADING ? 'green' : 'blue';
-
-        if(res.stat !== stats.NOT_QUEUED){
-          var stat = O.cap(stats.name(res.stat), 1);
-          span.textContent = `[${stat}]`;
-        }
-
-        setTimeout(() => {
-          updateStat(e);
-        }, TIME);
-      });
     }
 
     function getChName(){
@@ -812,7 +777,7 @@
 
       xhr.onreadystatechange = () => {
         if(xhr.readyState !== 4) return;
-        cb(xhr.responseText, data);
+        cb(url, xhr.responseText, data);
       };
 
       xhr.open('GET', url);
