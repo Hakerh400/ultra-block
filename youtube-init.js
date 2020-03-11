@@ -200,6 +200,28 @@
 
       ////////////////////////////////////////////////////////////////////////////////////////////////////
 
+      if(location.href.startsWith('https://www.youtube.com/watch?')){
+        let config = undefined;
+
+        Object.defineProperty(window, 'ytplayer', {
+          value: {
+            get config(){ return config; },
+
+            set config(conf){
+              const prop = 'player_response';
+              const playerResponse = JSON.parse(conf.args[prop]);
+
+              delete playerResponse.adPlacements;
+              conf.args[prop] = JSON.stringify(playerResponse);
+
+              config = conf;
+            },
+          },
+        });
+      }
+
+      ////////////////////////////////////////////////////////////////////////////////////////////////////
+
       window.addEventListener('keydown', evt => {
         var activeElem = document.activeElement;
 

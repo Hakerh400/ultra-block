@@ -422,13 +422,6 @@
                 replace(/(?:\s*[\:\-\~]\s*)$/, '');
             }
 
-            const f = () => {
-              document.title = title;
-              if(!loaded) setTimeout(f);
-            };
-
-            f();
-
             e.textContent = title;
             e.classList.add('ublock_safe');
           };
