@@ -1,0 +1,11 @@
+*[role="banner"],
+*[role="heading"],
+*[role="progressbar"],
+*[data-testid="sidebarColumn"],
+*[data-testid="UserCell"],
+*[aria-label^="Loading"]{
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}

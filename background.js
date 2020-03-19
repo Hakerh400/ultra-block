@@ -32,17 +32,29 @@
 
     if(inco){
     }
+
+    let match = null;
     
-    var testFunc = a => {
-      if(a instanceof RegExp) return a.test(url);
-      return urlLower.includes(a);
+    const testFunc = test => {
+      let found = 0;
+
+      if(test instanceof RegExp) found = test.test(url);
+      else found = urlLower.includes(test);
+
+      if(found && match === null)
+        match = test;
+
+      return found;
     };
 
-    return {
-      cancel: !evt.url.startsWith('file:///') &&
-        !whiteList.some(testFunc) &&
-        blackList.some(testFunc),
-    };
+    const cancel = !evt.url.startsWith('file:///') &&
+      !whiteList.some(testFunc) &&
+      blackList.some(testFunc);
+
+    // if(cancel)
+    //   log(evt.url, match);
+
+    return {cancel};
   },
     {urls: ['<all_urls>']},
     ['blocking'],

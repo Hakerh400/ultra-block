@@ -180,6 +180,11 @@
       "run_at": "document_start",
       "all_frames": true
     }, {
+      "matches": ["https://twitter.com/*"],
+      "css": ["twitter.css"],
+      "run_at": "document_start",
+      "all_frames": true
+    }, {
       "matches": [
         "https://travis-ci.org/*",
         "https://travis-ci.com/*"
