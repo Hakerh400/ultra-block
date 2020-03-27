@@ -107,7 +107,7 @@
         const enhanceVideo = () => {
           const shouldBeMuted = url.startsWith('file:///') && !url.startsWith('file:///D:/Music/');
 
-          (q=>((v,S)=>{'controls,autoplay'.split`,`.map(a=>v.removeAttribute(a)),v.muted=shouldBeMuted,v.classList.add('ublock-video'),addEventListener('keydown',(a,b=!a.ctrlKey?a.keyCode:0,c='currentTime')=>b-37?b-39?b-77?b-116?1:(a.preventDefault(),v.pause(),S.src=(a=>(a=a.split`?`,a[1]='a='+Date.now()+Math.random(),a.join`?`))(S.src),v.load()):v.muted^=1:v[c]+=5:v[c]-=5);sessionStorage['ublock-prevent-hard-reload']=1})(q('video')[0],q('source')[0]))(a=>[...document.querySelectorAll(a)]);
+          (q=>((v,S)=>{'controls,autoplay'.split`,`.map(a=>v.removeAttribute(a)),v.muted=shouldBeMuted,v.classList.add('ublock-video'),addEventListener('keydown',(a,b=!a.ctrlKey?a.keyCode:0,c='currentTime')=>b-37?b-39?b-77?b-116?1:(a.preventDefault('ublock'),v.pause(),S.src=(a=>(a=a.split`?`,a[1]='a='+Date.now()+Math.random(),a.join`?`))(S.src),v.load()):v.muted^=1:v[c]+=5:v[c]-=5);sessionStorage['ublock-prevent-hard-reload']=1})(q('video')[0],q('source')[0]))(a=>[...document.querySelectorAll(a)]);
 
           document.body.classList.add('ublock-rot-0');
 
@@ -209,7 +209,6 @@
                 'auxclick',
                 'click',
                 'dblclick',
-                'contextmenu',
                 'wheel',
                 'mouseleave',
                 'mouseout',
@@ -267,6 +266,13 @@
               if(args[0] !== 'ublock'){
                 if(blackListedListeners.some(type => type === t.type)) return nop;
                 if(t.type === 'auxclick') return nop;
+
+                if(t.type === 'keydown'){
+                  const {code} = t;
+                  if(/^F\d+$/.test(code)) return nop;
+                  if(code === 'KeyJ' && t.ctrlKey && t.shiftKey) return nop;
+                  if(code === 'KeyL' && t.ctrlKey) return nop;
+                }
               }
 
               return f.apply(t, args);
@@ -280,12 +286,12 @@
             }
           });
 
-          proxify(w.Node.prototype, 'dispatchEvent', {
-            apply(f, t, args){
-              if(t.target) return nop;
-              return f.apply(t, args);
-            }
-          });
+          // proxify(w.Node.prototype, 'dispatchEvent', {
+          //   apply(f, t, args){
+          //     if(t.target) return nop;
+          //     return f.apply(t, args);
+          //   }
+          // });
 
           {
             let whiteList = [
@@ -667,7 +673,7 @@
         proxify(w, 'eval', {
           apply(f, t, args){
             if(`${args[0]}`.includes('payload')) return nop;
-            return f.apply(t, args);
+            return new Function(args[0])();
           }
         });
 

@@ -12,7 +12,7 @@
   main();
 
   function main(){
-    if(!document.body) return setTimeout(main);
+    // if(!document.body) return setTimeout(main);
 
     let isTopVisible = 1;
     let isBottomVisible = 1;

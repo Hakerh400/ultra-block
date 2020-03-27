@@ -61,6 +61,9 @@ img[src*="banner" i],
 #to-top,
 .to-top,
 
+#siteNotice,
+#p-lang,
+
 form[action*="paypal"],
 
 /* google */

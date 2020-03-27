@@ -37,6 +37,7 @@ ytd-horizontal-card-list-renderer,
 ytd-miniplayer,
 ytd-badge-supported-renderer,
 ytd-channel-sub-menu-renderer,
+ytd-clarification-renderer,
 ytd-thumbnail-overlay-resume-playback-renderer{
   display: none !important;
   visibility: hidden !important;
