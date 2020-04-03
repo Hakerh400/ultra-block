@@ -48,7 +48,12 @@
       "run_at": "document_start",
       "all_frames": true
     }, {
-      "matches": ["file:///*/*.png"],
+      "matches": [
+        "file:///*/*.png",
+        "file:///*/*.jpg",
+        "file:///*/*.PNG",
+        "file:///*/*.JPG"
+      ],
       "css": ["image.css"],
       "run_at": "document_start",
       "all_frames": true

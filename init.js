@@ -130,7 +130,12 @@
 
         {
           const scripts = [
-            ['Video', () => enhanceVideo()],
+            ['Refresh video', () => {
+              document.location.href = document.location.href.replace(/[\?\&]t=[^\&]*|$/, a => {
+                return `${a.includes('?') ? '?' : '&'}t=${
+                  document.querySelector('video').currentTime | 0}`;
+              });
+            }],
             ['Visited links', () => ((a,Y,M)=>(a('pre',a=>a.innerHTML=a.innerHTML.replace(/\<[^\.]*\>/g,'').trim().split(/\r\n|\r|\n/).map(a=>`<a href=${a.match(/\b[a-z]+?:\/\/[\S]+/)||((M=a.match(/\[([a-zA-Z0-9\_\-]{11})\]/))?Y+'watch?v='+M[1]:Y+'results?search_query='+a.split(/\-{2,}/)[0].split(/\*{2,}/).pop().trim().split('').map(a=>a<'~'?escape(a):a).join(''))}>${a}</a>`).join('<br>')),a('a',a=>a.addEventListener('mousedown',b=>/*b.button===1&&*/a.style.setProperty('color','red','important')))))((a,b)=>[...document.querySelectorAll(a)].map(b),'https://www.youtube.com/')],
             ['Remove emoji', () => (((a,b)=>(document.title=['ublock-title',''],document.title='\u034F',[...document.querySelectorAll('h1.title')].forEach(b=>a(b,'innerText'))))((a,b)=>a[b]=a[b]?a[b].replace(/[^ -~]+/gu,' ').replace(/\s+/g,' ').trim():'\u034f',{a:document.title}))],
             ['Extract videos', () => (document.documentElement.innerText=[...document.querySelectorAll`#contents a[href]`].map(a=>a.href).filter((a,b,c)=>c.indexOf(a)==b).map(a=>a.slice(-11)).reverse().join`\n`)],
@@ -406,12 +411,12 @@
             const isLeft = evt.code === 'ArrowLeft';
             const isRight = evt.code === 'ArrowRight';
 
-            if(/^file.*\.(?:png|jpg)$/.test(url)){
+            if(/^file.*\.(?:png|jpg)$/i.test(url)){
               if(nav) return;
               nav = 1;
 
               (async () => {
-                const [prefix, match] = url.match(/\/(.*?)(\d+)\)?\.(?:png|jpg)$/).slice(1);
+                const [prefix, match] = url.match(/\/(.*?)(\d+)\)?\.(?:png|jpg)$/i).slice(1);
                 const index = match | 0;
                 const len = match.length;
 
@@ -470,7 +475,7 @@
                 }
 
                 function getUrl(index, pad=1){
-                  return url.replace(/(\/.*?)(\d+)(\)?\.(?:png|jpg))$/, (a, b, c, d) => {
+                  return url.replace(/(\/.*?)(\d+)(\)?\.(?:png|jpg))$/i, (a, b, c, d) => {
                     const s = pad ? String(index).padStart(len, '0') : String(index);
                     return `${b}${s}${d}`;
                   });
