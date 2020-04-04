@@ -107,6 +107,7 @@
     'cavotagoo',
     'sciencesource',
     '.gif&',
+    'ichef.bbci.co.uk',
   ];
 
   main();
@@ -133,10 +134,17 @@
         }
       }
 
-      for(const e of qsa('.islrc > div:not(.ublock-safe)')){
+      for(const e of qsa('.islrc > div:not(.ublock-safe),.islrh > div:not(.ublock-safe)')){
         let found = 0;
 
-        for(const link of qsa(e, 'a')){
+        for(const span of qsa(e, 'span')){
+          if(span.innerText.trim() === 'Product'){
+            found = 1;
+            break;
+          }
+        }
+
+        if(!found) for(const link of qsa(e, 'a')){
           const url = link.href.toLowerCase();
 
           if(blackList.some(a => url.includes(a))){
