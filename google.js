@@ -134,7 +134,7 @@
         }
       }
 
-      for(const e of qsa('.islrc > div:not(.ublock-safe),.islrh > div:not(.ublock-safe)')){
+      for(const e of qsa('.islrc > div:not(.ublock-safe), .islrh > div:not(.ublock-safe)')){
         let found = 0;
 
         for(const span of qsa(e, 'span')){

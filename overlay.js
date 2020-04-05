@@ -148,6 +148,9 @@
     updateCanvas();
 
     function updateCanvas(){
+      const dw = window.innerWidth - w;
+      const dh = window.innerHeight - h;
+
       w = window.innerWidth;
       h = window.innerHeight;
 
@@ -156,6 +159,11 @@
 
       canvas.style.left = `${window.scrollX}px`;
       canvas.style.top = `${window.scrollY}px`;
+
+      blocks[1][0] += dw;
+      blocks[3][0] += dw;
+      blocks[2][1] += dh;
+      blocks[3][1] += dh;
 
       if(isYtVideo()) resetBlocks();
       render();
