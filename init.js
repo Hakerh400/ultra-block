@@ -168,6 +168,20 @@
             ['Go to YouTube', () => {
               location.href = `https://www.youtube.com/watch?v=${location.href.match(/([a-zA-Z0-9\-\_]{11})\]?\.[^\.]+$/)[1]}`;
             }],
+            ['Random link', () => {
+              window.addEventListener('keydown', evt => {
+                if(evt.code !== 'Enter') return;
+
+                const aa = [...document.querySelectorAll('a')];
+                const a = aa[Math.random() * aa.length | 0];
+
+                evt.preventDefault('ublock');
+                evt.stopPropagation('ublock');
+
+                a.target = '_blank';
+                a.click();
+              });
+            }],
           ];
 
           w.addEventListener('keydown', evt => {
@@ -260,8 +274,16 @@
 
           proxify(w.EventTarget.prototype, 'addEventListener', {
             apply(f, t, args){
-              var type = args[0];
-              if(blackListedListeners.some(a => a === type)) return nop;
+              const type = args[0];
+              if(blackListedListeners.includes(type)) return nop;
+
+              if(type === 'keydown'){
+                args[1] = (f => evt => {
+                  try{ f(evt); }
+                  catch{}
+                })(args[1]);
+              }
+
               return f.apply(t, args);
             }
           });

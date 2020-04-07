@@ -75,8 +75,7 @@
     'daily-sudoku',
     'askbobrankin',
     'pcrisk.com',
-    'ytimg',
-    'yimg',
+    'youtube',
     'alicdn',
     'narvii',
     'maxpixel',
@@ -108,6 +107,8 @@
     'sciencesource',
     '.gif&',
     'ichef.bbci.co.uk',
+    'facebook',
+    'memecenter',
   ];
 
   main();
