@@ -109,6 +109,7 @@
     'ichef.bbci.co.uk',
     'facebook',
     'memecenter',
+    'fastcompany',
   ];
 
   main();

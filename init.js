@@ -520,7 +520,7 @@
 
         Object.defineProperty(w.navigator, 'userAgent', {
           get(){
-            return 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36';
+            return 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36';
           }
         });
 
@@ -700,7 +700,8 @@
         proxify(w, 'eval', {
           apply(f, t, args){
             if(`${args[0]}`.includes('payload')) return nop;
-            return new Function(args[0])();
+            // return new Function(args[0])();
+            return f(args[0]);
           }
         });
 
