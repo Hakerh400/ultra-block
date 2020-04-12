@@ -32,6 +32,273 @@
       main();
 
       function main(){
+        // Inspect objects
+        {
+          class Table{
+            constructor(columns){
+              this.w = columns.length;
+              this.h = 0;
+
+              this.columns = Table.toArr(columns);
+              this.rows = [];
+            }
+
+            static toArr(arr){
+              return arr.map(elem => String(elem));
+            }
+
+            addRow(row){
+              row = Table.toArr(row);
+
+              let dif = this.w - row.length;
+              if(dif < 0) throw new RangeError('Too large row');
+              while(dif-- !== 0) row.push('');
+
+              this.rows.push(row);
+              this.h++;
+            }
+
+            toString(){
+              const {w, h, columns, rows} = this;
+
+              const w1 = w - 1;
+              const h1 = h - 1;
+
+              const lens = columns.map(s => s.length);
+              rows.forEach(row => {
+                row.forEach((s, i) => lens[i] = Math.max(lens[i], s.length));
+              });
+              lens.forEach((len, i) => lens[i] = len + 2);
+
+              const fit = (len, str=null, ch=' ') => {
+                if(str === null) return ch.repeat(len);
+                const strLen = str.length;
+                const start = len - strLen >> 1;
+                return (ch.repeat(start) + str).padEnd(len, ch);
+              };
+
+              const apply = (s, type, c1, c2, f=flag) => {
+                const arr = Array.isArray(c1) ? c1 : null;
+                if(arr !== null) c1 = ' ';
+
+                str += s;
+
+                lens.forEach((len, i) => {
+                  str += fit(
+                    len - (type && f && i === w1 ? 1 : 0),
+                    arr !== null ? arr[i] : null,
+                    c1
+                  ) + c2;
+                });
+              };
+
+              const applyArr = arr => {
+                const len = arr.length;
+                let i = 0;
+
+                while(i !== len){
+                  const n = len - i === 5 ? 5 : 4;
+                  const a = arr.slice(i, i += n);
+                  apply.apply(null, a);
+                }
+              };
+
+              const setFlag = f => {
+                flag = f;
+                c1 = getCh('+');
+                c2 = getCh('-');
+              };
+
+              const getCh = (ch, f=flag) => {
+                return f ? ch : '|';
+              };
+
+              let str = '';
+
+              let flag;
+              let c1, c2;
+
+              setFlag(1);
+
+              const empty = h === 0;
+              const c = getCh('+', empty);
+
+              applyArr([
+                '+', 1, '-', '-',
+                '+\n|', 0, ' ', '|',
+                '\n|', 0, columns, '|',
+                '\n|', 0, ' ', '|',
+                '\n' + c, 1, '=', '=', 1,
+              ]);
+
+              str += c;
+
+              rows.forEach((row, ri) => {
+                setFlag(ri === h1);
+
+                applyArr([
+                  '\n|', 0, ' ', '|',
+                  '\n|', 0, row, '|',
+                  '\n|', 0, ' ', '|',
+                  '\n' + c1, 1, '-', c2,
+                ]);
+
+                if(flag) str += c1;
+              });
+
+              str = str.split(/\r\n|\r|\n/).map(line => {
+                if(line === '|') return '||';
+                return line;
+              }).join('\n');
+
+              return str;
+            }
+          };
+
+          w.ubkeys = obj => {
+            let depth = 0;
+
+            const table = new Table([
+              'Depth',
+              'Type',
+              'Object name',
+              'Key type',
+              'Key name',
+              'Descriptor',
+              'Value type',
+              'Value',
+            ]);
+
+            const has = (obj, key) => {
+              return Object.hasOwnProperty.call(obj, key);
+            };
+
+            const sf = val => {
+              if(typeof val === 'symbol'){
+                val = String(val);
+                val = val.slice('Symbol'.length + 1, val.length - 1);
+              }
+
+              return JSON.stringify(val);
+            };
+
+            const desc2str = desc => {
+              let str = '';
+
+              if(desc.enumerable) str += 'e';
+              if(desc.writable) str += 'w';
+              if(desc.configurable) str += 'c';
+              if(has(desc, 'value')) str += 'v';
+              if(has(desc, 'get')) str += 'g';
+              if(has(desc, 'set')) str += 's';
+
+              return str;
+            };
+
+            const getGetKeysDescs = obj => {
+              const keys = Reflect.ownKeys(obj);
+              const descs = Object.create(null);
+
+              for(const key of keys)
+                descs[key] = Object.getOwnPropertyDescriptor(obj, key);
+
+              const get = key => {
+                if(!(key in descs))
+                  return [null, null];
+
+                const desc = descs[key];
+
+                if(has(desc, 'value')){
+                  const val = desc.value;
+                  return [typeof val, val];
+                }
+
+                try{
+                  const val = desc.get.call(obj);
+                  return [typeof val, val];
+                }catch(err){
+                  return ['(error)', err];
+                }
+              };
+
+              return {get, keys, descs};
+            };
+
+            while(obj !== null){
+              const proto = Object.getPrototypeOf(obj);
+              const type = typeof obj;
+              const {get, keys, descs} = getGetKeysDescs(obj);
+
+              let name = '(unnamed)';
+              let foundName = 0;
+
+              findName1: {
+                const ctorInfo = get('constructor');
+                if(ctorInfo[0] !== 'function') break findName1;
+
+                const nameInfo = getGetKeysDescs(ctorInfo[1]).get('name');
+                if(nameInfo[0] !== 'string') break findName1;
+
+                name = sf(nameInfo[1]);
+                foundName = 1;
+              }
+
+              findName2: if(!foundName){
+                if(proto === null) break findName2;
+
+                const ctorInfo = getGetKeysDescs(proto).get('constructor');
+                if(ctorInfo[0] !== 'function') break findName2;
+
+                const nameInfo = getGetKeysDescs(ctorInfo[1]).get('name');
+                if(nameInfo[0] !== 'string') break findName2;
+
+                name = `${sf(nameInfo[1])} instance`;
+                foundName = 1;
+              }
+
+              for(const key of keys){
+                const keyType = typeof key;
+                const info = get(key);
+                const [valType, valInfo] = info;
+
+                let val = '(unknown)';
+
+                switch(info[0]){
+                  case 'undefined': val = 'undefined'; break;
+                  case 'object':
+                    if(valInfo === null) val = 'null';
+                    else if(Array.isArray(val)) val = '(array)';
+                    else val = '(object)';
+                    break;
+                  case 'boolean': val = String(valInfo); break;
+                  case 'number': val = String(valInfo); break;
+                  case 'bigint': val = `${valInfo}n`; break;
+                  case 'string': val = sf(valInfo); break;
+                  case 'symbol': val = sf(valInfo); break;
+                  case 'function': val = '(function)'; break;
+                  case '(error)': val = '(error)'; break;
+                }
+
+                table.addRow([
+                  String(depth),
+                  type,
+                  name,
+                  keyType,
+                  sf(key),
+                  desc2str(descs[key]),
+                  valType,
+                  val,
+                ]);
+              }
+
+              obj = proto;
+              depth++;
+            }
+
+            return table.toString();
+          };
+        }
+
         const qsa = a => document.querySelectorAll(a);
 
         w.console_ = w.console;

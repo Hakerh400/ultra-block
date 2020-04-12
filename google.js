@@ -110,9 +110,17 @@
     'facebook',
     'memecenter',
     'fastcompany',
+    'forex24',
+    'bymarkets',
+    'actualitix',
+    'fx-exchange',
+    'dailyfx',
+    'parkersydnorhistoric',
   ];
 
   main();
+
+  let z = 1;
 
   function main(){
     if(!document.body)

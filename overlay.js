@@ -49,6 +49,8 @@
     var g = null;
 
     var canvas = document.createElement('canvas');
+    if(!canvas.style) return;
+
     canvas.className = 'ultra-block overlay';
     refreshCanvas();
 
