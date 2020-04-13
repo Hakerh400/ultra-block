@@ -10,6 +10,7 @@ scrolling-carousel,
 .islrc > div:not(.ublock-safe),
 .islrh > div:not(.ublock-safe),
 .VFACy.kGQAp,
+[data-waitmessage*="load" i],
 
 a[href="#"]{
   display: none !important;

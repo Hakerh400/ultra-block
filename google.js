@@ -116,11 +116,10 @@
     'fx-exchange',
     'dailyfx',
     'parkersydnorhistoric',
+    'fotocrats',
   ];
 
   main();
-
-  let z = 1;
 
   function main(){
     if(!document.body)

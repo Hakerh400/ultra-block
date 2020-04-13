@@ -60,11 +60,12 @@ img[src*="banner" i],
 *[class*="back-to-top" i],
 #to-top,
 .to-top,
+.scrollToTop,
+.loginbox,
 
 #siteNotice,
 #p-lang,
-
-.scrollToTop,
+.promlinks,
 
 form[action*="paypal"],
 
@@ -182,11 +183,11 @@ img[src*=".gif?" i],
   visibility: hidden !important;
 }
 
-body:not(.env-production) a,
-body:not(.env-production) a:link,
-body:not(.env-production) a:visited,
-body:not(.env-production) a:hover,
-body:not(.env-production) a:active{
+html:not(.ublock-ordinary-links) body:not(.env-production) a,
+html:not(.ublock-ordinary-links) body:not(.env-production) a:link,
+html:not(.ublock-ordinary-links) body:not(.env-production) a:visited,
+html:not(.ublock-ordinary-links) body:not(.env-production) a:hover,
+html:not(.ublock-ordinary-links) body:not(.env-production) a:active{
   color: blue !important;
 }
 
