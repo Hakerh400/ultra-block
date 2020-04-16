@@ -1,7 +1,7 @@
 (() => {
   'use strict';
 
-  const DEBUG = 0;
+  const DEBUG = /[?&]udbg(?:[&=]|$)/.test(location.href);
 
   const DURATION_MIN = 60 * 2;
 

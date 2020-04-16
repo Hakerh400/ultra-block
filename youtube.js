@@ -508,7 +508,6 @@
     }
 
     function checkVideoTime(){
-      safeElem.remove();
       document.body.appendChild(safeElem);
 
       var elem = document.querySelector('.ytd-video-owner-renderer a');

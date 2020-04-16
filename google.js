@@ -117,6 +117,7 @@
     'dailyfx',
     'parkersydnorhistoric',
     'fotocrats',
+    'theguardian',
   ];
 
   main();
@@ -143,27 +144,47 @@
         }
       }
 
-      for(const e of qsa('.islrc > div:not(.ublock-safe), .islrh > div:not(.ublock-safe)')){
-        let found = 0;
+      imgLoop: for(const e of qsa('.islrc > div:not(.ublock-safe), .islrh > div:not(.ublock-safe)')){
+        find: {
+          let hasLink = 0;
+          let hasImg = 0;
 
-        for(const span of qsa(e, 'span')){
-          if(span.innerText.trim() === 'Product'){
-            found = 1;
-            break;
+          for(const span of qsa(e, 'span'))
+            if(span.innerText.trim() === 'Product')
+              break find;
+
+          if(qs(e, 'div[aria-label="Click for video information"]'))
+            break find;
+
+          for(const link of qsa(e, 'a')){
+            const url = link.href.toLowerCase();
+            if(url === '') continue;
+
+            hasLink = 1;
+
+            if(blackList.some(a => url.includes(a)))
+              break find;
           }
+
+          for(const img of qsa(e, 'img')){
+            const url = img.src.toLowerCase();
+            if(url === '') continue;
+
+            hasImg = 1;
+
+            if(blackList.some(a => url.includes(a)))
+              break find;
+          }
+
+          if(!(hasLink || hasImg))
+            continue imgLoop;
+
+          show(e);
+          continue imgLoop;
+
         }
 
-        if(!found) for(const link of qsa(e, 'a')){
-          const url = link.href.toLowerCase();
-
-          if(blackList.some(a => url.includes(a))){
-            found = 1;
-            break;
-          }
-        }
-
-        if(found) e.remove();
-        else show(e);
+        e.remove()
       }
 
       setTimeout(block, stage ? 1e3 : 0);
