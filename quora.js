@@ -16,15 +16,37 @@
       var e;
 
       for(e of qsa('.pagedlist_item:not(.ublock-safe)')){
-        if(!e.closest('.answer_text_small')) e.remove();
-        else if(/promoted|(?:sponsored|ads?) +by /i.test(e.innerText)) e.remove();
-        else e.classList.add('ublock-safe');
+        if(!e.closest('.answer_text_small')){
+          e.remove();
+          continue;
+        }
+
+        const str = e.innerText.trim();
+        if(str.length === 0) continue;
+
+        if(/promoted|(?:sponsored|ads?) +by /i.test(e.innerText)){
+          e.remove();
+          continue;
+        }
+
+        e.classList.add('ublock-safe');
       }
 
       for(e of qsa('.UnifiedAnswerPagedList:not(.ublock-safe)')){
-        if(!e.closest('.answer_text_small')) e.remove();
-        else if(/\bad +by /i.test(e.innerText)) e.remove();
-        else e.classList.add('ublock-safe');
+        if(!e.closest('.answer_text_small')){
+          e.remove();
+          continue;
+        }
+
+        const str = e.innerText.trim();
+        if(str.length === 0) continue;
+
+        if(/\bad +by /i.test(e.innerText)){
+          e.remove();
+          continue;
+        }
+
+        e.classList.add('ublock-safe');
       }
 
       setTimeout(block, stage ? 1e3 : 0);
