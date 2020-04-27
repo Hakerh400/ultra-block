@@ -61,7 +61,7 @@ img[src*="banner" i],
 #to-top,
 .to-top,
 .scrollToTop,
-.loginbox,
+/*.loginbox,*/
 
 #siteNotice,
 #p-lang,
@@ -136,6 +136,8 @@ svg.iconHistory,
 #searchResult:not(.ublock-safe),
 a[href*="protect-your-privacy"],
 a[href*="bitbigs"],
+.attribution,
+#jscrwarn2,
 
 /* desmos */
 .dcg-loading-div-container,

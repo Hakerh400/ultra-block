@@ -1,8 +1,8 @@
 (() => {
   'use strict';
 
+  const ENABLED = !/[?&]udsb(?:[&=]|$)/.test(location.href);
   const DEBUG = /[?&]udbg(?:[&=]|$)/.test(location.href);
-
   const DURATION_MIN = 60 * 2;
 
   const {href} = top.location;
@@ -64,6 +64,11 @@
       let e;
 
       for(e of qsa('ytd-video-renderer:not(.ublock-safe)')){
+        if(!ENABLED){
+          show(e);
+          continue;
+        }
+
         const duration = qs(e, 'ytd-thumbnail-overlay-time-status-renderer');
         const meta = qs(e, '#metadata');
         const title = qs(e, '#title-wrapper');

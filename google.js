@@ -118,6 +118,10 @@
     'parkersydnorhistoric',
     'fotocrats',
     'theguardian',
+    'sciencephoto',
+    'arttournament',
+    'twenty20',
+    'pinterest',
   ];
 
   main();

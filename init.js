@@ -787,7 +787,7 @@
 
         Object.defineProperty(w.navigator, 'userAgent', {
           get(){
-            return 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36';
+            return 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.122 Safari/537.36';
           }
         });
 
@@ -986,6 +986,22 @@
             return f.apply(t, args);
           }
         });
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        if(url.startsWith('https://twitter.com/')){
+          HTMLVideoElement.prototype.play = new Proxy(HTMLVideoElement.prototype.play, {
+            apply(f, t, args){
+              return nop;
+            }
+          });
+
+          HTMLVideoElement.prototype.pause = new Proxy(HTMLVideoElement.prototype.pause, {
+            apply(f, t, args){
+              return nop;
+            }
+          });
+        }
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

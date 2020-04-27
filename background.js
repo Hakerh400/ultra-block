@@ -51,8 +51,7 @@
       !whiteList.some(testFunc) &&
       blackList.some(testFunc);
 
-    // if(cancel)
-    //   log(evt.url, match);
+    // if(cancel) log(evt.url, match);
 
     return {cancel};
   },
