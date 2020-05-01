@@ -362,12 +362,16 @@
           if(!channel) continue;
           document.title = channel;
 
+          let channelL = channel.toLowerCase();
           let title = e.textContent.trim();
+          let titleL = title.toLowerCase();
 
-          if(title.startsWith(channel)){
+          log(JSON.stringify(channel), JSON.stringify(title), title.startsWith(channel));
+
+          if(titleL.startsWith(channelL)){
             title = title.slice(channel.length).
               replace(/^(?:\s*[\:\-\~]\s*)/, '');
-          }else if(title.endsWith(channel)){
+          }else if(titleL.endsWith(channelL)){
             title = title.slice(0, title.length - channel.length).
               replace(/(?:\s*[\:\-\~]\s*)$/, '');
           }

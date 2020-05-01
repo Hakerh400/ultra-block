@@ -304,8 +304,8 @@
       if(canvas.parentNode !== parent || parent.lastChild !== canvas)
         parent.appendChild(canvas);
 
-      canvas.style.setProperty('display', 'block', 'important');
       canvas.style.setProperty('visibility', 'visible', 'important');
+      canvas.style.setProperty('display', 'block', 'important');
       canvas.style.setProperty('opacity', '1', 'important');
 
       requestAnimationFrame(refreshCanvas);
