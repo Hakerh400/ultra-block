@@ -366,8 +366,6 @@
           let title = e.textContent.trim();
           let titleL = title.toLowerCase();
 
-          log(JSON.stringify(channel), JSON.stringify(title), title.startsWith(channel));
-
           if(titleL.startsWith(channelL)){
             title = title.slice(channel.length).
               replace(/^(?:\s*[\:\-\~]\s*)/, '');
