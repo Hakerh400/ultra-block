@@ -11,6 +11,15 @@
 
   let capsReg = /\b[A-Z]/g;
 
+  const interchangeableWords = [
+  ];
+
+  const interchangeableWordsObj = Object.create(null);
+
+  for(const words of interchangeableWords)
+    for(const word of words)
+      interchangeableWordsObj[word] = words;
+
   const blackList = inco ? [
   ] : [];
 
@@ -166,7 +175,18 @@
     }
 
     let mkw = null;
-    if(!kws.every(kw => lcStr.includes(mkw = kw))){
+
+    const hasAllKws = kws.every(kw => {
+      mkw = kw;
+
+      if(lcStr.includes(kw)) return 1;
+      if(!(kw in interchangeableWordsObj)) return 0;
+
+      const words = interchangeableWordsObj[kw];
+      return words.some(word => lcStr.includes(word));
+    });
+
+    if(!hasAllKws){
       if(DEBUG) dbg = `Missing keyword "${mkw}"`;
       return 0;
     }
