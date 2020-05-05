@@ -3,6 +3,10 @@
 
   const ENABLED = !/[?&]udsb(?:[&=]|$)/.test(location.href);
   const DEBUG = /[?&]udbg(?:[&=]|$)/.test(location.href);
+
+  const CHECK_VIEWS = 1;
+  const CHECK_KEYWORDS = 1;
+
   const DURATION_MIN = 60 * 2;
 
   const {href} = top.location;
@@ -143,12 +147,14 @@
 
     if(!inco) return 1;
 
-    const match = str.match(/(\d+(?:\.\d+)?)([KMB]?) views/);
-    if(match !== null){
-      const views = match[1] * 10 ** (['', 'K', 'M', 'B'].indexOf(match[2]) * 3) + .5 | 0;
-      if(views > 5e3){
-        if(DEBUG) dbg = 'Too many views';
-        return 0;
+    if(CHECK_VIEWS){
+      const match = str.match(/(\d+(?:\.\d+)?)([KMB]?) views/);
+      if(match !== null){
+        const views = match[1] * 10 ** (['', 'K', 'M', 'B'].indexOf(match[2]) * 3) + .5 | 0;
+        if(views > 5e3){
+          if(DEBUG) dbg = 'Too many views';
+          return 0;
+        }
       }
     }
 
@@ -174,21 +180,23 @@
       return 0;
     }
 
-    let mkw = null;
+    if(CHECK_KEYWORDS){
+      let mkw = null;
 
-    const hasAllKws = kws.every(kw => {
-      mkw = kw;
+      const hasAllKws = kws.every(kw => {
+        mkw = kw;
 
-      if(lcStr.includes(kw)) return 1;
-      if(!(kw in interchangeableWordsObj)) return 0;
+        if(lcStr.includes(kw)) return 1;
+        if(!(kw in interchangeableWordsObj)) return 0;
 
-      const words = interchangeableWordsObj[kw];
-      return words.some(word => lcStr.includes(word));
-    });
+        const words = interchangeableWordsObj[kw];
+        return words.some(word => lcStr.includes(word));
+      });
 
-    if(!hasAllKws){
-      if(DEBUG) dbg = `Missing keyword "${mkw}"`;
-      return 0;
+      if(!hasAllKws){
+        if(DEBUG) dbg = `Missing keyword "${mkw}"`;
+        return 0;
+      }
     }
 
     if(blackList.some(func)) return 0;
