@@ -358,8 +358,20 @@
           });
 
           if(!channelElem) continue;
-          const channel = channelElem.textContent.trim().replace(/[\r\n].*/s, '').trim();
-          if(!channel) continue;
+
+          let str;
+
+          {
+            str = channelElem.textContent.trim().replace(/[\r\n].*/s, '').trim();
+            if(!str) continue;
+
+            const strBlacklist = ' - YouTube';
+
+            if(str.endsWith(strBlacklist))
+              str = str.slice(0, str.length - strBlacklist.length);
+          }
+
+          const channel = str;
           document.title = channel;
 
           let channelL = channel.toLowerCase();
@@ -367,11 +379,21 @@
           let titleL = title.toLowerCase();
 
           if(titleL.startsWith(channelL)){
-            title = title.slice(channel.length).
+            title = title.slice(channelL.length).
               replace(/^(?:\s*[\:\-\~]\s*)/, '');
           }else if(titleL.endsWith(channelL)){
-            title = title.slice(0, title.length - channel.length).
+            title = title.slice(0, title.length - channelL.length).
               replace(/(?:\s*[\:\-\~]\s*)$/, '');
+          }else{
+            const ch = `(${channelL})`;
+
+            if(titleL.startsWith(ch)){
+              title = title.slice(ch.length).
+                replace(/^(?:\s*[\:\-\~]\s*)/, '');
+            }else if(titleL.endsWith(ch)){
+              title = title.slice(0, title.length - ch.length).
+                replace(/(?:\s*[\:\-\~]\s*)$/, '');
+            }
           }
 
           e.textContent = title;
