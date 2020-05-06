@@ -406,7 +406,6 @@
             ['Visited links', () => ((a,Y,M)=>(a('pre',a=>a.innerHTML=a.innerHTML.replace(/\<[^\.]*\>/g,'').trim().split(/\r\n|\r|\n/).map(a=>`<a href=${a.match(/\b[a-z]+?:\/\/[\S]+/)||((M=a.match(/\[([a-zA-Z0-9\_\-]{11})\]/))?Y+'watch?v='+M[1]:Y+'results?search_query='+a.split(/\-{2,}/)[0].split(/\*{2,}/).pop().trim().split('').map(a=>a<'~'?escape(a):a).join(''))}>${a}</a>`).join('<br>')),a('a',a=>a.addEventListener('mousedown',b=>/*b.button===1&&*/a.style.setProperty('color','red','important')))))((a,b)=>[...document.querySelectorAll(a)].map(b),'https://www.youtube.com/')],
             ['Enhance title', () => {
               const f = () => {
-                if(w.udbgTitle === 1) debugger;
                 ((a,b)=>(document.title=['ublock-title',''],document.title='\u034F',[...document.querySelectorAll('h1.title')].forEach(b=>a(b,'innerText'))))((a,b)=>a[b]=a[b]?a[b].replace(/[^ -~]+/gu,' ').replace(/\s+/g,' ').trim():'\u034f',{a:document.title});
                 setTimeout(f, 1e3);
               };
@@ -642,11 +641,15 @@
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         if(w === top){
-          const blackList = [
-            'https://www.youtube.com/',
+          const urlBlacklist = [
+            'https://www.youtube.com/watch?',
           ];
 
-          const blackListed = blackList.some(a => url.startsWith(a));
+          const titleBlacklist = [
+            ' - YouTube',
+          ];
+
+          const blackListed = urlBlacklist.some(a => url.startsWith(a));
 
           const desc = Object.getOwnPropertyDescriptor(Document.prototype, 'title');
           delete Document.prototype.title;
@@ -677,10 +680,16 @@
 
           const f = () => {
             const title = desc.get.call(document);
-            if(title === '') return setTimeout(f, 1e3);
+            if(title === '' || title === '\u034F') return setTimeout(f, 1e3);
 
             origTitle = title;
+
+            for(const t of titleBlacklist)
+              if(origTitle.endsWith(t))
+                origTitle = origTitle.slice(0, origTitle.length - t.length);
+
             document.title = blackListed ? ['ublock-title', ''] : origTitle;
+            if(blackListed) setTimeout(f, 1e3);
           };
 
           f();

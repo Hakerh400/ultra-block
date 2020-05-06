@@ -49,15 +49,6 @@
       var func = null;
       var rot = 0;
 
-      if(location.href.startsWith('https://www.youtube.com/watch?')){
-        const f = () => {
-          // if(document.title === '\u034f') return;
-          document.title = ['ublock-title', ''];
-          setTimeout(f, 1e3);
-        };
-        f();
-      }
-
       EventTarget.prototype.addEventListener = new Proxy(EventTarget.prototype.addEventListener, {
         apply(f, t, args){
           const type = args[0];
