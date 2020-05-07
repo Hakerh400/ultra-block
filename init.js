@@ -643,6 +643,7 @@
         if(w === top){
           const urlBlacklist = [
             'https://www.youtube.com/watch?',
+            'https://www.youtube.com/results?',
           ];
 
           const titleBlacklist = [
@@ -932,8 +933,12 @@
           if(!whiteList.some(a => url.startsWith(a))){
             let loaded = 0;
 
+            window.addEventListener('load', () => {
+              loaded++;
+            });
+
             document.addEventListener('DOMContentLoaded', () => {
-              loaded = 1;
+              loaded++;
             });
 
             const f = () => {
@@ -945,7 +950,7 @@
                 e.currentTime = 0;
               }
 
-              if(!loaded) return setTimeout(f);
+              if(loaded !== 2) return setTimeout(f);
               if(elems.length === 0) return;
 
               enhanceVideo();
