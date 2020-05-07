@@ -371,9 +371,9 @@
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        const enhanceVideo = () => {
-          const shouldBeMuted = url.startsWith('file:///') && !url.startsWith('file:///D:/Music/');
+        const shouldBeMuted = url.startsWith('file:///') && !url.startsWith('file:///D:/Music/');
 
+        const enhanceVideo = () => {
           (q=>((v,S)=>{'controls,autoplay'.split`,`.map(a=>v.removeAttribute(a)),v.muted=shouldBeMuted,v.classList.add('ublock-video'),addEventListener('keydown',(a,b=!a.ctrlKey?a.keyCode:0,c='currentTime')=>b-37?b-39?b-77?b-116?1:(a.preventDefault('ublock'),v.pause(),S.src=(a=>(a=a.split`?`,a[1]='a='+Date.now()+Math.random(),a.join`?`))(S.src),v.load()):v.muted^=1:v[c]+=5:v[c]-=5);sessionStorage['ublock-prevent-hard-reload']=1})(q('video')[0],q('source')[0]))(a=>[...document.querySelectorAll(a)]);
 
           document.body.classList.add('ublock-rot-0');
@@ -930,15 +930,24 @@
             'https://www.youtube.com/',
           ];
 
+          const gracePeriod = 100;
+
           if(!whiteList.some(a => url.startsWith(a))){
             let loaded = 0;
+            let enhanced = 0;
+
+            const incLoad = () => {
+              setTimeout(() => {
+                loaded++;
+              }, gracePeriod);
+            };
 
             window.addEventListener('load', () => {
-              loaded++;
+              incLoad();
             });
 
             document.addEventListener('DOMContentLoaded', () => {
-              loaded++;
+              incLoad();
             });
 
             const f = () => {
@@ -946,13 +955,15 @@
               let e;
 
               for(e of elems){
-                e.autoplay = false;
+                if(!e.paused) e.pause();
                 e.currentTime = 0;
+                e.autoplay = false;
+                e.muted = shouldBeMuted;
               }
 
-              if(elems.length !== 0){
+              if(elems.length !== 0 && !enhanced){
                 enhanceVideo();
-                return;
+                enhanced = 1;
               }
 
               if(loaded !== 2) return setTimeout(f);
