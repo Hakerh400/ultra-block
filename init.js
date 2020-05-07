@@ -950,10 +950,12 @@
                 e.currentTime = 0;
               }
 
-              if(loaded !== 2) return setTimeout(f);
-              if(elems.length === 0) return;
+              if(elems.length !== 0){
+                enhanceVideo();
+                return;
+              }
 
-              enhanceVideo();
+              if(loaded !== 2) return setTimeout(f);
             };
 
             f();
