@@ -68,6 +68,7 @@ body:not(.ublock-safe){
   border-right-width: 0px !important;
 }
 
+#secondary,
 .style-scope.ytd-watch-next-secondary-results-renderer:not(#items),
 ytd-compact-video-renderer,
 div[class*="ytp-"]:not(#movie_player),

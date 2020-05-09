@@ -663,8 +663,8 @@
     }
 
     function toggleRelated(evt, forceHide=0){
-      var selector = '#items.style-scope.ytd-watch-next-secondary-results-renderer,yt-next-continuation,*[id*="continuation"],*[class*="continuation"]';
-      var toggled = toggleElem(selector, evt, qs('#items.style-scope.ytd-watch-next-secondary-results-renderer'));
+      var selector = '#secondary,#items.style-scope.ytd-watch-next-secondary-results-renderer,yt-next-continuation,*[id*="continuation"],*[class*="continuation"]';
+      var toggled = toggleElem(selector, evt, qs('#secondary'));
       if(!toggled) return 0;
 
       if(forceHide){
