@@ -438,12 +438,25 @@
 
             e[symbs.status] = 1;
 
-            if(title.startsWith(channel)){
-              title = title.slice(channel.length).
-                replace(/^(?:\s*[\:\-\~]\s*)/, '');
-            }else if(title.endsWith(channel)){
-              title = title.slice(0, title.length - channel.length).
-                replace(/(?:\s*[\:\-\~]\s*)$/, '');
+            let channelL = channel.toLowerCase();
+            let titleL = title.toLowerCase();
+
+            if(titleL.startsWith(channelL)){
+              title = title.slice(channelL.length).
+                replace(/^(?:\s*(?:[\:\-\~]|\u24D2\s*\u2714)\s*)/, '');
+            }else if(titleL.endsWith(channelL)){
+              title = title.slice(0, title.length - channelL.length).
+                replace(/(?:\s*(?:[\:\-\~]|\u24D2\s*\u2714)\s*)$/, '');
+            }else{
+              const ch = `(${channelL})`;
+
+              if(titleL.startsWith(ch)){
+                title = title.slice(ch.length).
+                  replace(/^(?:\s*(?:[\:\-\~]|\u24D2\s*\u2714)\s*)/, '');
+              }else if(titleL.endsWith(ch)){
+                title = title.slice(0, title.length - ch.length).
+                  replace(/(?:\s*(?:[\:\-\~]|\u24D2\s*\u2714)\s*)$/, '');
+              }
             }
 
             e.textContent = title;
