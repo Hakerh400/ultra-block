@@ -351,7 +351,7 @@
         if(e.className === 'A') url = e.href;
         else url = e.closest('a').href;
 
-        if(top.location.href.startsWith('https://www.youtube.com/channel/')){
+        if(/https\:\/\/www\.youtube\.com\/(?:channel|user)\//.test(top.location.href)){
           const channelElem = [...qsa('title')].find(a => {
             const title = a.textContent.trim();
             return title && title !== '\u034f';
@@ -380,19 +380,19 @@
 
           if(titleL.startsWith(channelL)){
             title = title.slice(channelL.length).
-              replace(/^(?:\s*[\:\-\~]\s*)/, '');
+              replace(/^(?:\s*(?:[\:\-\~]|\u24D2\s*\u2714)\s*)/, '');
           }else if(titleL.endsWith(channelL)){
             title = title.slice(0, title.length - channelL.length).
-              replace(/(?:\s*[\:\-\~]\s*)$/, '');
+              replace(/(?:\s*(?:[\:\-\~]|\u24D2\s*\u2714)\s*)$/, '');
           }else{
             const ch = `(${channelL})`;
 
             if(titleL.startsWith(ch)){
               title = title.slice(ch.length).
-                replace(/^(?:\s*[\:\-\~]\s*)/, '');
+                replace(/^(?:\s*(?:[\:\-\~]|\u24D2\s*\u2714)\s*)/, '');
             }else if(titleL.endsWith(ch)){
               title = title.slice(0, title.length - ch.length).
-                replace(/(?:\s*[\:\-\~]\s*)$/, '');
+                replace(/(?:\s*(?:[\:\-\~]|\u24D2\s*\u2714)\s*)$/, '');
             }
           }
 
