@@ -59,6 +59,7 @@
 
     if(top.location.href.includes('&u'))
       ch[1] += 6;
+
     if(ch.length === 2)
       ch.push([null, null, null, null]);
   }
@@ -76,7 +77,7 @@
   };
 
   const updateTitle = () => {
-    if(targetTitle !== null)
+    if(targetTitle !== null && !/^\u034F?$/.test(document.title))
       document.title = targetTitle;
 
     setTimeout(updateTitle, 1e3);
@@ -396,22 +397,21 @@
           let title = e.textContent.trim();
           let titleL = title.toLowerCase();
 
-          if(titleL.startsWith(channelL)){
-            title = title.slice(channelL.length).
-              replace(/^(?:\s*(?:[\:\-\~]|\u24D2\s*\u2714)\s*)/, '');
-          }else if(titleL.endsWith(channelL)){
-            title = title.slice(0, title.length - channelL.length).
-              replace(/(?:\s*(?:[\:\-\~]|\u24D2\s*\u2714)\s*)$/, '');
-          }else{
-            const ch = `(${channelL})`;
+          const index = titleL.indexOf(channelL);
 
-            if(titleL.startsWith(ch)){
-              title = title.slice(ch.length).
-                replace(/^(?:\s*(?:[\:\-\~]|\u24D2\s*\u2714)\s*)/, '');
-            }else if(titleL.endsWith(ch)){
-              title = title.slice(0, title.length - ch.length).
-                replace(/(?:\s*(?:[\:\-\~]|\u24D2\s*\u2714)\s*)$/, '');
-            }
+          if(index !== -1){
+            const reg = /[ -\/:-@\[-`\{-~\u24D2\u2714]/;
+
+            const title1 = title.slice(0, index);
+            const title2 = title.slice(index + channel.length);
+
+            title = title1.length > title2.length ? title1 : title2;
+
+            while(title.length !== 0 && reg.test(title[0]))
+              title = title.slice(1);
+
+            while(title.length !== 0 && reg.test(title[title.length - 1]))
+              title = title.slice(0, title.length - 1);
           }
 
           e.textContent = title;
