@@ -69,6 +69,23 @@
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////
 
+  let targetTitle = null;
+
+  const setTitle = title => {
+    targetTitle = title;
+  };
+
+  const updateTitle = () => {
+    if(targetTitle !== null)
+      document.title = targetTitle;
+
+    setTimeout(updateTitle, 1e3);
+  };
+
+  updateTitle();
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////////
+
   {
     const raf = requestAnimationFrame;
     let a = 0;
@@ -372,7 +389,8 @@
           }
 
           const channel = str;
-          document.title = channel;
+
+          setTitle(channel);
 
           let channelL = channel.toLowerCase();
           let title = e.textContent.trim();

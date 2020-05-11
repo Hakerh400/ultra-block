@@ -4,7 +4,7 @@
   const ENABLED = !/[?&]udsb(?:[&=]|$)/.test(location.href);
   const DEBUG = /[?&]udbg(?:[&=]|$)/.test(location.href);
 
-  const CHECK_VIEWS = 1;
+  const CHECK_VIEWS = 0;
   const CHECK_KEYWORDS = 1;
 
   const DURATION_MIN = 60 * 2;
@@ -33,14 +33,14 @@
   const blackListTitle = inco ? [
   ] : [];
 
-  const blackListChannel = arr2obj([
-  ]);
+  const blackListChannelName = [
+  ];
 
   const blackListUser = arr2obj([
   ]);
 
-  const blackListChannelName = [
-  ];
+  const blackListChannel = arr2obj([
+  ]);
 
   const types = createEnum([
     'DURATION',
