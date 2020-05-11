@@ -87,6 +87,32 @@
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////
 
+  const sanitizeTitle = (channel, title) => {
+    let channelL = channel.toLowerCase();
+    let titleL = title.toLowerCase();
+
+    const index = titleL.indexOf(channelL);
+
+    if(index !== -1){
+      const reg = /[ -\/:-@\[-`\{-~\u24D2\u2714]/;
+
+      const title1 = title.slice(0, index);
+      const title2 = title.slice(index + channel.length);
+
+      title = title1.length > title2.length ? title1 : title2;
+
+      while(title.length !== 0 && reg.test(title[0]))
+        title = title.slice(1);
+
+      while(title.length !== 0 && reg.test(title[title.length - 1]))
+        title = title.slice(0, title.length - 1);
+    }
+
+    return title;
+  };
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////////
+
   {
     const raf = requestAnimationFrame;
     let a = 0;
@@ -390,32 +416,12 @@
           }
 
           const channel = str;
-
-          setTitle(channel);
-
-          let channelL = channel.toLowerCase();
-          let title = e.textContent.trim();
-          let titleL = title.toLowerCase();
-
-          const index = titleL.indexOf(channelL);
-
-          if(index !== -1){
-            const reg = /[ -\/:-@\[-`\{-~\u24D2\u2714]/;
-
-            const title1 = title.slice(0, index);
-            const title2 = title.slice(index + channel.length);
-
-            title = title1.length > title2.length ? title1 : title2;
-
-            while(title.length !== 0 && reg.test(title[0]))
-              title = title.slice(1);
-
-            while(title.length !== 0 && reg.test(title[title.length - 1]))
-              title = title.slice(0, title.length - 1);
-          }
+          const title = sanitizeTitle(channel, e.textContent.trim());
 
           e.textContent = title;
           e.title = title;
+
+          setTitle(channel);
         }
 
         e[symbs.status] = 1;
@@ -456,26 +462,7 @@
 
             e[symbs.status] = 1;
 
-            let channelL = channel.toLowerCase();
-            let titleL = title.toLowerCase();
-
-            if(titleL.startsWith(channelL)){
-              title = title.slice(channelL.length).
-                replace(/^(?:\s*(?:[\:\-\~]|\u24D2\s*\u2714)\s*)/, '');
-            }else if(titleL.endsWith(channelL)){
-              title = title.slice(0, title.length - channelL.length).
-                replace(/(?:\s*(?:[\:\-\~]|\u24D2\s*\u2714)\s*)$/, '');
-            }else{
-              const ch = `(${channelL})`;
-
-              if(titleL.startsWith(ch)){
-                title = title.slice(ch.length).
-                  replace(/^(?:\s*(?:[\:\-\~]|\u24D2\s*\u2714)\s*)/, '');
-              }else if(titleL.endsWith(ch)){
-                title = title.slice(0, title.length - ch.length).
-                  replace(/(?:\s*(?:[\:\-\~]|\u24D2\s*\u2714)\s*)$/, '');
-              }
-            }
+            title = sanitizeTitle(channel, title);
 
             e.textContent = title;
             e.classList.add('ublock_safe');
