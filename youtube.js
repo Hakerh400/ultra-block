@@ -95,17 +95,44 @@
 
     if(index !== -1){
       const reg = /[ -\/:-@\[-`\{-~\u24D2\u2714]/;
+      const opnReg = /[\(\[\{]/;
+      const clsReg = /[\)\]\}]/;
 
       const title1 = title.slice(0, index);
       const title2 = title.slice(index + channel.length);
+      let parens = 0;
 
       title = title1.length > title2.length ? title1 : title2;
 
-      while(title.length !== 0 && reg.test(title[0]))
-        title = title.slice(1);
+      while(title.length !== 0 && (reg.test(title[0]) || parens !== 0)){
+        const chr = title[0];
 
-      while(title.length !== 0 && reg.test(title[title.length - 1]))
+        if(opnReg.test(chr)){
+          if(parens === 0) break;
+          parens++;
+        }else if(clsReg.test(chr)){
+          if(parens === 0) break;
+          parens--;
+        }
+
+        title = title.slice(1);
+      }
+
+      parens = 0;
+
+      while(title.length !== 0 && (reg.test(title[title.length - 1]) || parens !== 0)){
+        const chr = title[title.length - 1];
+
+        if(clsReg.test(chr)){
+          if(parens === 0) break;
+          parens++;
+        }else if(opnReg.test(chr)){
+          if(parens === 0) break;
+          parens--;
+        }
+
         title = title.slice(0, title.length - 1);
+      }
     }
 
     return title;
