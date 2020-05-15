@@ -189,3 +189,8 @@ body.ub4 img.style-scope.yt-img-shadow{
   /* 190 214 */
   clip-path: polygon(19% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 22%, 19% 22%) !important;
 }
+
+body.ub5 img.style-scope.yt-img-shadow{
+  /* 235 196 */
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 24% 100%, 24% 80%, 0% 80%, 0% 0%) !important;
+}

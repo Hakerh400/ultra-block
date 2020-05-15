@@ -680,16 +680,19 @@
           });
 
           const f = () => {
-            const title = desc.get.call(document);
-            if(title === '' || title === '\u034F') return setTimeout(f, 1e3);
+            try{
+              const title = desc.get.call(document);
+              if(title === '' || title === '\u034F') return setTimeout(f, 1e3);
 
-            origTitle = title;
+              origTitle = title;
 
-            for(const t of titleBlacklist)
-              if(origTitle.endsWith(t))
-                origTitle = origTitle.slice(0, origTitle.length - t.length);
+              for(const t of titleBlacklist)
+                if(origTitle.endsWith(t))
+                  origTitle = origTitle.slice(0, origTitle.length - t.length);
 
-            document.title = blackListed ? ['ublock-title', ''] : origTitle;
+              document.title = blackListed ? ['ublock-title', ''] : origTitle;
+            }catch{}
+
             if(blackListed) setTimeout(f, 1e3);
           };
 
@@ -804,7 +807,7 @@
 
         Object.defineProperty(w.navigator, 'userAgent', {
           get(){
-            return 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.122 Safari/537.36';
+            return 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36';
           }
         });
 
@@ -816,7 +819,6 @@
           'open',
 
           // Service workers
-
           'Cache',
           'CacheStorage',
           'Client',
@@ -984,6 +986,25 @@
                 const result = f.apply(t, args);
 
                 return result;
+              }
+            });
+          }
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        {
+          const whiteList = [
+            'https://www.youtube.com/',
+          ];
+
+          if(!whiteList.some(a => url.startsWith(a))){
+            proxify(Document.prototype, 'createElement', {
+              apply(f, t, args){
+                if(String(args[0]).toLowerCase().trim() === 'iframe')
+                  return nop;
+
+                return f.apply(t, args);
               }
             });
           }
