@@ -1066,19 +1066,34 @@
             'https://twitter.com/',
           ];
 
+
           if(blackList.some(a => url.startsWith(a))){
-            proxify(HTMLVideoElement.prototype, 'play', {
+            const proto = HTMLVideoElement.prototype;
+            const mutedDesc = Object.getOwnPropertyDescriptor(proto, 'muted');
+
+            proxify(proto, 'play', {
               apply(f, t, args){
                 if(args[0] !== 'ublock') return nop;
                 return f.apply(t, args);
               }
             });
 
-            proxify(HTMLVideoElement.prototype, 'pause', {
+            proxify(proto, 'pause', {
               apply(f, t, args){
                 if(args[0] !== 'ublock') return nop;
                 return f.apply(t, args);
               }
+            });
+
+            Object.defineProperty(proto, 'muted', {
+              get(){
+                return desc.get.call(this);
+              },
+
+              set(a){
+                if(a && this.classList.contains('ublock-unmuted')) return;
+                desc.set.call(this, a);
+              },
             });
           }
         }

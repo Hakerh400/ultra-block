@@ -1,3 +1,4 @@
+.css-1dbjc4n.r-1p0dtai.r-1d2f490.r-u8s1d.r-zchlnj.r-ipm5af:nth-child(2),
 *[role="banner"],
 *[role="heading"],
 *[role="progressbar"],
@@ -6,6 +7,11 @@
 *[aria-label^="Loading"]{
   display: none !important;
   visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+video:not(.ublock-safe){
   opacity: 0 !important;
   pointer-events: none !important;
 }

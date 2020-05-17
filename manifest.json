@@ -186,6 +186,7 @@
       "all_frames": true
     }, {
       "matches": ["https://twitter.com/*"],
+      "js": ["twitter.js"],
       "css": ["twitter.css"],
       "run_at": "document_start",
       "all_frames": true
