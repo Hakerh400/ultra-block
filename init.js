@@ -15,7 +15,7 @@
         const e = d.body || d.documentElement;
         e.innerHTML = '';
       }catch(err){
-        (window.console_ || console).log(err);
+        // (window.console_ || console).log(err);
       }
     }
   };
@@ -376,7 +376,11 @@
         const shouldBeMuted = url.startsWith('file:///') && !url.startsWith('file:///D:/Music/');
 
         const enhanceVideo = () => {
-          (q=>((v,S)=>{'controls,autoplay'.split`,`.map(a=>v.removeAttribute(a)),v.muted=shouldBeMuted,v.classList.add('ublock-video'),addEventListener('keydown',(a,b=!a.ctrlKey?a.keyCode:0,c='currentTime')=>b-37?b-39?b-77?b-116?1:(a.preventDefault('ublock'),v.pause(),S.src=(a=>(a=a.split`?`,a[1]='a='+Date.now()+Math.random(),a.join`?`))(S.src),v.load()):v.muted^=1:v[c]+=5:v[c]-=5);sessionStorage['ublock-prevent-hard-reload']=1})(q('video')[0],q('source')[0]))(a=>[...document.querySelectorAll(a)]);
+          (q=>((v,S)=>{'controls,autoplay'.split`,`.map(a=>v.removeAttribute(a)),v.muted=shouldBeMuted,v.classList.add('ublock-video'),addEventListener('keydown',(a,b=!a.ctrlKey?a.keyCode:0,c='currentTime')=>b-37?b-39?b-77?b-116?1:(a.preventDefault('ublock'),v.pause(),S.src=(a=>(a=a.split`?`,a[1]='a='+Date.now()+Math.random(),a.join`?`))(S.src),v.load()):v.muted^=1:v[c]+=5:v[c]-=5);
+
+            if(/\.(?:mp4|mkv)$/.test(url))
+              sessionStorage['ublock-prevent-hard-reload'] = 1;
+          })(q('video')[0],q('source')[0]))(a=>[...document.querySelectorAll(a)]);
 
           document.body.classList.add('ublock-rot-0');
 
@@ -540,7 +544,7 @@
                     const e = d.body || d.documentElement;
                     e.innerHTML = '';
                   }catch(err){
-                    (window.console_ || console).log(err);
+                    // (window.console_ || console).log(err);
                   }
                 }
                 
@@ -558,7 +562,7 @@
                 args[1] = (f => evt => {
                   try{ f(evt); }
                   catch(err){
-                    (window.console_ || console).log(err);
+                    // (window.console_ || console).log(err);
                   }
                 })(args[1]);
               }
@@ -568,7 +572,7 @@
           });
 
           {
-            const authenticateEvent = evt => {
+            const authenticateEvent = (f, t, args) => {
               if(args[0] !== 'ublock'){
                 if(blackListedListeners.some(type => type === t.type)) return nop;
                 if(t.type === 'auxclick') return nop;
@@ -703,7 +707,7 @@
 
               document.title = blackListed ? ['ublock-title', ''] : origTitle;
             }catch(err){
-              (window.console_ || console).log(err);
+              // (window.console_ || console).log(err);
             }
 
             if(blackListed) setTimeout(f, 1e3);
@@ -1057,18 +1061,26 @@
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        if(url.startsWith('https://twitter.com/')){
-          HTMLVideoElement.prototype.play = new Proxy(HTMLVideoElement.prototype.play, {
-            apply(f, t, args){
-              return nop;
-            }
-          });
+        {
+          const blackList = [
+            'https://twitter.com/',
+          ];
 
-          HTMLVideoElement.prototype.pause = new Proxy(HTMLVideoElement.prototype.pause, {
-            apply(f, t, args){
-              return nop;
-            }
-          });
+          if(blackList.some(a => url.startsWith(a))){
+            proxify(HTMLVideoElement.prototype, 'play', {
+              apply(f, t, args){
+                if(args[0] !== 'ublock') return nop;
+                return f.apply(t, args);
+              }
+            });
+
+            proxify(HTMLVideoElement.prototype, 'pause', {
+              apply(f, t, args){
+                if(args[0] !== 'ublock') return nop;
+                return f.apply(t, args);
+              }
+            });
+          }
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
