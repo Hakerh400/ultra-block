@@ -14,7 +14,9 @@
         const d = document;
         const e = d.body || d.documentElement;
         e.innerHTML = '';
-      }catch{}
+      }catch(err){
+        (window.console_ || console).log(err);
+      }
     }
   };
 
@@ -537,7 +539,9 @@
                     const d = document;
                     const e = d.body || d.documentElement;
                     e.innerHTML = '';
-                  }catch{}
+                  }catch(err){
+                    (window.console_ || console).log(err);
+                  }
                 }
                 
                 w.location.reload();
@@ -553,7 +557,9 @@
               if(type === 'keydown'){
                 args[1] = (f => evt => {
                   try{ f(evt); }
-                  catch{}
+                  catch(err){
+                    (window.console_ || console).log(err);
+                  }
                 })(args[1]);
               }
 
@@ -561,8 +567,8 @@
             }
           });
 
-          proxify(w.Event.prototype, 'preventDefault', {
-            apply(f, t, args){
+          {
+            const authenticateEvent = evt => {
               if(args[0] !== 'ublock'){
                 if(blackListedListeners.some(type => type === t.type)) return nop;
                 if(t.type === 'auxclick') return nop;
@@ -576,15 +582,20 @@
               }
 
               return f.apply(t, args);
-            }
-          });
+            };
 
-          proxify(w.Event.prototype, 'stopPropagation', {
-            apply(f, t, args){
-              if(args[0] !== 'ublock' && blackListedListeners.some(type => type === t.type)) return nop;
-              return f.apply(t, args);
-            }
-          });
+            proxify(w.Event.prototype, 'preventDefault', {
+              apply(f, t, args){
+                return authenticateEvent(f, t, args);
+              }
+            });
+
+            proxify(w.Event.prototype, 'stopPropagation', {
+              apply(f, t, args){
+                return authenticateEvent(f, t, args);
+              }
+            });
+          }
 
           // proxify(w.Node.prototype, 'dispatchEvent', {
           //   apply(f, t, args){
@@ -691,7 +702,9 @@
                   origTitle = origTitle.slice(0, origTitle.length - t.length);
 
               document.title = blackListed ? ['ublock-title', ''] : origTitle;
-            }catch{}
+            }catch(err){
+              (window.console_ || console).log(err);
+            }
 
             if(blackListed) setTimeout(f, 1e3);
           };
