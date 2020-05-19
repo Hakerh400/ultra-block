@@ -990,8 +990,6 @@
 
             f();
 
-            setInterval(()=>{debugger});
-
             proxify(w.Node.prototype, 'appendChild', {
               apply(f, t, args){
                 const e = args[0];
