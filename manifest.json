@@ -191,6 +191,11 @@
       "run_at": "document_start",
       "all_frames": true
     }, {
+      "matches": ["https://genius.com/*"],
+      "css": ["genius.css"],
+      "run_at": "document_start",
+      "all_frames": true
+    }, {
       "matches": [
         "https://travis-ci.org/*",
         "https://travis-ci.com/*"

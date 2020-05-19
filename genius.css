@@ -1,0 +1,16 @@
+.header_with_cover_art,
+.column_layout-column_span.column_layout-column_span--secondary.u-top_margin.column_layout-flex_column,
+.dfp_unit.dfp_unit--in_read.u-xx_large_top_margin,
+.u-xx_large_vertical_margins,
+.breadcrumbs,
+.comments.u-vertical_margins.gray_container,
+.text_label.text_label--gray.text_label--x_small_text_size.u-top_margin,
+.header,
+.header_with_cover_art.header_with_cover_art--fade_in_background.clipped_background_image,
+.stickynav__container-sc-1q5ye4s-0.bdyxrr,
+dfp-ad{
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}

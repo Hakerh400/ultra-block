@@ -990,9 +990,12 @@
 
             f();
 
+            setInterval(()=>{debugger});
+
             proxify(w.Node.prototype, 'appendChild', {
               apply(f, t, args){
                 const e = args[0];
+                if(e === nop) return nop;
 
                 if(e.tagName === 'VIDEO'){
                   e.autoplay = false;
@@ -1065,7 +1068,6 @@
           const blackList = [
             'https://twitter.com/',
           ];
-
 
           if(blackList.some(a => url.startsWith(a))){
             const proto = HTMLVideoElement.prototype;
