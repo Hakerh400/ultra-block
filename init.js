@@ -582,7 +582,7 @@
                 }
               }
 
-              return f.apply(t, args);
+              return f.apply(evt, args);
             };
 
             proxify(proto, 'preventDefault', {
