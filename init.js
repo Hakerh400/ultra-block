@@ -8,14 +8,14 @@
     if(sessionStorage['ublock-prevent-hard-reload'])
       return;
 
-    if(window.parent.frames.length === 0){
+    if(window === top){
       try{
         window.scrollTo(0, 0);
         const d = document;
         const e = d.body || d.documentElement;
         e.innerHTML = '';
       }catch(err){
-        // (window.console_ || console).log(err);
+        // (window.console_ || console).log(err); debugger;
       }
     }
   };
@@ -378,7 +378,7 @@
         const enhanceVideo = () => {
           (q=>((v,S)=>{'controls,autoplay'.split`,`.map(a=>v.removeAttribute(a)),v.muted=shouldBeMuted,v.classList.add('ublock-video'),addEventListener('keydown',(a,b=!a.ctrlKey?a.keyCode:0,c='currentTime')=>b-37?b-39?b-77?b-116?1:(a.preventDefault('ublock'),v.pause(),S.src=(a=>(a=a.split`?`,a[1]='a='+Date.now()+Math.random(),a.join`?`))(S.src),v.load()):v.muted^=1:v[c]+=5:v[c]-=5);
 
-            if(/\.(?:mp4|webm|mkv)(?:[?&]|$)/i.test(url))
+            if(/\.(?:mp3|mp4|webm|mkv)(?:[?&]|$)/i.test(url))
               sessionStorage['ublock-prevent-hard-reload'] = 1;
           })(q('video')[0],q('source')[0]))(a=>[...document.querySelectorAll(a)]);
 
@@ -517,18 +517,6 @@
             ] : [],
           ];
 
-          [
-            w,
-            document,
-          ].forEach(target => {
-            blackListedListeners.forEach(type => {
-              Object.defineProperty(target, `on${type}`, {
-                get: nop,
-                set: nop,
-              });
-            });
-          });
-
           w.addEventListener('keydown', evt => {
             switch(evt.code){
               case 'F5':
@@ -537,14 +525,14 @@
                 evt.preventDefault('ublock');
                 evt.stopPropagation('ublock');
 
-                if(window.parent.frames.length === 0){
+                if(w === top){
                   try{
                     window.scrollTo(0, 0);
                     const d = document;
                     const e = d.body || d.documentElement;
                     e.innerHTML = '';
                   }catch(err){
-                    // (window.console_ || console).log(err);
+                    // (window.console_ || console).log(err); debugger;
                   }
                 }
                 
@@ -562,7 +550,7 @@
                 args[1] = (f => evt => {
                   try{ f(evt); }
                   catch(err){
-                    // (window.console_ || console).log(err);
+                    // (window.console_ || console).log(err); debugger;
                   }
                 })(args[1]);
               }
@@ -572,32 +560,53 @@
           });
 
           {
-            const authenticateEvent = (f, t, args) => {
-              if(args[0] !== 'ublock'){
-                if(blackListedListeners.some(type => type === t.type)) return nop;
-                if(t.type === 'auxclick') return nop;
+            const proto = w.Event.prototype;
+            const desc = Object.getOwnPropertyDescriptor(proto, 'defaultPrevented');
 
-                if(t.type === 'keydown'){
-                  const {code} = t;
+            const authenticateEvent = (f, evt, args) => {
+              check: if(args[0] !== 'ublock'){
+                if(blackListedListeners.some(type => type === evt.type)) return nop;
+                if(evt.type === 'auxclick') return nop;
+
+                if(evt.type === 'keydown'){
+                  const {code} = evt;
                   if(/^F\d+$/.test(code)) return nop;
-                  if(code === 'KeyJ' && t.ctrlKey && t.shiftKey) return nop;
-                  if(code === 'KeyL' && t.ctrlKey) return nop;
+                  if(code === 'KeyJ' && evt.ctrlKey && evt.shiftKey) return nop;
+                  if(code === 'KeyL' && evt.ctrlKey) return nop;
+                  break check;
+                }
+
+                if(evt.type === 'mousedown'){
+                  if(evt.shiftKey) return nop;
+                  break check;
                 }
               }
 
               return f.apply(t, args);
             };
 
-            proxify(w.Event.prototype, 'preventDefault', {
+            proxify(proto, 'preventDefault', {
               apply(f, t, args){
                 return authenticateEvent(f, t, args);
               }
             });
 
-            proxify(w.Event.prototype, 'stopPropagation', {
+            proxify(proto, 'stopPropagation', {
               apply(f, t, args){
                 return authenticateEvent(f, t, args);
               }
+            });
+
+            Object.defineProperty(proto, 'defaultPrevented', {
+              get(){
+                return desc.get.call(this);
+              },
+
+              set(val){
+                authenticateEvent(() => {
+                  desc.set.call(this, val);
+                }, this, []);
+              },
             });
           }
 
@@ -641,6 +650,18 @@
 
             block();
           }
+
+          [
+            w,
+            document,
+          ].forEach(target => {
+            blackListedListeners.forEach(type => {
+              Object.defineProperty(target, `on${type}`, {
+                get: nop,
+                set: nop,
+              });
+            });
+          });
         };
 
         if(
@@ -707,13 +728,14 @@
 
               document.title = blackListed ? ['ublock-title', ''] : origTitle;
             }catch(err){
-              // (window.console_ || console).log(err);
+              // (window.console_ || console).log(err); debugger;
             }
 
-            if(blackListed) setTimeout(f, 1e3);
+            // if(blackListed) setTimeout(f, 1e3);
           };
 
-          f();
+          // f();
+          if(blackListed) setInterval(f, 1e3);
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1087,12 +1109,12 @@
 
             Object.defineProperty(proto, 'muted', {
               get(){
-                return desc.get.call(this);
+                return mutedDesc.get.call(this);
               },
 
               set(a){
                 if(a && this.classList.contains('ublock-unmuted')) return;
-                desc.set.call(this, a);
+                mutedDesc.set.call(this, a);
               },
             });
           }

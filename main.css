@@ -66,8 +66,8 @@ img[src*="banner" i],
 #siteNotice,
 #p-lang,
 .promlinks,
-
 form[action*="paypal"],
+[aria-label="loading" i],
 
 /* google */
 #snackbar,
