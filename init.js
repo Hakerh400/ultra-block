@@ -651,17 +651,43 @@
             block();
           }
 
-          [
-            w,
-            document,
-          ].forEach(target => {
-            blackListedListeners.forEach(type => {
-              Object.defineProperty(target, `on${type}`, {
-                get: nop,
-                set: nop,
-              });
-            });
-          });
+          {
+            const targets = [
+              window,
+              HTMLElement.prototype,
+            ];
+
+            const keys = blackListedListeners.map(a => `on${a}`);
+
+            for(const target of targets){
+              for(const key of keys){
+                Object.defineProperty(target, key, {
+                  get: nop,
+                  set: nop,
+                });
+              }
+            }
+
+            const selector = keys.map(a => `[${a}]`).join(',');
+            const style = document.createElement('style');
+
+            style.innerHTML = `
+              ${selector}{
+                opacity: 0 !important;
+                pointer-events: none !important;
+              }
+            `;
+
+            document.documentElement.appendChild(style);
+
+            const f = () => {
+              for(const e of qsa(selector))
+                for(const key of keys)
+                  e.removeAttribute(key);
+            };
+
+            setInterval(f, 1e3);
+          }
         };
 
         if(
@@ -843,12 +869,6 @@
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        Object.defineProperty(w.navigator, 'userAgent', {
-          get(){
-            return 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36';
-          }
-        });
 
         [
           'console',
