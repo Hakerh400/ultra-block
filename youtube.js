@@ -103,6 +103,7 @@
       let parens = 0;
 
       title = title1.length > title2.length ? title1 : title2;
+      debugger;
 
       while(title.length !== 0 && (reg.test(title[0]) || parens !== 0)){
         const chr = title[0];
@@ -111,8 +112,7 @@
           if(parens === 0) break;
           parens++;
         }else if(clsReg.test(chr)){
-          if(parens === 0) break;
-          parens--;
+          if(parens !== 0) parens--;
         }
 
         title = title.slice(1);
@@ -127,8 +127,7 @@
           if(parens === 0) break;
           parens++;
         }else if(opnReg.test(chr)){
-          if(parens === 0) break;
-          parens--;
+          if(parens !== 0) parens--;
         }
 
         title = title.slice(0, title.length - 1);
