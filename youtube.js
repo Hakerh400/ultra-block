@@ -103,7 +103,6 @@
       let parens = 0;
 
       title = title1.length > title2.length ? title1 : title2;
-      debugger;
 
       while(title.length !== 0 && (reg.test(title[0]) || parens !== 0)){
         const chr = title[0];
