@@ -69,6 +69,9 @@ img[src*="banner" i],
 form[action*="paypal" i],
 [aria-label="loading" i],
 
+body > hr:nth-last-child(-n + 2),
+body > center:nth-last-child(-n + 2),
+
 /* google */
 #snackbar,
 #fbar,

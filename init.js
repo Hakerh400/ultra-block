@@ -4,6 +4,21 @@
   if(location.href.startsWith('http://localhost')) return;
   if(location.href.startsWith('https://hakerh400.github.io/')) return;
 
+  {
+    const {style} = document.documentElement;
+    const raf = requestAnimationFrame;
+
+    style.setProperty('opacity', '0', 'important');
+    style.setProperty('pointer-events', 'none', 'important');
+
+    raf(() => {
+      raf(() => {
+        style.removeProperty('opacity');
+        style.removeProperty('pointer-events');
+      });
+    });
+  }
+
   onbeforeunload = () => {
     if(sessionStorage['ublock-prevent-hard-reload'])
       return;
