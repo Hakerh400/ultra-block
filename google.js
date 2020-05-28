@@ -135,18 +135,18 @@
     function block(){
       let e;
 
-      checkSearchResult: for(const e of qsa('.g:not(.ublock-safe)')){
+      checkSearchResults: for(const e of qsa('.g:not(.ublock-safe)')){
         for(const span of qsa(e, 'span')){
           if(span.innerText.trim() === 'Missing:'){
             e.remove();
-            continue checkSearchResult;
+            continue checkSearchResults;
           }
         }
 
         for(const link of qsa(e, 'a')){
           if(/books.google.com/.test(link.href)){
             e.remove();
-            continue checkSearchResult;
+            continue checkSearchResults;
           }
         }
 

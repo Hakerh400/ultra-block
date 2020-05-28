@@ -172,7 +172,8 @@
             }
           };
 
-          w.ubkeys = obj => {
+          w.ubkeys = value => {
+            let obj = value;
             let depth = 0;
 
             const table = new Table([
@@ -196,7 +197,16 @@
                 val = val.slice('Symbol'.length + 1, val.length - 1);
               }
 
-              return JSON.stringify(val);
+              let str = JSON.stringify(val);
+
+              if(str.length > 102)
+                str = `${str.slice(0, 101)}"...`;
+
+              str = str.replace(/[\x00-\x1F\u007F-\uFFFF]/g, a => {
+                return `\\u${a.charCodeAt(0).toString(16).toUpperCase().padStart(4, '0')}`;
+              });
+
+              return str;
             };
 
             const desc2str = desc => {
@@ -231,7 +241,7 @@
                 }
 
                 try{
-                  const val = desc.get.call(obj);
+                  const val = desc.get.call(value);
                   return [typeof val, val];
                 }catch(err){
                   return ['(error)', err];
@@ -610,10 +620,16 @@
 
             const authenticateEvent = (f, evt, args) => {
               check: if(args[0] !== 'ublock'){
-                if(blackListedListeners.some(type => type === evt.type)) return nop;
-                if(evt.type === 'auxclick') return nop;
+                const {type, target} = evt;
 
-                if(evt.type === 'keydown'){
+                if(type === 'mousedown' || type === 'click'){
+                  if(target.closest('a[href]')) return nop;
+                }
+
+                if(blackListedListeners.some(t => t === type)) return nop;
+                if(type === 'auxclick') return nop;
+
+                if(type === 'keydown'){
                   const {code} = evt;
                   if(/^F\d+$/.test(code)) return nop;
                   if(code === 'KeyJ' && evt.ctrlKey && evt.shiftKey) return nop;
@@ -621,7 +637,7 @@
                   break check;
                 }
 
-                if(evt.type === 'mousedown'){
+                if(type === 'mousedown'){
                   if(evt.shiftKey) return nop;
                   break check;
                 }
