@@ -135,9 +135,22 @@
     function block(){
       let e;
 
-      for(let e of qsa('.g')){
-        if(e.innerHTML.includes('<span>Missing:</span>'))
-          e.remove();
+      checkSearchResult: for(const e of qsa('.g:not(.ublock-safe)')){
+        for(const span of qsa(e, 'span')){
+          if(span.innerText.trim() === 'Missing:'){
+            e.remove();
+            continue checkSearchResult;
+          }
+        }
+
+        for(const link of qsa(e, 'a')){
+          if(/books.google.com/.test(link.href)){
+            e.remove();
+            continue checkSearchResult;
+          }
+        }
+
+        show(e);
       }
 
       if(e = qs('#center_col')){

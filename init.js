@@ -388,7 +388,39 @@
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        const shouldBeMuted = url.startsWith('file:///') && !url.startsWith('file:///D:/Music/');
+        const gracePeriod = 100;
+        let loaded = 0;
+
+        {
+          const incLoad = () => {
+            setTimeout(() => {
+              loaded++;
+            }, gracePeriod);
+          };
+
+          window.addEventListener('load', () => {
+            incLoad();
+          });
+
+          document.addEventListener('DOMContentLoaded', () => {
+            incLoad();
+          });
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        const isMusic = url.startsWith('file:///D:/Music/');
+        const shouldBeMuted = url.startsWith('file:///') && !isMusic;
+
+        const enhanceTitle = () => {
+          const f = () => {
+            ((a,b)=>(document.title=['ublock-title',''],document.title='\u034F',[...document.querySelectorAll('h1.title')].forEach(b=>a(b,'innerText'))))((a,b)=>a[b]=a[b]?a[b].replace(/[^ -~]+/gu,' ').replace(/\s+/g,' ').trim():'\u034f',{a:document.title});
+
+            setTimeout(f, loaded ? 1e3 : 0);
+          };
+
+          f();
+        };
 
         const enhanceVideo = () => {
           (q=>((v,S)=>{'controls,autoplay'.split`,`.map(a=>v.removeAttribute(a)),v.muted=shouldBeMuted,v.classList.add('ublock-video'),addEventListener('keydown',(a,b=!a.ctrlKey?a.keyCode:0,c='currentTime')=>b-37?b-39?b-77?b-116?1:(a.preventDefault('ublock'),v.pause(),S.src=(a=>(a=a.split`?`,a[1]='a='+Date.now()+Math.random(),a.join`?`))(S.src),v.load()):v.muted^=1:v[c]+=5:v[c]-=5);
@@ -414,6 +446,8 @@
           });
         };
 
+        if(isMusic) enhanceTitle();
+
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         {
@@ -426,11 +460,7 @@
             }],
             ['Visited links', () => ((a,Y,M)=>(a('pre',a=>a.innerHTML=a.innerHTML.replace(/\<[^\.]*\>/g,'').trim().split(/\r\n|\r|\n/).map(a=>`<a href=${a.match(/\b[a-z]+?:\/\/[\S]+/)||((M=a.match(/\[([a-zA-Z0-9\_\-]{11})\]/))?Y+'watch?v='+M[1]:Y+'results?search_query='+a.split(/\-{2,}/)[0].split(/\*{2,}/).pop().trim().split('').map(a=>a<'~'?escape(a):a).join(''))}>${a}</a>`).join('<br>')),a('a',a=>a.addEventListener('mousedown',b=>/*b.button===1&&*/a.style.setProperty('color','red','important')))))((a,b)=>[...document.querySelectorAll(a)].map(b),'https://www.youtube.com/')],
             ['Enhance title', () => {
-              const f = () => {
-                ((a,b)=>(document.title=['ublock-title',''],document.title='\u034F',[...document.querySelectorAll('h1.title')].forEach(b=>a(b,'innerText'))))((a,b)=>a[b]=a[b]?a[b].replace(/[^ -~]+/gu,' ').replace(/\s+/g,' ').trim():'\u034f',{a:document.title});
-                setTimeout(f, 1e3);
-              };
-              f();
+              enhanceTitle();
             }],
             ['Extract videos', () => (document.documentElement.innerText=[...document.querySelectorAll`#contents a[href]`].map(a=>a.href).filter((a,b,c)=>c.indexOf(a)==b).map(a=>a.slice(-11)).reverse().join`\n`)],
             ['Prevent unload', () => (onbeforeunload=a=>'')],
@@ -1006,25 +1036,8 @@
             'https://www.youtube.com/',
           ];
 
-          const gracePeriod = 100;
-
           if(!whiteList.some(a => url.startsWith(a))){
-            let loaded = 0;
             let enhanced = 0;
-
-            const incLoad = () => {
-              setTimeout(() => {
-                loaded++;
-              }, gracePeriod);
-            };
-
-            window.addEventListener('load', () => {
-              incLoad();
-            });
-
-            document.addEventListener('DOMContentLoaded', () => {
-              incLoad();
-            });
 
             const f = () => {
               const elems = qsa('video');
