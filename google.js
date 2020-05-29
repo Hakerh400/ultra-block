@@ -143,6 +143,13 @@
           }
         }
 
+        for(const h2 of qsa(e, 'h2')){
+          if(h2.innerText.trim() === 'People also ask'){
+            e.remove();
+            continue checkSearchResults;
+          }
+        }
+
         for(const link of qsa(e, 'a')){
           if(/books.google.com/.test(link.href)){
             e.remove();

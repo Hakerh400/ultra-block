@@ -623,7 +623,7 @@
                 const {type, target} = evt;
 
                 if(type === 'mousedown' || type === 'click'){
-                  if(target.closest('a[href]')) return nop;
+                  if(target.closest('a[href]') && url.startsWith('https://www.google.co.uk/')) return nop;
                 }
 
                 if(blackListedListeners.some(t => t === type)) return nop;
