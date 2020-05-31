@@ -1,7 +1,7 @@
 (() => {
   'use strict';
 
-  var stage = 0;
+  let stage = 0;
 
   document.addEventListener('DOMContentLoaded', () => {
     stage = 1;
@@ -13,9 +13,27 @@
     block();
 
     function block(){
-      var e;
+      for(const e of qsa('.q-box.qu-py--medium.qu-textAlign--center.qu-borderTop')){
+        e.remove();
+      }
 
-      for(e of qsa('.pagedlist_item:not(.ublock-safe)')){
+      for(const e of qsa('.q-box:not(.ublock-safe)')){
+        if(e.innerText.trim() === 'Related Questions'){
+          e.closest('div:not([class])').remove();
+          continue;
+        }
+
+        show(e);
+      }
+
+      for(const e of qsa('.spacing_log_answer_content:not(.ublock-safe)')){
+        const btn = [...qsa(e, 'button')].find(a => a.innerText.trim() === 'Continue Reading');
+        if(btn) btn.click();
+        
+        show(e);
+      }
+
+      for(const e of qsa('.pagedlist_item:not(.ublock-safe)')){
         if(!e.closest('.answer_text_small')){
           e.remove();
           continue;
@@ -32,7 +50,7 @@
         e.classList.add('ublock-safe');
       }
 
-      for(e of qsa('.UnifiedAnswerPagedList:not(.ublock-safe)')){
+      for(const e of qsa('.UnifiedAnswerPagedList:not(.ublock-safe)')){
         if(!e.closest('.answer_text_small')){
           e.remove();
           continue;
@@ -51,6 +69,10 @@
 
       setTimeout(block, stage ? 1e3 : 0);
     }
+  }
+
+  function show(e){
+    e.classList.add('ublock-safe');
   }
 
   function qs(a, b=null){

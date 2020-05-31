@@ -3,6 +3,10 @@
 .credibility_wrapper,
 .ui_layout_photo_wrapper,
 .BelowQuestionAddPrompt,
+.spacing_log_question_page_ad,
+div:not([style]) > .q-flex,
+.q-fixed.qu-fullX.qu-zIndex--header.qu-borderBottom.qu-boxShadow--medium,
+.q-text.qu-mt--small.qu-color--gray_light.qu-fontSize--small.qu-passColorToLinks,
 .header_logo{
   display: none !important;
   visibility: hidden !important;
@@ -11,6 +15,8 @@
 }
 
 .pagedlist_item:not(.ublock-safe),
+.q-box:not(.ublock-safe),
+.spacing_log_answer_content:not(.ublock-safe),
 .UnifiedAnswerPagedList:not(.ublock-safe){
   opacity: 0 !important;
   pointer-events: none !important;

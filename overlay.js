@@ -4,6 +4,8 @@
   if(window.parent.frames.length > 0) return;
   if(window.location.href.startsWith('http://localhost/')) return;
 
+  const inco = chrome.extension.inIncognitoContext;
+
   const DEBUG = 0;
 
   const SCREEN_WIDTH = 1920;
@@ -212,7 +214,7 @@
         });
       }
 
-      if(chrome.extension.inIncognitoContext && isTopVisible && window.location.href.startsWith('https://www.youtube.com/results?')){
+      if(inco && isTopVisible && window.location.href.startsWith('https://www.youtube.com/results?')){
         g.fillRect(0, 0, 574, 1080);
       }
 
