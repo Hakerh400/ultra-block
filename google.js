@@ -135,7 +135,7 @@
     function block(){
       let e;
 
-      checkSearchResults: for(const e of qsa('.g:not(.ublock-safe)')){
+      checkSearchResults: for(const e of qsa('.g:not(.ublock-safe),.cLjAic:not(.ublock-safe)')){
         for(const span of qsa(e, 'span')){
           if(span.innerText.trim() === 'Missing:'){
             e.remove();
@@ -143,8 +143,8 @@
           }
         }
 
-        for(const h2 of qsa(e, 'h2')){
-          if(h2.innerText.trim() === 'People also ask'){
+        for(const e1 of qsa(e, 'h2,div[role="heading"]')){
+          if(e1.innerText.trim() === 'People also ask'){
             e.remove();
             continue checkSearchResults;
           }
