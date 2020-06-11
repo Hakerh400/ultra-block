@@ -84,6 +84,11 @@
       "run_at": "document_start",
       "all_frames": true
     }, {
+      "matches": ["*://translate.google.co.uk/*"],
+      "css": ["translate.css"],
+      "run_at": "document_start",
+      "all_frames": true
+    }, {
       "matches": ["*://*.convertfiles.com/*"],
       "js": ["convertfiles-init.js"],
       "run_at": "document_start",

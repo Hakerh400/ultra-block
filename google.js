@@ -148,6 +148,11 @@
             e.remove();
             continue checkSearchResults;
           }
+
+          if(e1.innerText.trim() === 'Notable moments'){
+            e.remove();
+            continue checkSearchResults;
+          }
         }
 
         for(const link of qsa(e, 'a')){
