@@ -122,6 +122,7 @@
     'arttournament',
     'twenty20',
     'pinterest',
+    'slate.com',
   ];
 
   main();

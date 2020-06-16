@@ -39,7 +39,8 @@
     var h = window.innerHeight;
     var shift = 0;
 
-    var col = /\.pdf(?:\?|$)/.test(window.location.href) ? '#515659' : '#ffffff';
+    const isPDF = /\.pdf(?:\?|$)/.test(window.location.href);
+    var col = isPDF ? '#515659' : '#ffffff';
 
     var blocks = [
       [0, 0], [w, 0],
@@ -182,7 +183,7 @@
       }
 
       g.clearRect(0, 0, w, h);
-      g.fillStyle = isFs() ? '#808080' : col;
+      g.fillStyle = !isPDF && isFs() ? '#808080' : col;
 
       if(isYtVideo() && isFs()){
         var elem = document.querySelector('#ublock_yt-overlay');
