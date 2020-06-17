@@ -40,7 +40,7 @@
     var shift = 0;
 
     const isPDF = /\.pdf(?:\?|$)/.test(window.location.href);
-    var col = isPDF ? '#515659' : '#ffffff';
+    const col = isPDF ? '#515659' : '#ffffff';
 
     var blocks = [
       [0, 0], [w, 0],
