@@ -41,7 +41,7 @@
     'use strict';
 
     const glob = {
-      sanitizedListenerTargets: new Set(),
+      sanitizedEventTargets: new Set(),
     };
 
     const ublockFunc = (w=window, url=w.location.href) => {
@@ -736,8 +736,8 @@
             const keys = blackListedListeners.map(a => `on${a}`);
 
             for(const target of targets){
-              if(glob.sanitizedListenerTargets.has(target)) continue;
-              glob.sanitizedListenerTargets.add(target);
+              if(glob.sanitizedEventTargets.has(target)) continue;
+              glob.sanitizedEventTargets.add(target);
 
               for(const key of keys){
                 Object.defineProperty(target, key, {
