@@ -37,10 +37,14 @@
 
   const STYLE_URL = chrome.runtime.getURL('main.css');
 
-  var script = () => {
+  const script = () => {
     'use strict';
 
-    var ublockFunc = (w=window, url=w.location.href) => {
+    const glob = {
+      sanitizedListenerTargets: new Set(),
+    };
+
+    const ublockFunc = (w=window, url=w.location.href) => {
       if(w['ublock-init.js']) return;
       w['ublock-init.js'] = 1;
 
@@ -732,6 +736,9 @@
             const keys = blackListedListeners.map(a => `on${a}`);
 
             for(const target of targets){
+              if(glob.sanitizedListenerTargets.has(target)) continue;
+              glob.sanitizedListenerTargets.add(target);
+
               for(const key of keys){
                 Object.defineProperty(target, key, {
                   get: nop,
@@ -1246,7 +1253,7 @@
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         if(
-          // url.startsWith('https://www.youtube.com/') && !url.includes('&list=') ||
+          url.startsWith('https://www.youtube.com/') /*&& !url.includes('&list=')*/ ||
           url.startsWith('https://github.com/')
         ) (() => {
           proxify(w.Node.prototype, 'appendChild', {
@@ -1258,7 +1265,7 @@
                 try{
                   ublockFunc(elem.contentWindow, url);
                 }catch(e){
-                  // alert_(e.stack);
+                  log(e.stack);
                 }
               }
 
