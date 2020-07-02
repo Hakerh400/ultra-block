@@ -46,6 +46,15 @@ jdiv,
 *[class*="rss" i],
 *[class*="popup" i]:not(.ytp-popup):not(.js-profile-popup-actionable),
 
+/* https://www.puzzle-*.com/ */
+input[class="clock"],
+a[class="disable-ads"],
+a[href="/patron.php"],
+#shareContainer,
+#shareContainer + p,
+#moreGamesBnr,
+#Side,
+
 div[id*="hero-"],
 div[id*="-hero"],
 div[id*="herobox"],
@@ -195,6 +204,11 @@ html:not(.ublock-ordinary-links) body:not(.env-production) a:visited,
 html:not(.ublock-ordinary-links) body:not(.env-production) a:hover,
 html:not(.ublock-ordinary-links) body:not(.env-production) a:active{
   color: blue !important;
+}
+
+/* https://www.puzzle-*.com/ */
+#MainContainer{
+  border: 0px !important;
 }
 
 /*body,

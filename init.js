@@ -540,8 +540,17 @@
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         const disableListeners = () => {
+          const ctxMenuWhiteList = [
+            /^https\:\/\/www\.puzzle-[a-z0-9\-]+\.com\//,
+          ];
+
+          const blockCtxMenu = !ctxMenuWhiteList.some(a => {
+            if(typeof a === 'string') return url.startsWith(a);
+            return a.test(url);
+          });
+
           const blackListedListeners = [
-            'contextmenu',
+            ...blockCtxMenu ? ['contextmenu'] : [],
             'beforeunload',
             'unload',
             'error',
@@ -678,13 +687,14 @@
           //   }
           // });
 
-          {
-            let whiteList = [
+          blockListeners1: {
+            const whiteList = [
             ];
 
-            let url = (w.location.href.match(/^[^\/]+?\:\/{2,3}(.+)/) || [])[1];
+            const url = (w.location.href.match(/^[^\/]+?\:\/{2,3}(.+)/) || [])[1];
+
             if(whiteList.some(a => url.startsWith(a)))
-              return;
+              break blockListeners1;
 
             let stage = 0;
 
@@ -712,9 +722,10 @@
             block();
           }
 
-          {
+          blockListeners2: {
             const targets = [
               window,
+              document,
               HTMLElement.prototype,
             ];
 
@@ -763,6 +774,7 @@
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+        // Prevent title modifications
         if(w === top){
           const urlBlacklist = [
             'https://www.youtube.com/watch?',
@@ -1044,6 +1056,7 @@
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+        // Prevent video autoplay
         {
           const whiteList = [
             'https://www.youtube.com/',
@@ -1094,6 +1107,7 @@
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+        // Prevent creatng an iframe
         {
           const whiteList = [
             'https://www.youtube.com/',
@@ -1232,7 +1246,7 @@
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         if(
-          url.startsWith('https://www.youtube.com/') && !url.includes('&list=') ||
+          // url.startsWith('https://www.youtube.com/') && !url.includes('&list=') ||
           url.startsWith('https://github.com/')
         ) (() => {
           proxify(w.Node.prototype, 'appendChild', {

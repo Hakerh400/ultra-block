@@ -123,6 +123,7 @@
     'twenty20',
     'pinterest',
     'slate.com',
+    'bbc.com',
   ];
 
   main();

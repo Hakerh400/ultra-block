@@ -36,8 +36,8 @@
   const blackListChannelName = inco ? [
   ] : [];
 
-  const blackListUser = arr2obj(inco ? [
-  ] : []);
+  const blackListUser = arr2obj([
+  ]);
 
   const blackListChannel = arr2obj([
   ]);
