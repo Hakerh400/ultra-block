@@ -54,6 +54,8 @@ a[href="/patron.php"],
 #shareContainer + p,
 #moreGamesBnr,
 #Side,
+#noncomph,
+.icon-spin,
 
 div[id*="hero-"],
 div[id*="-hero"],
@@ -143,6 +145,8 @@ svg.iconHistory,
 
 /* wikipedia */
 .uls-lcd-region-section.uls-lcd-quicklist,
+.mw-mmv-progress,
+.mw-mmv-repo-button-commons,
 
 /* the pirate bay */
 #searchResult:not(.ublock-safe),
