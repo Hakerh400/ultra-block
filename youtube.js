@@ -88,10 +88,10 @@
   ////////////////////////////////////////////////////////////////////////////////////////////////////
 
   const sanitizeTitle = (channel, title) => {
-    let channelL = channel.toLowerCase();
-    let titleL = title.toLowerCase();
+    let channelN = normalizeStr(channel);
+    let titleN = normalizeStr(title);
 
-    const index = titleL.indexOf(channelL);
+    const index = titleN.indexOf(channelN);
 
     if(index !== -1){
       const reg = /[ -\/:-@\[-`\{-~\u24D2\u2714]/;
@@ -134,6 +134,11 @@
     }
 
     return title;
+  };
+
+  const normalizeStr = str => {
+    str = str.toLowerCase();
+    return str;
   };
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////
