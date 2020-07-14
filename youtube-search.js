@@ -28,12 +28,14 @@
   ] : [];
 
   const blackListMeta = inco ? [
+    ...blackList,
   ] : [];
 
   const blackListTitle = inco ? [
   ] : [];
 
   const blackListChannelName = inco ? [
+    ...blackList,
   ] : [];
 
   const blackListUser = arr2obj([

@@ -88,10 +88,21 @@
   ////////////////////////////////////////////////////////////////////////////////////////////////////
 
   const sanitizeTitle = (channel, title) => {
-    let channelN = normalizeStr(channel);
-    let titleN = normalizeStr(title);
+    channel = channel.split('');
+    title = title.split('');
 
-    const index = titleN.indexOf(channelN);
+    let channelN = normalizeChars(channel);
+    let titleN = normalizeChars(title);
+    let index = -1;
+
+    findIndex: for(let i = 0; i !== titleN.length - channelN.length + 1; i++){
+      for(let j = 0; j !== channelN.length; j++)
+        if(titleN[i + j] !== channelN[j])
+          continue findIndex;
+
+      index = i;
+      break findIndex;
+    }
 
     if(index !== -1){
       const reg = /[ -\/:-@\[-`\{-~\u24D2\u2714]/;
@@ -133,12 +144,14 @@
       }
     }
 
-    return title;
+    return title.join('');
   };
 
-  const normalizeStr = str => {
-    str = str.toLowerCase();
-    return str;
+  const normalizeChars = chars => {
+    return chars.map(a => {
+      a = a.toLowerCase();
+      return a;
+    });
   };
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////
