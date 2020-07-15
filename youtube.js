@@ -95,7 +95,7 @@
     let titleN = normalizeChars(title);
     let index = -1;
 
-    findIndex: for(let i = 0; i !== titleN.length - channelN.length + 1; i++){
+    findIndex: for(let i = 0; i <= titleN.length - channelN.length; i++){
       for(let j = 0; j !== channelN.length; j++)
         if(titleN[i + j] !== channelN[j])
           continue findIndex;
