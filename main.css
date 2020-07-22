@@ -24,7 +24,7 @@ jdiv,
 *[id*="rss" i],
 *[id*="popup" i]:not(.ytp-popup),
 
-*[class*="footer" i]:not(.main-wrapper-for-sticky-footer):not(.tblFooters):not(*[href*="/morelikethis/"]):not(.rounded-cr-footer):not(.stream-item-footer):not(.page-template-elementor_header_footer),
+*[class*="footer" i]:not(html):not(.main-wrapper-for-sticky-footer):not(.tblFooters):not(*[href*="/morelikethis/"]):not(.rounded-cr-footer):not(.stream-item-footer):not(.page-template-elementor_header_footer),
 *[class*="copyright" i],
 *[class*="newsletter" i],
 *[class*="countryList" i],

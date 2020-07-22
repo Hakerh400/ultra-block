@@ -124,6 +124,8 @@
     'pinterest',
     'slate.com',
     'bbc.com',
+    'offset.com',
+    'epainassist',
   ];
 
   main();
