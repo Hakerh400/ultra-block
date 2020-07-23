@@ -402,6 +402,21 @@
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+        pseudoRNG: {
+          const match = url.match(/[\?&]ubseed=([^&]*)/);
+          if(match === null) break pseudoRNG;
+
+          const seed = match[1] | 0;
+
+          Math.random = (a => () => {
+            const n = (-1 >>> 1);
+            a = a * 1103515245 + 12345 & n;
+            return a / n;
+          })(seed);
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
         const gracePeriod = 100;
         let loaded = 0;
 
@@ -546,6 +561,7 @@
         const disableListeners = () => {
           const ctxMenuWhiteList = [
             /^https\:\/\/www\.puzzle-[a-z0-9\-]+\.com\//,
+            /^https\:\/\/pwmarcz\.pl\/kaboom\//,
           ];
 
           const blockCtxMenu = !ctxMenuWhiteList.some(a => {
