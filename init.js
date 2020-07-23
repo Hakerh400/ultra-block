@@ -409,7 +409,7 @@
           const seed = match[1] | 0;
 
           Math.random = (a => () => {
-            const n = (-1 >>> 1);
+            const n = -1 >>> 1;
             a = a * 1103515245 + 12345 & n;
             return a / n;
           })(seed);

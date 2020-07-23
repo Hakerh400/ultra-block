@@ -14,7 +14,11 @@
   function main(){
     for(const e of qsa('span.ed:not(.ublock-safe)')){
       const children = [...e.childNodes];
-      const index = children.findIndex(a => a instanceof Text && a.textContent === ' has quit (');
+
+      const index = children.findIndex(a => {
+        if(!(a instanceof Text)) return 0;
+        return /^ has (?:quit|left) \($/.test(a.textContent);
+      });
 
       if(index === -1){
         show(e);
