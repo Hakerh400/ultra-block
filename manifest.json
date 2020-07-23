@@ -201,6 +201,12 @@
       "run_at": "document_start",
       "all_frames": true
     }, {
+      "matches": ["https://esolangs.org/*"],
+      "js": ["esolangs.js"],
+      "css": ["esolangs.css"],
+      "run_at": "document_start",
+      "all_frames": true
+    }, {
       "matches": [
         "https://travis-ci.org/*",
         "https://travis-ci.com/*"
