@@ -126,6 +126,7 @@
     'bbc.com',
     'offset.com',
     'epainassist',
+    'makeameme',
   ];
 
   main();
