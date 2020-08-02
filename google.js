@@ -127,6 +127,7 @@
     'offset.com',
     'epainassist',
     'makeameme',
+    'imgflip',
   ];
 
   main();
