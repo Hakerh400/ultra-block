@@ -756,9 +756,19 @@
               glob.sanitizedEventTargets.add(target);
 
               for(const key of keys){
+                const desc = Object.getOwnPropertyDescriptor(target, key);
+
+                let val = nop;
+
                 Object.defineProperty(target, key, {
-                  get: nop,
-                  set: nop,
+                  get(){
+                    return desc.set.get(this);
+                  },
+
+                  set(a){
+                    if(Array.isArray(a) && a[0] === 'ublock')
+                      desc.set.call(this, a[1]);
+                  },
                 });
               }
             }
@@ -936,7 +946,7 @@
                   return new Promise(res => {
                     const img = new Image();
                     img.onload = () => res(1);
-                    img.onerror = () => res(0);
+                    img.onerror = ['ublock', () => res(0)];
                     img.src = getUrl(index, pad);
                   });
                 }
