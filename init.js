@@ -760,7 +760,7 @@
 
                 Object.defineProperty(target, key, {
                   get(){
-                    return nop;
+                    return desc.get.call(this) || nop;
                   },
 
                   set(a){
