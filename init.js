@@ -758,11 +758,9 @@
               for(const key of keys){
                 const desc = Object.getOwnPropertyDescriptor(target, key);
 
-                let val = nop;
-
                 Object.defineProperty(target, key, {
                   get(){
-                    return desc.set.get(this);
+                    return nop;
                   },
 
                   set(a){
