@@ -1095,15 +1095,30 @@
 
           if(!whiteList.some(a => url.startsWith(a))){
             let enhanced = 0;
+            let paused = 1;
+
+            const onKeyDown = evt => {
+              if(evt.code === 'Space')
+                paused ^= 1;
+            };
+
+            addEventListener('keydown', onKeyDown);
 
             const f = () => {
               const elems = qsa('video');
               let e;
 
               for(e of elems){
-                if(!e.paused) e.pause();
-                e.currentTime = 0;
-                e.autoplay = false;
+                if(e.paused ^ paused){
+                  if(e.paused){
+                    e.play();
+                  }else{
+                    e.pause();
+                    e.currentTime = 0;
+                  }
+                }
+
+                e.autoplay = 0;
                 e.muted = shouldBeMuted;
               }
 
@@ -1112,7 +1127,12 @@
                 enhanced = 1;
               }
 
-              if(loaded !== 2) return setTimeout(f);
+              if(loaded === 2){
+                removeEventListener('keydown', onKeyDown);
+                return;
+              }
+
+              setTimeout(f);
             };
 
             f();
@@ -1123,7 +1143,7 @@
                 if(e === nop) return nop;
 
                 if(e.tagName === 'VIDEO'){
-                  e.autoplay = false;
+                  e.autoplay = 0;
                   e.currentTime = 0;
                 }
 
