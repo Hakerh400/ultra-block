@@ -793,6 +793,49 @@
           }
         };
 
+        [
+          'console',
+          'alert',
+          'prompt',
+          'confirm',
+          'open',
+
+          // Service workers
+          'Cache',
+          'CacheStorage',
+          'Client',
+          'Clients',
+          'ExtendableEvent',
+          'FetchEvent',
+          'InstallEvent',
+          'NotificationEvent',
+          'PeriodicSyncEvent',
+          'PeriodicSyncManager',
+          'PeriodicSyncRegistration',
+          'ServiceWorker',
+          'ServiceWorkerContainer',
+          'ServiceWorkerGlobalScope',
+          'ServiceWorkerRegistration',
+          'SyncEvent',
+          'SyncManager',
+          'SyncRegistration',
+          'wClient',
+          'Navigator.serviceWorker',
+          'navigator.serviceWorker',
+          'SharedWorker',
+          'NetworkInformation',
+        ].forEach(a => {
+          a = a.split`.`;
+
+          var b = a.pop();
+          var obj = a.reduce((a, b) => a[b], w);
+
+          Object.defineProperty(obj, b, {
+            value: nop,
+            writable: false,
+          });
+        });
+
         if(
           location.href.startsWith('https://mail.google.com/') ||
           location.href.startsWith('https://drive.google.com/') ||
@@ -970,49 +1013,6 @@
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        [
-          'console',
-          'alert',
-          'prompt',
-          'confirm',
-          'open',
-
-          // Service workers
-          'Cache',
-          'CacheStorage',
-          'Client',
-          'Clients',
-          'ExtendableEvent',
-          'FetchEvent',
-          'InstallEvent',
-          'NotificationEvent',
-          'PeriodicSyncEvent',
-          'PeriodicSyncManager',
-          'PeriodicSyncRegistration',
-          'ServiceWorker',
-          'ServiceWorkerContainer',
-          'ServiceWorkerGlobalScope',
-          'ServiceWorkerRegistration',
-          'SyncEvent',
-          'SyncManager',
-          'SyncRegistration',
-          'wClient',
-          'Navigator.serviceWorker',
-          'navigator.serviceWorker',
-          'SharedWorker',
-          'NetworkInformation',
-        ].forEach(a => {
-          a = a.split`.`;
-
-          var b = a.pop();
-          var obj = a.reduce((a, b) => a[b], w);
-
-          Object.defineProperty(obj, b, {
-            value: nop,
-            writable: false,
-          });
-        });
 
         proxify(w, 'Worker', {
           construct(ctor, args){
