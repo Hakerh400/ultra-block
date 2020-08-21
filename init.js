@@ -793,49 +793,6 @@
           }
         };
 
-        [
-          'console',
-          'alert',
-          'prompt',
-          'confirm',
-          'open',
-
-          // Service workers
-          'Cache',
-          'CacheStorage',
-          'Client',
-          'Clients',
-          'ExtendableEvent',
-          'FetchEvent',
-          'InstallEvent',
-          'NotificationEvent',
-          'PeriodicSyncEvent',
-          'PeriodicSyncManager',
-          'PeriodicSyncRegistration',
-          'ServiceWorker',
-          'ServiceWorkerContainer',
-          'ServiceWorkerGlobalScope',
-          'ServiceWorkerRegistration',
-          'SyncEvent',
-          'SyncManager',
-          'SyncRegistration',
-          'wClient',
-          'Navigator.serviceWorker',
-          'navigator.serviceWorker',
-          'SharedWorker',
-          'NetworkInformation',
-        ].forEach(a => {
-          a = a.split`.`;
-
-          var b = a.pop();
-          var obj = a.reduce((a, b) => a[b], w);
-
-          Object.defineProperty(obj, b, {
-            value: nop,
-            writable: false,
-          });
-        });
-
         if(
           location.href.startsWith('https://mail.google.com/') ||
           location.href.startsWith('https://drive.google.com/') ||
@@ -843,6 +800,7 @@
           location.href.startsWith('https://esolangs.org/w/index.php')
         ){
           disableListeners();
+          disableFeatures();
           return;
         }
 
@@ -891,7 +849,11 @@
           const f = () => {
             try{
               const title = desc.get.call(document);
-              if(title === '' || title === '\u034F') return setTimeout(f, 1e3);
+
+              if(title === '' || title === '\u034F'){
+                if(blackListed) document.title = ['ublock-title', ''];
+                return;
+              }
 
               origTitle = title;
 
@@ -1011,6 +973,55 @@
             c.add(`ublock-rot-${rot}`);
           });
         }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        function disableFeatures(){
+          [
+            'console',
+            'alert',
+            'prompt',
+            'confirm',
+            'open',
+
+            // Service workers
+            'Cache',
+            'CacheStorage',
+            'Client',
+            'Clients',
+            'ExtendableEvent',
+            'FetchEvent',
+            'InstallEvent',
+            'NotificationEvent',
+            'PeriodicSyncEvent',
+            'PeriodicSyncManager',
+            'PeriodicSyncRegistration',
+            'ServiceWorker',
+            'ServiceWorkerContainer',
+            'ServiceWorkerGlobalScope',
+            'ServiceWorkerRegistration',
+            'SyncEvent',
+            'SyncManager',
+            'SyncRegistration',
+            'wClient',
+            'Navigator.serviceWorker',
+            'navigator.serviceWorker',
+            'SharedWorker',
+            'NetworkInformation',
+          ].forEach(a => {
+            a = a.split`.`;
+
+            var b = a.pop();
+            var obj = a.reduce((a, b) => a[b], w);
+
+            Object.defineProperty(obj, b, {
+              value: nop,
+              writable: false,
+            });
+          });
+        }
+
+        disableFeatures();
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

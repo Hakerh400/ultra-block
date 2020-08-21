@@ -128,6 +128,14 @@
     'epainassist',
     'makeameme',
     'imgflip',
+    'azquotes',
+    'quotefancy',
+    'idlehearts',
+    'picturequotes',
+    'storemypic',
+    'quotessayings',
+    'wisefamousquotes',
+    'piplum',
   ];
 
   main();

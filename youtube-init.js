@@ -199,13 +199,21 @@
             get config(){ return config; },
 
             set config(conf){
-              const prop = 'player_response';
-              const playerResponse = JSON.parse(conf.args[prop]);
+              const {args} = conf;
 
-              delete playerResponse.adPlacements;
-              conf.args[prop] = JSON.stringify(playerResponse);
+              const prop1 = 'player_response';
+              const prop2 = 'raw_player_response';
 
-              config = conf;
+              [prop1, prop2].forEach((prop, i) => {
+                if(!args[prop]) return;
+
+                const playerResponse = i === 0 ? JSON.parse(args[prop]) : args[prop];
+
+                delete playerResponse.adPlacements;
+                conf.args[prop] = i === 0 ? JSON.stringify(playerResponse) : playerResponse;
+
+                config = conf;
+              });
             },
           },
         });
