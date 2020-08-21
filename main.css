@@ -409,3 +409,11 @@ body.displaying-homepage .frame{
   opacity: 0 !important;
   pointer-events: none !important;
 }
+
+img[src^="file:///"]{
+  background: #dae5d6;
+}
+
+*{
+  transition: none !important;
+}
