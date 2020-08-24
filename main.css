@@ -79,6 +79,7 @@ img[src*="banner" i],
 .promlinks,
 form[action*="paypal" i],
 [aria-label="loading" i],
+bottomlinks,
 
 body > hr:nth-last-child(-n + 2),
 body > center:nth-last-child(-n + 2),
