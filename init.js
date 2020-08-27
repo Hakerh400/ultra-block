@@ -402,6 +402,77 @@
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+        if(0){
+          const proto = w.Storage.prototype;
+          const {localStorage} = w;
+          const u = void 0;
+
+          const len = () => {
+            // log('LENGTH: ' + localStorage.length);
+            return localStorage.length;
+          };
+
+          const get = prop => {
+            if(prop !== u){
+              // log('GET: ' + prop);
+              if(prop === 'yt.autonav::autonav_disabled') debugger;
+            }
+
+            return localStorage.getItem(prop);
+          };
+
+          const set = (prop, val) => {
+            if(prop !== u){
+              // log('SET: ' + prop);
+              if(prop === 'yt.autonav::autonav_disabled') debugger;
+            }
+
+            localStorage.setItem(prop, val);
+          };
+
+          const key = index => {
+            if(index !== u){
+              // log('KEY: ' + index + ' ---> ' + localStorage.key(index));
+            }
+
+            localStorage.key(index);
+          };
+
+          const del = prop => {
+            if(prop !== u){
+              // log('DELETE: ' + prop);
+            }
+
+            localStorage.removeItem(prop);
+          };
+
+          Object.defineProperty(w, 'localStorage', {
+            value: new Proxy({}, {
+              get(t, prop){
+                if(prop === 'length') return len();
+                if(prop === 'getItem') return get;
+                if(prop === 'setItem') return set;
+                if(prop === 'key') return key;
+                if(prop === 'removeItem') return del;
+
+                if(prop in proto){
+                  console_.error('METHOD: ' + prop);
+                  return null;
+                }
+
+                return get(prop);
+              },
+
+              set(t, prop, val){
+                get(prop, val);
+                return 1;
+              },
+            }),
+          });
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
         pseudoRNG: {
           const match = url.match(/[\?&]ubseed=([^&]*)/);
           if(match === null) break pseudoRNG;
@@ -1318,6 +1389,7 @@
 
               if(elem.tagName === 'IFRAME'){
                 try{
+                  // debugger;
                   ublockFunc(elem.contentWindow, url);
                 }catch(e){
                   log(e.stack);
