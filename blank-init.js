@@ -51,11 +51,43 @@
           construct(){ return nop; },
         });
 
+        const url = location.href.match(/^[^\/]+?\:\/{2,3}(.+)/)[1];
+
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // Code goes here
         
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        function show(e){
+          e.classList.add('ublock-safe');
+        }
+
+        function qs(a, b=null){
+          if(b === null){
+            b = a;
+            a = document;
+          }
+
+          return a.querySelector(b);
+        }
+
+        function qsa(a, b=null){
+          if(b === null){
+            b = a;
+            a = document;
+          }
+
+          return a.querySelectorAll(b);
+        }
+
+        function decode(str){
+          return str.split('').
+            map(a => a.charCodeAt(0) - 32).
+            map(a => 94 - a).
+            map(a => String.fromCharCode(32 + a)).
+            join('');
+        }
 
         function proxify(obj, prop, traps=null){
           var b = traps !== null;
