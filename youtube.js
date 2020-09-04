@@ -906,6 +906,14 @@
     return a.querySelectorAll(b);
   }
 
+  function decode(str){
+    return str.split('').
+      map(a => a.charCodeAt(0) - 32).
+      map(a => 94 - a).
+      map(a => String.fromCharCode(32 + a)).
+      join('');
+  }
+
   function log(...a){
     console.log(...a);
     return a[a.length - 1];
