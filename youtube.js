@@ -418,7 +418,7 @@
 
           if(blackList.some(a => a.test(html)) || !requiredWhiteList.every(a => a.test(html))){
             if(1){
-              e.remove();
+              remove(e);
             }else{
               show(e);
               e.style.backgroundColor = 'red';
@@ -482,8 +482,9 @@
         if(!e1) continue;
 
         if(!e1.hasAttribute('hidden')){
-          e.remove();
-          continue;
+          // remove(e);
+          // continue;
+          remove(e1);
         }
 
         show(e);
@@ -561,7 +562,7 @@
             qs(e, '#pinned-comment-badge:not(*[hidden])') ||
             qs(e, 'ytd-author-comment-badge-renderer')
           ){
-            e.remove();
+            remove(e);
           }else{
             e.classList.add('ublock-safe');
           }
@@ -823,6 +824,11 @@
       elem.classList.add('ublock_hidden');
 
       elem.style.setProperty('pointer-events', 'none', 'important');
+    }
+
+    function remove(e){
+      // if(e.tagName.toLowerCase() === 'ytd-grid-video-renderer') debugger;
+      e.remove();
     }
 
     function updateTitle(url, str, e){
