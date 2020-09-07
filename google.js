@@ -137,6 +137,7 @@
     'wisefamousquotes',
     'piplum',
     'spsnational',
+    'tbbob',
   ];
 
   main();
