@@ -30,7 +30,7 @@ jdiv,
 *[class*="countryList" i],
 *[class*="hint" i],
 *[class*="partner" i],
-*[class*="banner" i]:not(*[class$="--banner"]):not(.no-nav-banners),
+*[class*="banner" i]:not(*[class$="--banner"]):not(.no-nav-banners):not(.js-review-bar),
 *[class*="watermark" i],
 *[class*="logo" i]:not(.wp-custom-logo),
 *[class*="_ad_" i],
@@ -72,6 +72,7 @@ img[src*="banner" i],
 #to-top,
 .to-top,
 .scrollToTop,
+
 /*.loginbox,*/
 
 #siteNotice,
@@ -80,6 +81,8 @@ img[src*="banner" i],
 form[action*="paypal" i],
 [aria-label="loading" i],
 bottomlinks,
+.draft-saved,
+#draft-saved,
 
 body > hr:nth-last-child(-n + 2),
 body > center:nth-last-child(-n + 2),
@@ -132,7 +135,7 @@ canvas#error + div,
 ._lvv_Z,
 
 /* stack exchange */
-#hireme,
+/*#hireme,
 .module.sidebar-related,
 .sidebar-linked,
 #tm-header,
@@ -146,7 +149,7 @@ header.top-bar.js-top-bar,
 header.site-header,
 a[href="/questions/ask"],
 svg.iconHistory,
-.theme-selector,
+.theme-selector,*/
 
 /* wikipedia */
 .uls-lcd-region-section.uls-lcd-quicklist,
