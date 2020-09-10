@@ -421,3 +421,7 @@ img[src^="file:///"]{
 *{
   transition: none !important;
 }
+
+.top-bar._fixed{
+  position: absolute !important;
+}

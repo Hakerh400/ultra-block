@@ -27,7 +27,7 @@
       }
 
       for(const e of qsa('.spacing_log_answer_content:not(.ublock-safe)')){
-        const btn = [...qsa(e, 'button')].find(a => a.innerText.trim() === 'Continue Reading');
+        const btn = [...qsa(e, '.q-click-wrapper')].find(a => a.innerText.trim() === 'Continue Reading');
         if(btn) btn.click();
         
         show(e);

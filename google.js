@@ -138,6 +138,7 @@
     'piplum',
     'spsnational',
     'tbbob',
+    'memegenerator',
   ];
 
   main();
