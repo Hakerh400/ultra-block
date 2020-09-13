@@ -233,6 +233,15 @@
         e.remove()
       }
 
+      checkListItem: for(const e of qsa('div[role="listitem"]:not(.ublock-safe)')){
+        for(const a of qsa(e, 'a[href]')){
+          const {href} = a;
+
+        }
+
+        show(e);
+      }
+
       setTimeout(block, stage ? 1e3 : 0);
     }
   }
