@@ -420,6 +420,7 @@ img[src^="file:///"]{
 
 *{
   transition: none !important;
+  tab-size: 2 !important;
 }
 
 .top-bar._fixed{
