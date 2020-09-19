@@ -4,14 +4,20 @@
   const ENABLED = !/[?&]udsb(?:[&=]|$)/.test(location.href);
   const DEBUG = /[?&]udbg(?:[&=]|$)/.test(location.href);
 
+  const inco = chrome.extension.inIncognitoContext;
+  const {href} = top.location;
+
+  const kws = href.
+    match(/[\?\&]search_query=([^&]+)/)[1].
+    split('+').
+    filter(a => !a.startsWith('-')).
+    map(a => decodeURIComponent(a));
+
   const CHECK_VIEWS = 0;
   const CHECK_KEYWORDS = 1;
+  const CHECK_DURATION = !kws.some(a => /[^!-~]/.test(a));
 
   const DURATION_MIN = 60 * 2;
-
-  const {href} = top.location;
-  const inco = chrome.extension.inIncognitoContext;
-  const kws = href.match(/[\?\&]search_query=([^&]+)/)[1].split('+').filter(a => !a.startsWith('-'));
 
   let capsReg = /\b[A-Z]/g;
 
@@ -123,7 +129,7 @@
       return a * 60 + (b.trim() | 0);
     }, 0);
 
-    if(dur < DURATION_MIN){
+    if(CHECK_DURATION && dur < DURATION_MIN){
       if(DEBUG) dbg = 'Too short';
       return 0;
     }

@@ -57,7 +57,7 @@
   for(let chName in timeOffsets){
     let ch = timeOffsets[chName];
 
-    if(top.location.href.includes('&u'))
+    if(location.href.includes('&u'))
       ch[1] += 6;
 
     if(ch.length === 2)
@@ -254,7 +254,7 @@
   main();
 
   function main(){
-    var url = top.location.href;
+    var url = location.href;
     var focused = musicMode;
     var disabledSearch = 0;
     var debugMode = 0;
@@ -266,7 +266,7 @@
     document.addEventListener('DOMContentLoaded', () => {
       var e = qs('body');
 
-      var m = top.location.href.match(/[\?\&]ub\=(\d+)(?:[^\d]|$)/);
+      var m = location.href.match(/[\?\&]ub\=(\d+)(?:[^\d]|$)/);
       if(m !== null){
         var n = Number(m[1]);
         e.classList.add(`ub${n}`);
@@ -319,7 +319,7 @@
 
             server({
               type: 'download',
-              id: top.location.href.match(/[\?\&]v\=([^\&\#]+)/)[1],
+              id: location.href.match(/[\?\&]v\=([^\&\#]+)/)[1],
               channel: getChName(),
               title: document.title.substring(0, document.title.length - 10),
               urls,
@@ -438,7 +438,7 @@
         if(e.className === 'A') url = e.href;
         else url = e.closest('a').href;
 
-        if(/https\:\/\/www\.youtube\.com\/(?:channel|user)\//.test(top.location.href)){
+        if(/https\:\/\/www\.youtube\.com\/(?:channel|user)\//.test(location.href)){
           const channelElem = [...qsa('title')].find(a => {
             const title = a.textContent.trim();
             return title && title !== '\u034f';
@@ -490,7 +490,7 @@
         show(e);
       }
 
-      if(/[\?\&]v\=/.test(top.location.href)){
+      if(/[\?\&]v\=/.test(location.href)){
         const ee = document.querySelectorAll('h1.title:not(.ublock_safe)');
         for(let i = 0; i < ee.length; i++){
           const e = ee[i];
@@ -517,7 +517,7 @@
             continue;
           }
 
-          rf(top.location.href, e, (...args) => {
+          rf(location.href, e, (...args) => {
             updateTitle(...args);
             next();
           });

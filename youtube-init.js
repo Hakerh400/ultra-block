@@ -43,6 +43,26 @@
         construct(){ return nop; }
       });
 
+      const url = location.href;
+
+      ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+      // Add special style
+      {
+        const style = document.createElement('style');
+
+        style.innerText = `
+          div[class*="ytp-"]:not(#movie_player)${/[\?\&]cap\b/.test(url) ? `:not(.ytp-caption-window-bottom)` : ''}{
+            opacity: 0;
+            pointer-events: none;
+          }
+        `;
+
+        document.documentElement.appendChild(style);
+      }
+
+      ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
       var maxAttemptsNum = 100;
       var attemptTimeDelay = 100;
 
