@@ -139,7 +139,20 @@
     'spsnational',
     'tbbob',
     'memegenerator',
+    'blogspot',
+    'mymodernmet',
+    '.cluest.',
+    'shakethebrain',
+    'funwithpuzzles',
+    'dazepuzzle',
   ];
+
+  let z = 0;
+
+  const checkUrl = url => {
+    if(url.startsWith('data:image')) return 1;
+    return !blackList.some(a => url.includes(a));
+  };
 
   main();
 
@@ -208,8 +221,7 @@
 
             hasLink = 1;
 
-            if(blackList.some(a => url.includes(a)))
-              break find;
+            if(!checkUrl(url)) break find;
           }
 
           for(const img of qsa(e, 'img')){
@@ -218,8 +230,7 @@
 
             hasImg = 1;
 
-            if(blackList.some(a => url.includes(a)))
-              break find;
+            if(!checkUrl(url)) break find;
           }
 
           if(!(hasLink || hasImg))

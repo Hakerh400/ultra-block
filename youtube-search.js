@@ -13,9 +13,11 @@
     filter(a => !a.startsWith('-')).
     map(a => decodeURIComponent(a));
 
+  const cyr = kws.some(a => /[^!-~]/.test(a));
+
   const CHECK_VIEWS = 0;
   const CHECK_KEYWORDS = 1;
-  const CHECK_DURATION = !kws.some(a => /[^!-~]/.test(a));
+  const CHECK_DURATION = !cyr;
 
   const DURATION_MIN = 60 * 2;
 

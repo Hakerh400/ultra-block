@@ -1,6 +1,8 @@
 (() => {
   'use strict';
 
+  const HIDE_IMAGES = 1;
+
   if(location.href.startsWith('http://localhost')) return;
   if(location.href.startsWith('https://hakerh400.github.io/')) return;
 
@@ -376,6 +378,19 @@
         });
 
         w.log = log;
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        if(HIDE_IMAGES){
+          document.documentElement.appendChild(document.createElement('style')).innerHTML = `
+            img{
+              display: none !important;
+              visibility: hidden !important;
+              opacity: 0 !important;
+              pointer-events: none !important;
+            }
+          `;
+        }
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -1532,7 +1547,9 @@
   var code = `(${script})();`;
   var elem = document.documentElement;
 
-  code = code.replace(/STYLE_URL/g, `'${STYLE_URL}'`);
+  code = code.
+    replace(/STYLE_URL/g, `'${STYLE_URL}'`).
+    replace(/HIDE_IMAGES/g, HIDE_IMAGES);
 
   elem.setAttribute('onreset', code);
   elem.dispatchEvent(new CustomEvent('reset'));
