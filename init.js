@@ -1,7 +1,7 @@
 (() => {
   'use strict';
 
-  const HIDE_IMAGES = 1;
+  const HIDE_IMAGES = 0;
 
   if(location.href.startsWith('http://localhost')) return;
   if(location.href.startsWith('https://hakerh400.github.io/')) return;
