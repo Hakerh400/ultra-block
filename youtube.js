@@ -351,7 +351,7 @@
           ee = ee.querySelectorAll('.style-scope.ytd-watch-next-secondary-results-renderer');
           for(i = 0; i < ee.length; i++){
             e = ee[i];
-            hide(e);
+            hideElem(e);
           }
         }
 
@@ -420,11 +420,11 @@
             if(1){
               remove(e);
             }else{
-              show(e);
+              showElem(e);
               e.style.backgroundColor = 'red';
             }
           }else{
-            show(e);
+            showElem(e);
           }
         }
       }
@@ -487,7 +487,7 @@
           remove(e1);
         }
 
-        show(e);
+        showElem(e);
       }
 
       if(/[\?\&]v\=/.test(location.href)){
@@ -527,7 +527,7 @@
       if(url !== window.location.href){
         url = window.location.href;
         if(/^www\.youtube\.com\/(?:channel|user)\/[^\/]+$/.test(url.match(/^[^\/]+?\:\/\/(.+)/)[1])){
-          hide(document.documentElement);
+          hideElem(document.documentElement);
           window.location.href = url.replace(/$/, '/videos');
         }
       }
@@ -587,6 +587,18 @@
 
           e.classList.add('ublock-safe');
         }
+      }
+
+      for(const e of qsa('a[href*="&list="]:not(.ublock-safe)')){
+        const {href} = e;
+
+        if(!/\?v=/.test(href)){
+          show(e);
+          continue;
+        }
+
+        e.href = href.slice(0, href.indexOf('&'));
+        show(e);
       }
 
       url = window.location.href;
@@ -682,8 +694,8 @@
       var video = document.querySelector('video');
       if(!video) return;
 
-      if(s) show(video);
-      else hide(video);
+      if(s) showElem(video);
+      else hideElem(video);
     }
 
     function toggleControls(evt){
@@ -766,9 +778,13 @@
     }
 
     function pauseVideo(){
-      hide(document.querySelector('video'));
+      hideElem(document.querySelector('video'));
       var evt = new CustomEvent('ublock_ytVideo', {detail: 0});
       window.dispatchEvent(evt);
+    }
+
+    function show(e){
+      e.classList.add('ublock-safe');
     }
 
     function toggleElem(selector, evt=null, mainElem=null){
@@ -794,8 +810,8 @@
           visible = computedStyle.opacity === '1';
         }
 
-        if(visible) hide(elem);
-        else show(elem);
+        if(visible) hideElem(elem);
+        else showElem(elem);
 
         elem.style.setProperty('pointer-events', visible ? 'none' : 'auto', 'important');
       }
@@ -803,7 +819,7 @@
       return 1;
     }
 
-    function show(elem){
+    function showElem(elem){
       if(elem.tagName === 'VIDEO'){
         safeElem.value = 1;
         return;
@@ -815,7 +831,7 @@
       elem.style.setProperty('pointer-events', 'auto', 'important');
     }
 
-    function hide(elem){
+    function hideElem(elem){
       if(elem.tagName === 'VIDEO'){
         safeElem.value = 0;
       }
