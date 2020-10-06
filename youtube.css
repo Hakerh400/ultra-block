@@ -24,6 +24,8 @@
 *[class*="promot" i],
 *[arial-label*="promot" i],
 
+#channel-info yt-img-shadow,
+
 *[class*="skeleton"]:not(*[class*="hide-skeleton"]),
 *[id*="logo"],
 *[icon="paper-tabs:chevron-left"],
@@ -169,6 +171,19 @@ h1.title:not(.ublock_safe){
 
 ytd-search.style-scope.ytd-page-manager{
   outline: none !important;
+}
+
+ytd-thumbnail{
+  max-width: 240px !important;
+  width: 240px !important;
+}
+
+ytd-channel-name{
+  padding-left: 0px !important;
+}
+
+#channel-info{
+  padding: 0px !important;
 }
 
 body.ub1 img.style-scope.yt-img-shadow{
