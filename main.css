@@ -424,6 +424,7 @@ img[src^="file:///"]{
 *{
   transition: none !important;
   tab-size: 2 !important;
+  outline: none !important;
 }
 
 .top-bar._fixed{
