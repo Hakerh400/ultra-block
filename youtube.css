@@ -186,6 +186,14 @@ ytd-channel-name{
   padding: 0px !important;
 }
 
+ytd-thumbnail{
+  width: 210px !important;
+}
+
+yt-img-shadow img{
+  margin: 0px !important;
+}
+
 body.ub1 img.style-scope.yt-img-shadow{
   /* 280 250 */
   clip-path: polygon(0% 0%, 100% 0%, 100% 75%, 72% 75%, 72% 100%, 0% 100%, 0% 0%) !important;
