@@ -1450,8 +1450,8 @@
 
             f.apply(t, args);
 
-            if(w.scrollX !== scrollX) w.scrollX = scrollX;
-            if(w.scrollY !== scrollY) w.scrollY = scrollY;
+            if(w.scrollX !== scrollX || w.scrollY !== scrollY)
+              w.scrollTo(scrollX, scrollY);
           }
         });
 
