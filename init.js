@@ -338,7 +338,7 @@
         w.alert_ = w.alert;
         w.prompt_ = w.prompt;
 
-        var log = w.console_.log.bind(w.console_);
+        var log = w === top ? w.console_.log.bind(w.console_) : top.log;
         var document = w.document;
         var Object = w.Object;
 
@@ -1441,6 +1441,19 @@
             }
           });
         })();
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        proxify(HTMLElement.prototype, 'focus', {
+          apply(f, t, args){
+            const {scrollX, scrollY} = w;
+
+            f.apply(t, args);
+
+            if(w.scrollX !== scrollX) w.scrollX = scrollX;
+            if(w.scrollY !== scrollY) w.scrollY = scrollY;
+          }
+        });
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

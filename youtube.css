@@ -72,17 +72,17 @@ body:not(.ublock-safe){
   border-right-width: 0px !important;
 }
 
-#secondary,
-.style-scope.ytd-watch-next-secondary-results-renderer:not(#items),
-ytd-compact-video-renderer,
-div[id="items"][class*="ytd-watch-next-secondary-results-renderer"],
-ytd-expander.ytd-video-secondary-info-renderer,
-ytd-comments,
-#movie_player:not(.ytp-fullscreen),
-ytd-comment-thread-renderer:not(.ublock-safe),
-#description:not(.ublock-safe),
-ytd-grid-video-renderer:not(.ublock-safe),
-yt-view-count-renderer{
+#secondary:not(.ublock-visible-yt),
+.style-scope.ytd-watch-next-secondary-results-renderer:not(#items):not(.ublock-visible-yt),
+ytd-compact-video-renderer:not(.ublock-visible-yt),
+div[id="items"][class*="ytd-watch-next-secondary-results-renderer"]:not(.ublock-visible-yt),
+ytd-expander.ytd-video-secondary-info-renderer:not(.ublock-visible-yt),
+ytd-comments:not(.ublock-visible-yt),
+#movie_player:not(.ytp-fullscreen):not(.ublock-visible-yt),
+ytd-comment-thread-renderer:not(.ublock-safe):not(.ublock-visible-yt),
+#description:not(.ublock-safe):not(.ublock-visible-yt),
+ytd-grid-video-renderer:not(.ublock-safe):not(.ublock-visible-yt),
+yt-view-count-renderer:not(.ublock-visible-yt){
   opacity: 0;
   pointer-events: none;
 }
@@ -192,6 +192,16 @@ ytd-thumbnail{
 
 yt-img-shadow img{
   margin: 0px !important;
+}
+
+.ublock-hidden-yt{
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.ublock-visible-yt{
+  opacity: 1;
+  pointer-events: inherit;
 }
 
 body.ub1 img.style-scope.yt-img-shadow{

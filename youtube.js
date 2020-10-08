@@ -167,9 +167,9 @@
         const e1 = qs('#masthead-container');
         if(e1){
           if(e.classList.contains('ytp-fullscreen')){
-            e1.classList.add('ublock-hidden');
+            e1.classList.add('ublock-hidden-yt');
           }else{
-            e1.classList.remove('ublock-hidden');
+            e1.classList.remove('ublock-hidden-yt');
           }
         }
       }
@@ -738,21 +738,28 @@
 
     function toggleRelated(evt, forceHide=0){
       var selector = '#secondary,#items.style-scope.ytd-watch-next-secondary-results-renderer,yt-next-continuation,*[id*="continuation"],*[class*="continuation"]';
-      var toggled = toggleElem(selector, evt, qs('#secondary'));
-      if(!toggled) return 0;
 
       if(forceHide){
-        var elems = document.querySelectorAll(selector);
+        const elems = document.querySelectorAll(selector);
+        let found = 0;
+
         for(var i = 0; i < elems.length; i++){
           var elem = elems[i];
 
           if(getComputedStyle(elem).opacity !== '0'){
             toggleElem(elem);
+            found = 1;
+            continue;
           }
 
-          elem.style.setProperty('pointer-events', 'auto', 'important');
+          // elem.style.setProperty('pointer-events', 'auto', 'important');
         }
+
+        return found;
       }
+
+      const toggled = toggleElem(selector, evt, qs('#secondary'));
+      if(!toggled) return 0;
 
       return 1;
     }
@@ -813,7 +820,7 @@
         if(visible) hideElem(elem);
         else showElem(elem);
 
-        elem.style.setProperty('pointer-events', visible ? 'none' : 'auto', 'important');
+        // elem.style.setProperty('pointer-events', visible ? 'none' : 'auto', 'important');
       }
 
       return 1;
@@ -825,10 +832,12 @@
         return;
       }
 
-      elem.classList.remove('ublock_hidden');
-      elem.classList.add('ublock_visible');
+      // if(elem.tagName.toLowerCase() === 'ytd-compact-video-renderer') debugger;
 
-      elem.style.setProperty('pointer-events', 'auto', 'important');
+      elem.classList.remove('ublock-hidden-yt');
+      elem.classList.add('ublock-visible-yt');
+
+      // elem.style.setProperty('pointer-events', 'auto', 'important');
     }
 
     function hideElem(elem){
@@ -836,10 +845,10 @@
         safeElem.value = 0;
       }
 
-      elem.classList.remove('ublock_visible');
-      elem.classList.add('ublock_hidden');
+      elem.classList.remove('ublock-visible-yt');
+      elem.classList.add('ublock-hidden-yt');
 
-      elem.style.setProperty('pointer-events', 'none', 'important');
+      // elem.style.setProperty('pointer-events', 'none', 'important');
     }
 
     function remove(e){

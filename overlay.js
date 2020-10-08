@@ -216,7 +216,7 @@
       }
 
       if(inco && isTopVisible && window.location.href.startsWith('https://www.youtube.com/results?')){
-        g.fillRect(0, 0, 574, 1080);
+        g.fillRect(0, 0, 660, 1080);
       }
 
       var [a, b, c, d] = blocks;
