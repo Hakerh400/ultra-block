@@ -3,6 +3,7 @@
 
   if(window.parent.frames.length > 0) return;
   if(window.location.href.startsWith('http://localhost/')) return;
+  if(location.href.startsWith('https://hakerh400.github.io/')) return;
 
   const inco = chrome.extension.inIncognitoContext;
 
