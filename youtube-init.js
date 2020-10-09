@@ -52,7 +52,7 @@
         const style = document.createElement('style');
 
         style.innerText = `
-          div[class*="ytp-"]:not(#movie_player)${/[\?\&]cap\b/.test(url) ? `:not(.ytp-caption-window-bottom)` : ''}{
+          div[class*="ytp-"]:not(#movie_player)${/[\?\&]cap\b/.test(url) ? `:not(.ytp-caption-window-bottom)` : ''}:not(.ublock-visible-yt){
             opacity: 0;
             pointer-events: none;
           }
@@ -364,6 +364,7 @@
         if(!canVideoBeShown()){
           if(attempt !== 0)
             setTimeout(() => playVideo(video, play, attempt - 1), attemptTimeDelay);
+
           return;
         }
 
@@ -375,22 +376,23 @@
           if(videoHiddenLevel !== 0 || !canVideoBeShown() || elem.readyState !== 4){
             if(attempt !== 0)
               setTimeout(() => show(elem, attempt - 1), attemptTimeDelay);
+
             return;
           }
         }
 
-        elem.classList.remove('ublock_hidden');
-        elem.classList.add('ublock_visible');
+        elem.classList.remove('ublock-hidden-yt');
+        elem.classList.add('ublock-visible-yt');
       }
 
       function hide(elem){
-        elem.classList.remove('ublock_visible');
-        elem.classList.add('ublock_hidden');
+        elem.classList.remove('ublock-visible-yt');
+        elem.classList.add('ublock-hidden-yt');
       }
 
       function canVideoBeShown(){
         var safeElem = document.querySelector('#ublock_safe');
-        if(safeElem === null) return false;
+        if(safeElem === null) return 0;
         return (safeElem.value | 0) === 1;
       }
 

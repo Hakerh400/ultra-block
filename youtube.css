@@ -95,6 +95,9 @@ yt-view-count-renderer:not(.ublock-visible-yt){
 
 video{
   top: 0px !important;
+}
+
+video:not(.ublock-visible-yt){
   opacity: 0 !important;
   pointer-events: none !important;
 }
