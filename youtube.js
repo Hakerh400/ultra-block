@@ -165,11 +165,14 @@
 
       if(e = qs('#movie_player')){
         const e1 = qs('#masthead-container');
+
         if(e1){
           if(e.classList.contains('ytp-fullscreen')){
-            e1.classList.add('ublock-hidden-yt');
+            // e1.classList.add('ublock-hidden-yt');
+            e1.style.display = 'none';
           }else{
-            e1.classList.remove('ublock-hidden-yt');
+            // e1.classList.remove('ublock-hidden-yt');
+            e1.style.display = 'block';
           }
         }
       }
