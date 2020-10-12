@@ -23,6 +23,7 @@ jdiv,
 *[id*="spinn" i],
 *[id*="rss" i],
 *[id*="popup" i]:not(.ytp-popup),
+*[id*="progressbar" i],
 
 *[class*="footer" i]:not(html):not(.main-wrapper-for-sticky-footer):not(.tblFooters):not(*[href*="/morelikethis/"]):not(.rounded-cr-footer):not(.stream-item-footer):not(.page-template-elementor_header_footer),
 *[class*="copyright" i],
@@ -45,6 +46,7 @@ jdiv,
 *[class*="spinn" i],
 *[class*="rss" i],
 *[class*="popup" i]:not(.ytp-popup):not(.js-profile-popup-actionable),
+*[class*="progressbar" i],
 
 /* https://www.puzzle-*.com/ */
 input[class="clock"],
