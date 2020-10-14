@@ -191,6 +191,7 @@
 
   let loaded = 0;
   let fixedTitle = 0;
+  let stopped = 0;
 
   window.addEventListener('load', () => {
     loaded = 1;
@@ -280,7 +281,7 @@
       const f = () => {
         if(video === null)
           video = qs('video');
-        
+
         if(video){
           if(!video.ublock_videoListeners){
             video.ublock_ytVideoListeners = 1;
@@ -349,10 +350,10 @@
           /*case 'ArrowLeft': pd(); v && v.currentTime = ct - 5; break;
           case 'ArrowRight': pd(); v && v.currentTime = ct + 5; break;*/
 
-          case 'KeyQ': toggleControls(evt); break;
-          case 'KeyW': toggleRelated(evt); break;
-          case 'KeyE': toggleDescription(evt); break;
-          case 'KeyR': toggleComments(evt); break;
+          case 'KeyQ': toggleControls(evt); scheduleBlocking(); break;
+          case 'KeyW': toggleRelated(evt); scheduleBlocking(); break;
+          case 'KeyE': toggleDescription(evt); scheduleBlocking(); break;
+          case 'KeyR': toggleComments(evt); scheduleBlocking(); break;
           // case 'KeyY': exitPlaylist(evt); break;
           case 'KeyA': evt.preventDefault(); musicMode ^= 1; break;
 
@@ -435,10 +436,16 @@
       });
     }
 
+    const scheduleBlocking = () => {
+      if(!stopped) return;
+      stopped = 0;
+      block();
+    };
+
     function block(){
       if(debugMode){
         debugMode = 0;
-        debugger;
+        // debugger;
       }
 
       var eee, ee, e, i, j;
@@ -636,7 +643,10 @@
         fixedTitle
       );
 
-      if(stop) return;
+      if(stop){
+        stopped = 1;
+        return;
+      }
 
       setTimeout(block, TIME);
     }
