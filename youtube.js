@@ -191,6 +191,7 @@
 
   let loaded = 0;
   let fixedTitle = 0;
+  let scheduled = 0;
   let stopped = 0;
 
   window.addEventListener('load', () => {
@@ -438,11 +439,15 @@
 
     const scheduleBlocking = () => {
       if(!stopped) return;
+      if(scheduled) return;
       stopped = 0;
-      block();
+      scheduled = 1;
+      setTimeout(block, TIME);
     };
 
     function block(){
+      scheduled = 0;
+
       if(debugMode){
         debugMode = 0;
         // debugger;
