@@ -275,8 +275,12 @@
     ////////////////////////////////////////////////////////////////////////////////////////////////////
 
     if(isWatchPage){
+      let video = null;
+
       const f = () => {
-        var video = qs('video');
+        if(video === null)
+          video = qs('video');
+        
         if(video){
           if(!video.ublock_videoListeners){
             video.ublock_ytVideoListeners = 1;
