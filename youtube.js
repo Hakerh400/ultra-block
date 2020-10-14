@@ -23,6 +23,10 @@
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////
 
+  const isWatchPage = /[\?\&]v\=/.test(location.href);
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////////
+
   const PREVENT_TITLE_TRANSLATION = 0;
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -186,6 +190,7 @@
   ////////////////////////////////////////////////////////////////////////////////////////////////////
 
   let loaded = 0;
+  let fixedTitle = 0;
 
   window.addEventListener('load', () => {
     loaded = 1;
@@ -494,7 +499,7 @@
         showElem(e);
       }
 
-      if(/[\?\&]v\=/.test(location.href)){
+      if(isWatchPage){
         const ee = document.querySelectorAll('h1.title:not(.ublock_safe)');
         for(let i = 0; i < ee.length; i++){
           const e = ee[i];
@@ -514,6 +519,8 @@
 
             e.textContent = title;
             e.classList.add('ublock_safe');
+
+            fixedTitle = 1;
           };
 
           if(!PREVENT_TITLE_TRANSLATION){
@@ -608,8 +615,9 @@
       url = window.location.href;
 
       const stop = (
+        isWatchPage &&
         loaded &&
-        url.startsWith('https://www.youtube.com/watch?')
+        fixedTitle
       );
 
       if(stop) return;
