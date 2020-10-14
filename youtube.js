@@ -187,10 +187,11 @@
 
   let loaded = 0;
 
-  document.addEventListener('DOMContentLoaded', () => {
+  window.addEventListener('load', () => {
     loaded = 1;
-    return;
+  });
 
+  if(0) document.addEventListener('DOMContentLoaded', () => {
     var video = qs('video');
     if(!video) return;
 
@@ -605,6 +606,14 @@
       }
 
       url = window.location.href;
+
+      const stop = (
+        loaded &&
+        url.startsWith('https://www.youtube.com/watch?')
+      );
+
+      if(stop) return;
+
       setTimeout(block, TIME);
     }
 
