@@ -260,6 +260,8 @@
   safeElem.type = 'hidden';
   safeElem.value = 0;
 
+  ////////////////////////////////////////////////////////////////////////////////////////////////////
+
   main();
 
   function main(){
@@ -269,6 +271,38 @@
     var debugMode = 0;
     var ended = 0;
     var currentSrc = null;
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    if(isWatchPage){
+      const f = () => {
+        var video = qs('video');
+        if(video){
+          if(!video.ublock_videoListeners){
+            video.ublock_ytVideoListeners = 1;
+
+            video.onended = () => {
+              ended = 1;
+            };
+          }
+
+          checkVideoTime();
+
+          if(currentSrc !== video.currentSrc){
+            ended = 0;
+          }
+
+          if(musicMode && !ended && video.paused && currentSrc !== video.currentSrc){
+            currentSrc = video.currentSrc;
+            playVideo();
+          }
+        }
+
+        setTimeout(f, TIME);
+      };
+
+      setTimeout(f, TIME);
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -540,28 +574,6 @@
         if(/^www\.youtube\.com\/(?:channel|user)\/[^\/]+$/.test(url.match(/^[^\/]+?\:\/\/(.+)/)[1])){
           hideElem(document.documentElement);
           window.location.href = url.replace(/$/, '/videos');
-        }
-      }
-
-      var video = qs('video');
-      if(video){
-        if(!video.ublock_videoListeners){
-          video.ublock_ytVideoListeners = 1;
-
-          video.onended = () => {
-            ended = 1;
-          };
-        }
-
-        checkVideoTime();
-
-        if(currentSrc !== video.currentSrc){
-          ended = 0;
-        }
-
-        if(musicMode && !ended && video.paused && currentSrc !== video.currentSrc){
-          currentSrc = video.currentSrc;
-          playVideo();
         }
       }
 
