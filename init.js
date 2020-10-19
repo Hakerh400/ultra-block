@@ -20,7 +20,7 @@
       });
     });
   }
-
+  
   onbeforeunload = () => {
     if(sessionStorage['ublock-prevent-hard-reload'])
       return;
