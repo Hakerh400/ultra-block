@@ -205,9 +205,9 @@ a[href*="bitlord.me/"],
   pointer-events: none !important;
 }
 
-img[src$=".gif" i],
-img[src*=".gif?" i],
-*:not(.download) > *[style*=".gif" i]{
+body:not(.ublock-show-gifs) img[src$=".gif" i],
+body:not(.ublock-show-gifs) img[src*=".gif?" i],
+body:not(.ublock-show-gifs) *:not(.download) > *[style*=".gif" i]{
   visibility: hidden !important;
 }
 

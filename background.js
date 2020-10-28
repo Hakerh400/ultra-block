@@ -47,6 +47,8 @@
       return found;
     };
 
+    if(evt.url.includes('metamath')) return;
+
     const cancel = !evt.url.startsWith('file:///') &&
       !whiteList.some(testFunc) &&
       blackList.some(testFunc);

@@ -57,6 +57,8 @@
         break;
       }
 
+      body.classList.add('ublock-show-gifs');
+
       show(body);
     };
 
