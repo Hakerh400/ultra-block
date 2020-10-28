@@ -1,7 +1,7 @@
 (() => {
   'use strict';
 
-  const {href} = top.location;
+  const {href: url} = top.location;
   
   let stage = 0;
 

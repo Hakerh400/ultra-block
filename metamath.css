@@ -1,0 +1,10 @@
+td[valign="top"],
+td[align="right"],
+body:not(.ublock-safe){
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+body{
+  background: white !important;
+}

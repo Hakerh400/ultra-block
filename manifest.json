@@ -207,6 +207,12 @@
       "run_at": "document_start",
       "all_frames": true
     }, {
+      "matches": ["http://us.metamath.org/*"],
+      "js": ["metamath.js"],
+      "css": ["metamath.css"],
+      "run_at": "document_start",
+      "all_frames": true
+    }, {
       "matches": [
         "https://travis-ci.org/*",
         "https://travis-ci.com/*"

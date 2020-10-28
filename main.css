@@ -86,9 +86,10 @@ form[action*="paypal" i],
 bottomlinks,
 .draft-saved,
 #draft-saved,
+.sk-circle,
 
-body > hr:nth-last-child(-n + 2),
-body > center:nth-last-child(-n + 2),
+/*body > hr:nth-last-child(-n + 2),
+body > center:nth-last-child(-n + 2),*/
 
 /* google */
 #snackbar,
