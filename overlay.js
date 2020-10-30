@@ -43,10 +43,12 @@
     const isPDF = /\.pdf(?:\?|$)/.test(window.location.href);
     const col = isPDF ? '#515659' : '#ffffff';
 
-    var blocks = [
+    let blocks = [
       [0, 0], [w, 0],
       [0, h], [w, h],
     ];
+
+    let extraBlocks = [];
 
     var activeBlock = null;
     var activeBlockCandidate = null;
@@ -151,6 +153,37 @@
       var obj = {};
     }
 
+    let msgCol = 0;
+
+    const renderMsg = () => {
+      g.font = '32px arial';
+      g.textBaseline = 'top';
+      g.textAlign = 'left';
+
+      const cols = ['yellow', 'red'];
+      let msg = 'msg';
+
+      const w = g.measureText(msg).width + 10;
+      const h = 42;
+
+      g.fillStyle = cols[msgCol];
+      g.fillRect(0, 0, w, h);
+      g.fillStyle = cols[msgCol ^ 1];
+      g.fillText(msg, 5, 5);
+
+      msgCol ^= 1;
+    };
+
+    const renderMsgWrap = () => {
+      renderMsg();
+
+      window.requestAnimationFrame(() => {
+        setTimeout(renderMsgWrap, 3e3);
+      });
+    };
+
+    // renderMsgWrap();
+
     updateCanvas();
 
     function updateCanvas(){
@@ -190,10 +223,11 @@
         var elem = document.querySelector('#ublock_yt-overlay');
         if(!elem) return setTimeout(render);
 
-        var arr = [null, null, null, null];
+        let arr;
+        let extra;
 
         try{
-          arr = JSON.parse(elem.value);
+          [arr, extra] = JSON.parse(elem.value);
         }catch(err){
           alert = () => {};
         }
@@ -214,6 +248,8 @@
           if(bx) bb[0] = w - bb[0];
           if(by) bb[1] = h - bb[1];
         });
+
+        extraBlocks = extra;
       }
 
       if(inco && isTopVisible && window.location.href.startsWith('https://www.youtube.com/results?')){
@@ -231,6 +267,9 @@
         g.fillRect(0, c[1], c[0], h - c[1]);
         g.fillRect(d[0], d[1], w - d[0], h - d[1]);
       }
+
+      for(const block of extraBlocks)
+        g.fillRect(...block);
 
       if(DEBUG){
         if(shift){
@@ -254,6 +293,8 @@
           render(obj);
         });
       }
+
+      // renderMsg();
     }
 
     function resetBlocks(){
@@ -261,6 +302,8 @@
       blocks[1][0] = w, blocks[1][1] = 0;
       blocks[2][0] = 0, blocks[2][1] = h;
       blocks[3][0] = w, blocks[3][1] = h;
+      
+      extraBlocks.length = 0;
     }
 
     function selectNearestBlock(x, y, actual=1){

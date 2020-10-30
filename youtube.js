@@ -64,8 +64,11 @@
     if(location.href.includes('&u'))
       ch[1] += 6;
 
-    if(ch.length === 2)
+    if(ch.length < 3)
       ch.push([null, null, null, null]);
+
+    if(ch.length < 4)
+      ch.push([]);
   }
 
   const symbs = [
@@ -714,7 +717,7 @@
         elem.id = 'ublock_yt-overlay';
       }
 
-      elem.value = JSON.stringify(timeOffsets[2]);
+      elem.value = JSON.stringify(timeOffsets.slice(2));
     }
 
     function tryToDisableSearch(){
