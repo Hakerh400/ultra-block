@@ -48,6 +48,9 @@ jdiv,
 *[class*="popup" i]:not(.ytp-popup):not(.js-profile-popup-actionable),
 *[class*="progressbar" i],
 
+a[href*="covid" i],
+a[href*="corona" i],
+
 /* https://www.puzzle-*.com/ */
 input[class="clock"],
 a[class="disable-ads"],

@@ -145,6 +145,7 @@
     'shakethebrain',
     'funwithpuzzles',
     'dazepuzzle',
+    'thesaurus',
   ];
 
   let z = 0;
