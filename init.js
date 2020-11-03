@@ -538,7 +538,7 @@
         };
 
         const enhanceVideo = () => {
-          (q=>((v,S)=>{'controls,autoplay'.split`,`.map(a=>v.removeAttribute(a)),v.muted=shouldBeMuted,v.classList.add('ublock-video'),addEventListener('keydown',(a,b=!a.ctrlKey?a.keyCode:0,c='currentTime')=>b-37?b-39?b-77?b-116?1:(a.preventDefault('ublock'),v.pause(),S.src=(a=>(a=a.split`?`,a[1]='a='+Date.now()+Math.random(),a.join`?`))(S.src),v.load()):v.muted=1:v[c]+=5:v[c]-=5);
+          (q=>((v,S)=>{'controls,autoplay'.split`,`.map(a=>v.removeAttribute(a)),v.muted=shouldBeMuted,v.classList.add('ublock-video'),addEventListener('keydown',(a,b=!a.ctrlKey?a.keyCode:0,c='currentTime')=>b-37?b-39?b-77?b-116?1:(a.preventDefault('ublock'),v.pause(),S.src=(a=>(a=a.split`?`,a[1]='a='+Date.now()+Math.random(),a.join`?`))(S.src),v.load()):v.muted^=1:v[c]+=5:v[c]-=5);
 
             if(/\.(?:mp3|mp4|webm|mkv)(?:[?&]|$)/i.test(url))
               sessionStorage['ublock-prevent-hard-reload'] = 1;
@@ -1398,6 +1398,12 @@
           url.startsWith('https://www.youtube.com/') /*&& !url.includes('&list=')*/ ||
           url.startsWith('https://github.com/')
         ) (() => {
+          const {href} = location;
+
+          const func = url => {
+            return 1;
+          };
+
           proxify(w.Node.prototype, 'appendChild', {
             apply(f, t, args){
               var result = f.apply(t, args);
@@ -1418,7 +1424,9 @@
 
           proxify(w.History.prototype, 'pushState', {
             apply(f, t, args){
-              var url = args[2];
+              let url = args[2];
+
+              if(!func(url)) return nop;
 
               top.location.href = url;
               w.document.body.innerHTML = '';
@@ -1429,7 +1437,9 @@
 
           proxify(w.History.prototype, 'replaceState', {
             apply(f, t, args){
-              var url = args[2];
+              let url = args[2];
+
+              if(!func(url)) return nop;
 
               if(url === w.location.href)
                 return nop;

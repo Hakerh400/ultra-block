@@ -249,7 +249,7 @@
           if(by) bb[1] = h - bb[1];
         });
 
-        extraBlocks = extra;
+        extraBlocks = extra || [];
       }
 
       if(inco && isTopVisible && window.location.href.startsWith('https://www.youtube.com/results?')){
