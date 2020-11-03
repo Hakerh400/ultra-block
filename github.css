@@ -119,3 +119,8 @@ table.highlight:not(.ublock-safe){
   cursor: default !important;
   pointer-events: none !important;
 }
+
+.js-file-line *{
+  cursor: text !important;
+  background: none !important;
+}
