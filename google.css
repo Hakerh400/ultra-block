@@ -29,6 +29,8 @@ div[role="listitem"]:not(.ublock-safe),
 .Kot7x,
 .rpBMYb.kno-ftr,
 .GHuRVb,
+.g ~ *:not(.g),
+#botstuff,
 
 a[href="#"]{
   display: none !important;
