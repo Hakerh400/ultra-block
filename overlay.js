@@ -268,8 +268,11 @@
         g.fillRect(d[0], d[1], w - d[0], h - d[1]);
       }
 
-      for(const block of extraBlocks)
+      for(let i = 0; i !== extraBlocks.length; i++){
+        if(!isTopVisible && i === 0) continue;
+        const block = extraBlocks[i];
         g.fillRect(...block);
+      }
 
       if(DEBUG){
         if(shift){
