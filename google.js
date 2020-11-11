@@ -146,6 +146,9 @@
     'funwithpuzzles',
     'dazepuzzle',
     'thesaurus',
+    'squarespace',
+    'tipsmake',
+    'climate4rent',
   ];
 
   let z = 0;
