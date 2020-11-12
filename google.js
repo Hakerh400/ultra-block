@@ -151,8 +151,6 @@
     'climate4rent',
   ];
 
-  let z = 0;
-
   const checkUrl = url => {
     if(url.startsWith('data:image')) return 1;
     return !blackList.some(a => url.includes(a));
