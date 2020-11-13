@@ -207,6 +207,15 @@ yt-img-shadow img{
   pointer-events: inherit;
 }
 
+body ytd-watch-flexy[flexy_] #player-container-outer.ytd-watch-flexy,
+body #primary-inner,
+body #primary{
+  margin: 0px !important;
+  width: 854px !important;
+  max-width: 854px !important;
+  min-width: 854px !important;
+}
+
 body.ub1 img.style-scope.yt-img-shadow{
   /* 280 250 */
   clip-path: polygon(0% 0%, 100% 0%, 100% 75%, 72% 75%, 72% 100%, 0% 100%, 0% 0%) !important;
