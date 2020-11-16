@@ -99,15 +99,17 @@
         const channel = qs(e, '#byline-container a');
         if(!(duration && meta && title && desc && channel)) continue;
 
+        let force = 1;
+
         if(
+          checkChannel(channel) && !(force = 0) &&
           checkDuration(duration) &&
           checkMeta(meta) &&
           checkTitle(title) &&
-          checkDesc(desc) &&
-          checkChannel(channel)
+          checkDesc(desc)
         ){
           show(e);
-        }else if(DEBUG){
+        }else if(DEBUG && !force){
           e.style.backgroundColor = 'red';
           let h1 = document.createElement('h1');
           h1.innerText = getDbgStr();

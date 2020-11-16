@@ -15,3 +15,12 @@
 #player-container-inner{
   padding: 0px !important;
 }
+
+body ytd-watch-flexy[flexy_] #player-container-outer.ytd-watch-flexy,
+body #primary-inner,
+body #primary{
+  margin: 0px !important;
+  width: 854px !important;
+  max-width: 854px !important;
+  min-width: 854px !important;
+}

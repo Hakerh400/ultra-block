@@ -2,7 +2,7 @@ footer,
 address,
 jdiv,
 
-*[id*="footer" i]:not(#not-footer):not(#queryboxfooter),
+*[id*="footer" i]:not(#not-footer):not(#queryboxfooter):not(textarea),
 *[id*="copyright" i],
 *[id*="newsletter" i],
 *[id*="countryList" i],
@@ -93,6 +93,10 @@ bottomlinks,
 
 /*body > hr:nth-last-child(-n + 2),
 body > center:nth-last-child(-n + 2),*/
+
+.widget ~ .has-color-green-600,
+a[href*="feed.rss"],
+.grid--cell.is-4-lg.is-12,
 
 /* google */
 #snackbar,
@@ -245,7 +249,7 @@ a{
   position: absolute !important;
 }*/
 
-textarea{
+html:not(.ublock-ordinary-ta) textarea{
   height: 1e3px !important;
   min-height: 1e3px !important;
   max-height: 1e3px !important;

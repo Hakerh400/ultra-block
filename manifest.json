@@ -207,6 +207,12 @@
       "run_at": "document_start",
       "all_frames": true
     }, {
+      "matches": ["https://codegolf.codidact.com/*"],
+      "js": ["code-golf.js"],
+      "css": ["code-golf.css"],
+      "run_at": "document_start",
+      "all_frames": true
+    }, {
       "matches": [
         "https://travis-ci.org/*",
         "https://travis-ci.com/*"

@@ -394,6 +394,9 @@
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+        if(location.href.startsWith('https://tio.run/'))
+          document.documentElement.classList.add('ublock-ordinary-ta');
+
         if(0){
           Object.defineProperty(window, 'scrollTop', {value: nop});
           Object.defineProperty(window, 'scrollLeft', {value: nop});
