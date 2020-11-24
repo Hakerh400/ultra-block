@@ -3,6 +3,16 @@
 
   const HIDE_IMAGES = 0;
 
+  if(
+    location.href.startsWith('https://tio.run/') ||
+    location.href.startsWith('http://localhost/') ||
+    /^https:\/\/[^\.]*\.github\.io\//.test(location.href)
+  ){
+    document.documentElement.classList.add('ublock-ordinary-links');
+    document.documentElement.classList.add('ublock-ordinary-ta');
+    document.documentElement.classList.add('ublock-ordinary-scrollbar');
+  }
+
   if(location.href.startsWith('http://localhost')) return;
   if(location.href.startsWith('https://hakerh400.github.io/')) return;
 
@@ -393,9 +403,6 @@
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        if(location.href.startsWith('https://tio.run/'))
-          document.documentElement.classList.add('ublock-ordinary-ta');
 
         if(0){
           Object.defineProperty(window, 'scrollTop', {value: nop});

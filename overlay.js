@@ -1,6 +1,8 @@
 (() => {
   'use strict';
 
+  if(location.href.includes('&nocanvas')) return;
+
   if(window.parent.frames.length > 0) return;
   if(window.location.href.startsWith('http://localhost/')) return;
   if(location.href.startsWith('https://hakerh400.github.io/')) return;

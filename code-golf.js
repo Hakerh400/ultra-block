@@ -18,7 +18,7 @@
     block();
 
     function block(){
-      for(const e of qsa('#answer_license_id:not(.ublock-safe)')){
+      for(const e of qsa('[id$="_license_id"]:not(.ublock-safe)')){
         for(const opt of qsa(e, 'option'))
           if(opt.innerText.includes('CC0'))
             opt.selected = 1;

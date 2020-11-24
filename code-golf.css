@@ -1,3 +1,4 @@
+.notice.is-info,
 .post--licensing--edited{
   display: none !important;
   visibility: hidden !important;
@@ -5,7 +6,7 @@
   pointer-events: none !important;
 }
 
-#answer_license_id:not(.ublock-safe){
+[id$="_license_id"]:not(.ublock-safe){
   opacity: 0 !important;
   pointer-events: none !important;
 }

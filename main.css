@@ -50,6 +50,7 @@ jdiv,
 
 a[href*="covid" i],
 a[href*="corona" i],
+a[href="/help" i],
 
 /* https://www.puzzle-*.com/ */
 input[class="clock"],
@@ -203,7 +204,7 @@ a[href*="bitbigs"],
 
 a[href*="bitlord.me/"],
 
-::-webkit-scrollbar,
+html:not(.ublock-ordinary-scrollbar) ::-webkit-scrollbar,
 #_eEe,
 .ublock-hidden{
   display: none !important;
