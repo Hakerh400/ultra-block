@@ -151,7 +151,18 @@
       }
     }
 
-    return title.join('');
+    title = title.join('');
+
+    extraCheck: {
+      const reg = /^\s*i\s*/i;
+      const m1 = title.match(reg);
+      const m2 = [...title].reverse().join('').match(reg);
+
+      if(m1 !== null) title = title.slice(m1[0].length);
+      if(m2 !== null) title = title.slice(0, title.length - m2[0].length);
+    }
+
+    return title;
   };
 
   const normalizeChars = chars => {
