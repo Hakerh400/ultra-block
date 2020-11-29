@@ -149,6 +149,7 @@
     'squarespace',
     'tipsmake',
     'climate4rent',
+    'myoutdoorplans',
   ];
 
   const checkUrl = url => {

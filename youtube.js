@@ -154,7 +154,7 @@
     title = title.join('');
 
     extraCheck: {
-      const reg = /^\s*i\s*/i;
+      const reg = /^\s*i\s+/i;
       const m1 = title.match(reg);
       const m2 = [...title].reverse().join('').match(reg);
 
