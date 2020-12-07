@@ -150,6 +150,8 @@
     'tipsmake',
     'climate4rent',
     'myoutdoorplans',
+    'intellect.icu',
+    'www.ebay.com',
   ];
 
   const checkUrl = url => {
