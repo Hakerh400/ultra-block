@@ -615,7 +615,7 @@
               });
             }],
             ['Go to YouTube', () => {
-              location.href = `https://www.youtube.com/watch?v=${location.href.match(/([a-zA-Z0-9\-\_]{11})(?:\]|%5D)?\.[^\.]+$/)[1]}`;
+              location.href = `https://www.youtube.com/watch?v=${location.href.match(/([a-zA-Z0-9\-\_]{11})(?:\]|%5D)?\~?\.[^\.]+$/)[1]}`;
             }],
             ['Random link', () => {
               window.addEventListener('keydown', evt => {
