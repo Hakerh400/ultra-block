@@ -152,6 +152,7 @@
     'myoutdoorplans',
     'intellect.icu',
     'www.ebay.com',
+    'fileformat',
   ];
 
   const checkUrl = url => {
