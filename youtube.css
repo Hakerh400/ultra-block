@@ -41,6 +41,7 @@ ytd-badge-supported-renderer,
 ytd-channel-sub-menu-renderer,
 ytd-clarification-renderer,
 /*ytd-playlist-renderer,*/
+ytd-mini-guide-renderer,
 ytd-thumbnail-overlay-resume-playback-renderer{
   display: none !important;
   visibility: hidden !important;

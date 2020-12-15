@@ -3,7 +3,7 @@
 
   const inco = chrome.extension.inIncognitoContext;
 
-  if(inco){
+  if(inco|1){
   }
 
   var script = () => {

@@ -17,7 +17,7 @@
 
   const CHECK_VIEWS = 0;
   const CHECK_KEYWORDS = 1;
-  const CHECK_DURATION = 1//!cyr;
+  const CHECK_DURATION = !cyr;
 
   const DURATION_MIN = 60 * 2;
 

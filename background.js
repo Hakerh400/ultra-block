@@ -14,7 +14,7 @@
   var redirectionsList = [
     [/^www\.google\.(?!co\.uk)/, /\.google\.[^\/]+/, '.google.co.uk'],
     [/^www\.google\.co\.uk\/imgres\?/, /[\s\S]*/, a => unescape(a.match(/[\?\&]imgurl=([^\&]*)/)[1])],
-    [/^www\.youtube\.com\/$/, /$/, 'watch?v=7&gl=US'],
+    [/^www\.youtube\.com\/$/, /$/, 'watch?v=7'],
     [/^www\.youtube\.com\/(?:channel|user|c)\/[^\/]+$/, /$/, '/videos?flow=grid&view=0'],
     [/^www\.tumblr\.com\/safe-mode\?/, /safe-mode\?[\s\S]*/, a => {
       return `dashboard/blog/${a.match(/(?:\/|%2F)([^%]*?)\.tumblr.com/i)[1]}`;
@@ -31,7 +31,14 @@
     var redirect = redirectionsList.find(([a]) => a.test(url));
     if(redirect) return {redirectUrl: evt.url.replace(redirect[1], redirect[2])};
 
-    if(inco){
+    if(url.startsWith('www.youtube.com/')){
+      if(!/[\?&]gl=US/.test(url)){
+        const urlNew = `${evt.url}${url.includes('?') ? '&' : '?'}gl=US`;
+        return {redirectUrl: urlNew};
+      }
+    }
+
+    if(inco|1){
     }
 
     let match = null;
