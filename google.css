@@ -30,7 +30,7 @@ div[role="listitem"]:not(.ublock-safe),
 .rpBMYb.kno-ftr,
 .GHuRVb,
 #botstuff,
-#rso > *:not(.g),
+#rso > *:not(.g):not(.hlcw0c),
 
 a[href="#"]{
   display: none !important;

@@ -19,7 +19,7 @@
     [/^www\.tumblr\.com\/safe-mode\?/, /safe-mode\?[\s\S]*/, a => {
       return `dashboard/blog/${a.match(/(?:\/|%2F)([^%]*?)\.tumblr.com/i)[1]}`;
     }],
-    [/^codegolf\.codidact\.com\/categories\/\d+$/, /$/, '?sort=age'],
+    [/^[^\/]+\.codidact\.com\/categories\/\d+$/, /$/, '?sort=age'],
   ];
 
   chrome.webRequest.onBeforeRequest.addListener(evt => {

@@ -615,7 +615,21 @@
               });
             }],
             ['Go to YouTube', () => {
-              location.href = `https://www.youtube.com/watch?v=${location.href.match(/([a-zA-Z0-9\-\_]{11})(?:\]|%5D)?\~?\.[^\.]+$/)[1]}`;
+              const url = location.href;
+
+              if(url.startsWith('file:///')){
+                location.href = `https://www.youtube.com/watch?v=${url.match(/([a-zA-Z0-9\-\_]{11})(?:\]|%5D)?\~?\.[^\.]+$/)[1]}`;
+                return;
+              }
+
+              if(url.startsWith('https://www.watzatsong.com/')){
+                const artist = qsa('.artist')[0].innerText.trim();
+                const title = qsa('.song-title')[0].innerText.replace(/"/g, '').trim();
+                const query = `${artist} ${title}`;
+
+                location.href = `https://www.youtube.com/results?search_query=${query.replace(/ /g, '+')}&sp=EgIQAQ%253D%253D`
+                return;
+              }
             }],
             ['Random link', () => {
               window.addEventListener('keydown', evt => {
