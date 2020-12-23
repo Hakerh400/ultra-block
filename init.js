@@ -15,6 +15,7 @@
 
   if(location.href.startsWith('http://localhost')) return;
   if(location.href.startsWith('https://hakerh400.github.io/')) return;
+  if(location.href.startsWith('file:///C:/Projects/')) return;
 
   {
     const {style} = document.documentElement;

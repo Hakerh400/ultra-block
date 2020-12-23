@@ -209,6 +209,9 @@ a[href*="bitbigs"],
 
 a[href*="bitlord.me/"],
 
+.headlink,
+.headerlink,
+
 html:not(.ublock-ordinary-scrollbar) ::-webkit-scrollbar,
 #_eEe,
 .ublock-hidden{

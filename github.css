@@ -69,6 +69,8 @@ span[aria-label^="Request review from "] ~ *,
 .up-tree.js-navigation-item,
 /*.blob-code.blob-code-context,*/
 .Header-item.flex-order-1.flex-md-order-none,
+.border-top.color-border-secondary.pt-3.mt-3.d-none.d-md-block,
+
 .gh-header-shadow.box-shadow{
   display: none !important;
   visibility: hidden !important;
