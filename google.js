@@ -22,7 +22,6 @@
     'whoa',
     'wallpaper',
     '123rf',
-    'envato',
     'gettyimages',
     'freeimages',
     'colourbox',
@@ -153,6 +152,8 @@
     'intellect.icu',
     'www.ebay.com',
     'fileformat',
+    'photodune',
+    'kreativegraphic',
   ];
 
   const checkUrl = url => {

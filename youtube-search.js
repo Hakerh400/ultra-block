@@ -84,6 +84,8 @@
     block();
 
     function block(){
+      window.dispatchEvent(new Event('resize'));
+
       let e;
 
       for(e of qsa('ytd-video-renderer:not(.ublock-safe)')){
@@ -95,7 +97,7 @@
         const duration = qs(e, 'ytd-thumbnail-overlay-time-status-renderer');
         const meta = qs(e, '#metadata');
         const title = qs(e, '#title-wrapper');
-        const desc = qs(e, '#description-text');
+        const desc = qs(e, '.metadata-snippet-text');
         const channel = qs(e, '#byline-container a');
         if(!(duration && meta && title && desc && channel)) continue;
 

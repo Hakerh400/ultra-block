@@ -1,3 +1,4 @@
+.metadata-snippet-text,
 ytd-video-renderer:not(.ublock-safe){
   display: none !important;
   visibility: hidden !important;
