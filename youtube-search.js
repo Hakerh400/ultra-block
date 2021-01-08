@@ -83,6 +83,8 @@
 
     block();
 
+    // localStorage.z = 0;
+
     function block(){
       window.dispatchEvent(new Event('resize'));
 
@@ -97,8 +99,19 @@
         const duration = qs(e, 'ytd-thumbnail-overlay-time-status-renderer');
         const meta = qs(e, '#metadata');
         const title = qs(e, '#title-wrapper');
-        const desc = qs(e, '.metadata-snippet-text');
+        const desc = qs(e, '#description-text,.metadata-snippet-text');
         const channel = qs(e, '#byline-container a');
+
+        // if(localStorage.z|0){
+        //   localStorage.z = 0;
+        //   log('duration: ', duration)
+        //   log('meta: ', meta)
+        //   log('title: ', title)
+        //   log('desc: ', desc)
+        //   log('channel: ', channel)
+        //   debugger;
+        // }
+
         if(!(duration && meta && title && desc && channel)) continue;
 
         let force = 1;
