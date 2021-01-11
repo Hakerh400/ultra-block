@@ -1419,6 +1419,7 @@
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+        // Proxify `pushState` and `replaceState`
         if(
           url.startsWith('https://www.youtube.com/') /*&& !url.includes('&list=')*/ ||
           url.startsWith('https://github.com/')
