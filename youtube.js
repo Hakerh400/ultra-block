@@ -34,6 +34,9 @@
   const PORT = 27000;
   const TIME = 1e3;
 
+  const OLD = location.href.includes('&uold');
+  const OVERLAY = !location.href.includes('&uove');
+
   ////////////////////////////////////////////////////////////////////////////////////////////////////
 
   const stats = O.enum([
@@ -53,8 +56,8 @@
   const chs = [
   ];
 
-  const timeOffsets = {
-  };
+  const timeOffsets = OVERLAY ? {
+  } : {};
 
   Object.setPrototypeOf(timeOffsets, null);
 
