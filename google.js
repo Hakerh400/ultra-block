@@ -154,6 +154,8 @@
     'fileformat',
     'photodune',
     'kreativegraphic',
+    'scriptmag',
+    'heitnerlegal',
   ];
 
   const checkUrl = url => {
