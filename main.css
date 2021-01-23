@@ -451,3 +451,7 @@ img[src^="file:///"]{
 .top-bar._fixed{
   position: absolute !important;
 }
+
+/*img{
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 25% 100%, 25% 97%, 0% 97%, 0% 0%) !important;
+}*/
