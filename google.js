@@ -156,6 +156,7 @@
     'kreativegraphic',
     'scriptmag',
     'heitnerlegal',
+    'demotivation',
   ];
 
   const checkUrl = url => {
