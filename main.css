@@ -459,21 +459,3 @@ html body :hover{
 /*img{
   clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 25% 100%, 25% 97%, 0% 97%, 0% 0%) !important;
 }*/
-
-div.row > section.single-image.content > a{
-  background: black !important;
-}
-
-div.row > section.single-image.content > a > .post-img,
-img[src*="horseheadhuffer"]{
-  /* 135 30 */
-  clip-path: polygon(
-    0% 0%,
-    100% 0%,
-    100% calc(100% - 30px),
-    calc(100% - 135px) calc(100% - 30px),
-    calc(100% - 135px) 100%,
-    0% 100%
-  ) !important;
-  border: 0px !important;
-}
