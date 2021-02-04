@@ -19,6 +19,14 @@
     },
 
     obj(proto=null){ return Object.create(proto); },
+
+    raf(f){
+      requestAnimationFrame(f);
+    },
+
+    raf2(f){
+      O.raf(() => O.raf(f));
+    },
   };
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -708,14 +716,22 @@
 
       if(time < start){
         pauseVideo();
-        video.currentTime = start;
+
+        O.raf2(() => {
+          video.currentTime = start;
+        });
+
         return;
       }
 
       if(time > end && time != duration){
         pauseVideo();
-        video.currentTime = duration;
-        ended = 1;
+
+        O.raf2(() => {
+          video.currentTime = duration;
+          ended = 1;
+        });
+
         return;
       }
     }
