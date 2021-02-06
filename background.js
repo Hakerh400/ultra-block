@@ -1,6 +1,35 @@
 (() => {
   'use strict';
 
+  const rmi = (() => {
+    const cbs = [];
+    let rmi = null;
+
+    fetch(chrome.runtime.getURL('rmi.js')).then(src => {
+      const exports = {};
+      const module = {exports};
+
+      const func = new Function('module, exports', src);
+      func(module, exports);
+
+      rmi = module.exports;
+
+      for(const cb of cbs)
+        cb();
+
+      cbs.length = 0;
+    }).catch(console.error);
+
+    return async (...args) => {
+      if(rmi === null)
+        await new Promise(res => cbs.push(res));
+
+      return rmi(...args);
+    };
+  })();
+
+  rmi('ping').then(console.log, console.error);
+
   const A = 1;
 
   const inco = chrome.extension.inIncognitoContext;
