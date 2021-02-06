@@ -1,38 +1,101 @@
 (() => {
   'use strict';
 
-  const rmi = (() => {
-    const cbs = [];
-    let rmi = null;
-
-    fetch(chrome.runtime.getURL('rmi.js')).then(src => {
-      const exports = {};
-      const module = {exports};
-
-      const func = new Function('module, exports', src);
-      func(module, exports);
-
-      rmi = module.exports;
-
-      for(const cb of cbs)
-        cb();
-
-      cbs.length = 0;
-    }).catch(console.error);
-
-    return async (...args) => {
-      if(rmi === null)
-        await new Promise(res => cbs.push(res));
-
-      return rmi(...args);
-    };
-  })();
-
-  rmi('ping').then(console.log, console.error);
-
   const A = 1;
 
+  const RMI_HOST = 'localhost';
+  const RMI_PORT = 8081;
+
   const inco = chrome.extension.inIncognitoContext;
+
+  class CustomError extends Error{
+    get name(){ return this.constructor.name; }
+  }
+
+  class AssertionError extends CustomError{
+    constructor(){
+      super();
+      // new Function('debugger')();
+    }
+  }
+
+  class RMIError extends CustomError{}
+
+  const O = {
+    CustomError,
+    AssertionError,
+    RMIError,
+
+    rmi(...args){
+      return new Promise((resolve, reject) => {
+        try{
+          let host = RMI_HOST;
+          let port = RMI_PORT;
+
+          if(typeof args[0] === 'object'){
+            const opts = args.shift();
+
+            if(O.has(opts, 'host')) host = opts.host;
+            if(O.has(opts, 'port')) port = opts.port;
+          }
+
+          const method = args.shift();
+          O.assert(typeof method === 'string');
+          O.assert(/^(?:\.[a-zA-Z0-9]+)+$/.test(`.${method}`));
+
+          const req = JSON.stringify([method.split('.'), args]);
+          const xhr = new window.XMLHttpRequest();
+
+          xhr.onreadystatechange = () => {
+            try{
+              if(xhr.readyState !== 4) return;
+
+              const {status} = xhr;
+
+              if(status !== 200){
+                if(status === 0)
+                  throw new TypeError(`RMI server is unavailable`);
+
+                throw new TypeError(`RMI server responded with status code ${status}`);
+              }
+
+              const res = JSON.parse(xhr.responseText);
+
+              if(res[0])
+                throw new O.RMIError(res[1]);
+
+              resolve(res[1]);
+            }catch(err){
+              reject(err);
+            }
+          };
+
+          xhr.open('POST', `http://${host}:${port}/`);
+          xhr.setRequestHeader('x-requested-with', 'XMLHttpRequest');
+          xhr.send(req);
+        }catch(err){
+          reject(err);
+        }
+      });
+    },
+
+    has(obj, key){ return Object.hasOwnProperty.call(obj, key); },
+
+    assert(...args){
+      const len = args.length;
+
+      if(len < 1 || len > 2)
+        throw new TypeError(`Expected 1 or 2 arguments, but got ${len}`);
+
+      if(!args[0]){
+        let msg = `Assertion failed`;
+        if(len === 2) msg += ` ---> ${args[1]}`;
+        throw new O.AssertionError(msg);
+      }
+    },
+  };
+
+  O.rmi('ping').then(console.log, console.error);
 
   var blackList = [
   ];
