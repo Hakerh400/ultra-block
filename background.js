@@ -154,12 +154,18 @@
       'create',
       'update',
       'move',
+      'attach',
+      'detach',
       'replace',
       'remove',
     ];
 
     for(const type of listeners){
-      ael(`on${O.cap(type)}d`, async (...args) => {
+      const cap = O.cap(type);
+      const suffix = type.endsWith('e') ? 'd' : 'ed';
+      const evtName = `on${cap}${suffix}`;
+
+      ael(evtName, async (...args) => {
         await O.rmi(`ublock.tabs.${type}`, ...args);
       });
     }
