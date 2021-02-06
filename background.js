@@ -3,10 +3,45 @@
 
   const A = 1;
 
+  const inco = chrome.extension.inIncognitoContext;
+
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   const RMI_HOST = 'localhost';
   const RMI_PORT = 8081;
 
-  const inco = chrome.extension.inIncognitoContext;
+  class Semaphore{
+    constructor(s=1){
+      this.s = s;
+      this.blocked = [];
+    }
+
+    init(s){
+      this.s = s;
+    }
+
+    wait(){
+      if(this.s > 0){
+        this.s--;
+        return Promise.resolve();
+      }
+
+      return new Promise(res => {
+        this.blocked.push(res);
+      });
+    }
+
+    signal(){
+      const {blocked} = this;
+
+      if(blocked.length === 0){
+        this.s++;
+        return;
+      }
+
+      setTimeout(blocked.shift());
+    }
+  }
 
   class CustomError extends Error{
     get name(){ return this.constructor.name; }
@@ -22,11 +57,36 @@
   class RMIError extends CustomError{}
 
   const O = {
+    Semaphore,
     CustomError,
     AssertionError,
     RMIError,
 
-    rmi(...args){
+    has(obj, key){ return Object.hasOwnProperty.call(obj, key); },
+
+    assert(...args){
+      const len = args.length;
+
+      if(len < 1 || len > 2)
+        throw new TypeError(`Expected 1 or 2 arguments, but got ${len}`);
+
+      if(!args[0]){
+        let msg = `Assertion failed`;
+        if(len === 2) msg += ` ---> ${args[1]}`;
+        throw new O.AssertionError(msg);
+      }
+    },
+
+    cap(str, lowerOthers=0){
+      if(lowerOthers) str = str.toLowerCase();
+      return `${str[0].toUpperCase()}${str.substring(1)}`;
+    },
+
+    rmiSem: new Semaphore(),
+
+    async rmi(...args){
+      await O.rmiSem.wait();
+
       return new Promise((resolve, reject) => {
         try{
           let host = RMI_HOST;
@@ -76,28 +136,38 @@
         }catch(err){
           reject(err);
         }
-      });
-    },
-
-    has(obj, key){ return Object.hasOwnProperty.call(obj, key); },
-
-    assert(...args){
-      const len = args.length;
-
-      if(len < 1 || len > 2)
-        throw new TypeError(`Expected 1 or 2 arguments, but got ${len}`);
-
-      if(!args[0]){
-        let msg = `Assertion failed`;
-        if(len === 2) msg += ` ---> ${args[1]}`;
-        throw new O.AssertionError(msg);
-      }
+      }).finally(() => O.rmiSem.signal());
     },
   };
 
-  O.rmi('ping').then(console.log, console.error);
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  var blackList = [
+  // Add tab listeners
+  {
+    const ael = (type, func) => {
+      chrome.tabs[type].addListener((...args) => {
+        func(...args)//.catch(console.error);
+      });
+    };
+
+    const listeners = [
+      'create',
+      'update',
+      'move',
+      'replace',
+      'remove',
+    ];
+
+    for(const type of listeners){
+      ael(`on${O.cap(type)}d`, async (...args) => {
+        await O.rmi(`ublock.tabs.${type}`, ...args);
+      });
+    }
+  }
+
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  const blackList = [
   ];
 
   var whiteList = [
@@ -130,7 +200,7 @@
       }
     }
 
-    if(inco|1){
+    if(/*inco*/1){
     }
 
     let match = null;
