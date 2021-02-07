@@ -2,6 +2,7 @@
   'use strict';
 
   const A = 1;
+  const RMI = 0;
 
   const inco = chrome.extension.inIncognitoContext;
 
@@ -143,7 +144,7 @@
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   // Add tab listeners
-  {
+  if(RMI){
     const ael = (type, func) => {
       chrome.tabs[type].addListener((...args) => {
         func(...args)//.catch(console.error);

@@ -542,7 +542,8 @@
           const f = () => {
             ((a,b)=>(document.title=['ublock-title',''],document.title='\u034F',[...document.querySelectorAll('h1.title')].forEach(b=>a(b,'innerText'))))((a,b)=>a[b]=a[b]?a[b].replace(/[^ -~]+/gu,' ').replace(/\s+/g,' ').trim():'\u034f',{a:document.title});
 
-            setTimeout(f, loaded ? 1e3 : 0);
+            if(!loaded)
+              setTimeout(f, loaded ? 1e3 : 0);
           };
 
           f();
