@@ -71,6 +71,7 @@ span[aria-label^="Request review from "] ~ *,
 .Header-item.flex-order-1.flex-md-order-none,
 .border-top.color-border-secondary.pt-3.mt-3.d-none.d-md-block,
 .progress-pjax-loader,
+.wiki-rightbar > *:not(#wiki-pages-box),
 
 .gh-header-shadow.box-shadow{
   display: none !important;

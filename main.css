@@ -25,7 +25,7 @@ jdiv,
 *[id*="popup" i]:not(.ytp-popup),
 *[id*="progressbar" i],
 
-*[class*="footer" i]:not(html):not(.main-wrapper-for-sticky-footer):not(.tblFooters):not(*[href*="/morelikethis/"]):not(.rounded-cr-footer):not(.stream-item-footer):not(.page-template-elementor_header_footer),
+*[class*="footer" i]:not(html):not(.main-wrapper-for-sticky-footer):not(.tblFooters):not(*[href*="/morelikethis/"]):not(.rounded-cr-footer):not(.stream-item-footer):not(.page-template-elementor_header_footer):not([class*="justifyStart"]),
 *[class*="copyright" i],
 *[class*="newsletter" i],
 *[class*="countryList" i],
@@ -459,3 +459,8 @@ html body :hover{
 /*img{
   clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 25% 100%, 25% 97%, 0% 97%, 0% 0%) !important;
 }*/
+
+/* hackage.haskell.org */
+#synopsis{
+  overflow: scroll !important;
+}
