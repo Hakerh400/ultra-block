@@ -117,12 +117,6 @@
       "run_at": "document_start",
       "all_frames": true
     }, {
-      "matches": ["*://char-map.herokuapp.com/*"],
-      "js": ["char-map.herokuapp.js"],
-      "css": ["char-map.herokuapp.css"],
-      "run_at": "document_start",
-      "all_frames": true
-    }, {
       "matches": ["https://www.tumblr.com/*"],
       "js": ["tumblr.js"],
       "css": ["tumblr.css"],
