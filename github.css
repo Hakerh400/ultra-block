@@ -72,6 +72,7 @@ span[aria-label^="Request review from "] ~ *,
 .border-top.color-border-secondary.pt-3.mt-3.d-none.d-md-block,
 .progress-pjax-loader,
 .wiki-rightbar > *:not(#wiki-pages-box),
+html body div[class*="discussion-spotlights-sortable"],
 
 .gh-header-shadow.box-shadow{
   display: none !important;
