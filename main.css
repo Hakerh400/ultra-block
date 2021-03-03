@@ -25,7 +25,7 @@ jdiv,
 *[id*="popup" i]:not(.ytp-popup),
 *[id*="progressbar" i],
 
-*[class*="footer" i]:not(html):not(.main-wrapper-for-sticky-footer):not(.tblFooters):not(*[href*="/morelikethis/"]):not(.rounded-cr-footer):not(.stream-item-footer):not(.page-template-elementor_header_footer):not([class*="justifyStart"]),
+*[class*="footer" i]:not(html):not(.main-wrapper-for-sticky-footer):not(.tblFooters):not(*[href*="/morelikethis/"]):not(.rounded-cr-footer):not(.stream-item-footer):not(.page-template-elementor_header_footer):not([class*="justifyStart"]):not(.Box-footer),
 *[class*="copyright" i],
 *[class*="newsletter" i],
 *[class*="countryList" i],
@@ -463,4 +463,9 @@ html body :hover{
 /* hackage.haskell.org */
 #synopsis{
   overflow: scroll !important;
+}
+
+[bgcolor], [color]{
+  background: #fff !important;
+  color: #000 !important;
 }
