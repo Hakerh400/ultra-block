@@ -200,9 +200,9 @@
     var redirect = redirectionsList.find(([a]) => a.test(url));
     if(redirect) return {redirectUrl: evt.url.replace(redirect[1], redirect[2])};
 
-    if(url.startsWith('www.youtube.com/')){
-      if(!/[\?&]gl=US/.test(url)){
-        const urlNew = `${evt.url}${url.includes('?') ? '&' : '?'}gl=US`;
+    if(inco && url.startsWith('www.youtube.com/')){
+      if(!/[\?&]gl=US&persist_gl=1/.test(url)){
+        const urlNew = `${evt.url}${url.includes('?') ? '&' : '?'}gl=US&persist_gl=1`;
         return {redirectUrl: urlNew};
       }
     }
