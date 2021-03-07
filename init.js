@@ -3,19 +3,21 @@
 
   const HIDE_IMAGES = 0;
 
+  const url = location.href;
+
   if(
-    location.href.startsWith('https://tio.run/') ||
-    location.href.startsWith('http://localhost/') ||
-    /^https:\/\/[^\.]*\.github\.io\//.test(location.href)
+    url.startsWith('https://tio.run/') ||
+    url.startsWith('http://localhost/') ||
+    /^https:\/\/[^\.]*\.github\.io\//.test(url)
   ){
     document.documentElement.classList.add('ublock-ordinary-links');
     document.documentElement.classList.add('ublock-ordinary-ta');
     document.documentElement.classList.add('ublock-ordinary-scrollbar');
   }
 
-  if(location.href.startsWith('http://localhost')) return;
-  if(location.href.startsWith('https://hakerh400.github.io/')) return;
-  if(location.href.startsWith('file:///C:/Projects/')) return;
+  if(url.startsWith('http://localhost/') && !/\.(?:mp3|mp4|webm|mkv)(?:[?&]|$)/i.test(url)) return;
+  if(url.startsWith('https://hakerh400.github.io/')) return;
+  if(url.startsWith('file:///C:/Projects/')) return;
 
   {
     const {style} = document.documentElement;
