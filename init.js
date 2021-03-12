@@ -1618,8 +1618,9 @@
   var elem = document.documentElement;
 
   code = code.
-    replace(/STYLE_URL/g, `'${STYLE_URL}'`).
-    replace(/HIDE_IMAGES/g, HIDE_IMAGES);
+    replace(/\bSTYLE_URL\b/g, `'${STYLE_URL}'`).
+    replace(/\bHIDE_IMAGES\b/g, HIDE_IMAGES).
+    replace(/\bINCO\b/g, chrome.extension.inIncognitoContext);
 
   elem.setAttribute('onreset', code);
   elem.dispatchEvent(new CustomEvent('reset'));
