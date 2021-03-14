@@ -1,7 +1,7 @@
 (() => {
   'use strict';
 
-  const RMI = 1;
+  const RMI = 0;
 
   const inco = chrome.extension.inIncognitoContext;
 
