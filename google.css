@@ -32,6 +32,7 @@ div[role="listitem"]:not(.ublock-safe),
 #botstuff,
 #rso > *:not(.g):not(.hlcw0c),
 /*.BA0A6c,*/
+g-img,
 
 a[href="#"]{
   display: none !important;
