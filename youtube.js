@@ -173,6 +173,9 @@
       if(m2 !== null) title = title.slice(0, title.length - m2[0].length);
     }
 
+    if(title.endsWith(' by'))
+      title = title.slice(0, title.length - 3).trimRight();
+
     return title;
   };
 
