@@ -345,8 +345,6 @@
           };
         }
 
-        const qsa = a => document.querySelectorAll(a);
-
         w.console_ = w.console;
         w.alert_ = w.alert;
         w.prompt_ = w.prompt;
@@ -998,9 +996,105 @@
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+        function show(e){
+          e.classList.add('ublock-safe');
+        }
+
+        function qs(a, b=null){
+          if(b === null){
+            b = a;
+            a = document;
+          }
+
+          return a.querySelector(b);
+        }
+
+        function qsa(a, b=null){
+          if(b === null){
+            b = a;
+            a = document;
+          }
+
+          return a.querySelectorAll(b);
+        }
+
+        function decode(str){
+          return str.split('').
+            map(a => a.charCodeAt(0) - 32).
+            map(a => 94 - a).
+            map(a => String.fromCharCode(32 + a)).
+            join('');
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        class Semaphore{
+          constructor(s=1){
+            this.s = s;
+            this.blocked = [];
+          }
+
+          init(s){
+            this.s = s;
+          }
+
+          wait(){
+            if(this.s > 0){
+              this.s--;
+              return Promise.resolve();
+            }
+
+            return new Promise(res => {
+              this.blocked.push(res);
+            });
+          }
+
+          signal(){
+            const {blocked} = this;
+
+            if(blocked.length === 0){
+              this.s++;
+              return;
+            }
+
+            setTimeout(blocked.shift());
+          }
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
         if(!url.startsWith('https://bugs.chromium.org/')){
+          let currentUrl = url;
           let rot = 0;
-          let nav = 0;
+
+          const sem = new Semaphore();
+
+          const navigate = async url => {
+            await sem.wait();
+
+            await new Promise((res, rej) => {
+              const old = qs('img');
+              const parent = old.parentNode;
+              const img = document.createElement('img');
+
+              const style = old.getAttribute('style');
+              img.setAttribute('style', style);
+
+              img.onload = () => {
+                requestAnimationFrame(() => {
+                  old.remove();
+                  parent.appendChild(img);
+                  res();
+                });
+              };
+
+              img.src = url;
+            });
+
+            currentUrl = url;
+
+            sem.signal();
+          };
 
           window.addEventListener('keydown', evt => {
             if(!(evt.ctrlKey && (evt.code === 'ArrowLeft' || evt.code === 'ArrowRight'))) return;
@@ -1017,16 +1111,13 @@
             const isLeft = evt.code === 'ArrowLeft';
             const isRight = evt.code === 'ArrowRight';
 
-            if(/^file.*\.(?:png|jpg)$/i.test(url)){
-              if(nav) return;
-              nav = 1;
-
+            if(/^file.*\.(?:png|jpg)$/i.test(currentUrl)){
               (async () => {
-                const [prefix, match] = url.match(/\/(.*?)(\d+)\)?\.(?:png|jpg)$/i).slice(1);
+                const [prefix, match] = currentUrl.match(/\/(.*?)(\d+)\)?\.(?:png|jpg)$/i).slice(1);
                 const index = match | 0;
                 const len = match.length;
 
-                location.href = await getNextImgUrl();
+                await navigate(await getNextImgUrl());
 
                 async function getNextImgUrl(){
                   const indexNext = await getNextIndex(index);
@@ -1078,7 +1169,7 @@
                 }
 
                 function getUrl(index, pad=1){
-                  return url.replace(/(\/.*?)(\d+)(\)?\.(?:png|jpg))$/i, (a, b, c, d) => {
+                  return currentUrl.replace(/(\/.*?)(\d+)(\)?\.(?:png|jpg))$/i, (a, b, c, d) => {
                     const s = pad ? String(index).padStart(len, '0') : String(index);
                     return `${b}${s}${d}`;
                   });
