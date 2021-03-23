@@ -1070,6 +1070,8 @@
           const sem = new Semaphore();
 
           const navigate = async url => {
+            return location.href = url;
+
             await sem.wait();
 
             await new Promise((res, rej) => {
