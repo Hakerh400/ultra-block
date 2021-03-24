@@ -1,15 +1,15 @@
 (() => {
   'use strict';
 
-  const RMI = 1;
-
-  const inco = chrome.extension.inIncognitoContext;
+  const RMI = 0;
 
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   const RMI_HOST = 'localhost';
   const RMI_PORT = 8081;
   const A = 1;
+
+  const inco = chrome.extension.inIncognitoContext;
 
   class Semaphore{
     constructor(s=1){
