@@ -1,6 +1,10 @@
 (() => {
   'use strict';
 
+  const url = location.href;
+
+  if(url.startsWith('http://localhost/')) return;
+
   var stage = 0;
   var scrollScheduled = 1;
 
@@ -62,6 +66,10 @@
       if(window.scrollY !== 0)
         setTimeout(scroll);
     }
+  }
+
+  function show(e){
+    e.classList.add('ublock-safe');
   }
 
   function qs(a, b=null){

@@ -43,6 +43,24 @@
         e.classList.add('ublock-safe');
       }
 
+      for(const e of qsa('.BorderGrid-row:not(.ublock-safe)')){
+        let found = 0;
+
+        for(const e1 of qsa(e, '.h4.mb-3')){
+          if(e1.innerText.trim() === 'Sponsor this project'){
+            found = 1;
+            break;
+          }
+        }
+
+        if(found){
+          e.remove();
+          continue;
+        }
+
+        show(e);
+      }
+
       if(stage === 0) setTimeout(block);
     }
   }
@@ -69,6 +87,10 @@
       var m = str.slice(i).match(reg);
       if(m !== null) i += m[0].length;
     }
+  }
+
+  function show(e){
+    e.classList.add('ublock-safe');
   }
 
   function qs(a, b=null){

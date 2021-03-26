@@ -97,7 +97,8 @@ textarea{
 
 .is-stuck,
 .d-flex.flex-justify-between.px-3:not(.container-lg),
-table.highlight:not(.ublock-safe){
+table.highlight:not(.ublock-safe),
+.BorderGrid-row:not(.ublock-safe){
   opacity: 0 !important;
   pointer-events: none !important;
 }

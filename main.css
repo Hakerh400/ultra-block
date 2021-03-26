@@ -213,6 +213,7 @@ a[href*="bitlord.me/"],
 .headerlink,
 
 body > p[align="center"]:last-child,
+body > nav.nav[role="navigation"]:first-child,
 
 html:not(.ublock-ordinary-scrollbar) ::-webkit-scrollbar,
 #_eEe,

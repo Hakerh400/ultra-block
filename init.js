@@ -894,8 +894,17 @@
 
             const selector = keys.map(a => `[${a}]`).join(',');
             const style = document.createElement('style');
+            const spam = `*="${decode('.=*,9/0')}"i`;
 
             style.innerHTML = `
+              a[href${spam}],
+              img[src${spam}]{
+                display: none !important;
+                visibility: hidden !important;
+                opacity: 0 !important;
+                pointer-events: none !important;
+              }
+
               ${selector}{
                 opacity: 0 !important;
                 pointer-events: none !important;
