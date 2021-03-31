@@ -19,6 +19,8 @@
   if(url.startsWith('https://hakerh400.github.io/')) return;
   if(url.startsWith('file:///C:/Projects/')) return;
 
+  document.documentElement.classList.add('ublock');
+
   {
     const {style} = document.documentElement;
     const raf = requestAnimationFrame;
@@ -33,7 +35,7 @@
       });
     });
   }
-  
+
   onbeforeunload = () => {
     if((window.sessionStorage && window.sessionStorage['ublock-prevent-hard-reload']))
       return;
