@@ -19,6 +19,19 @@
   if(url.startsWith('https://hakerh400.github.io/')) return;
   if(url.startsWith('file:///C:/Projects/')) return;
 
+  if(url.startsWith('https://translate.google.co.uk/')){
+    window.addEventListener('load', evt => {
+      setInterval(() => {
+        document.title = '\u034F';
+        console.clear();
+      }, 1e3);
+    });
+
+    document.documentElement.classList.add('ublock-ordinary-ta');
+
+    return;
+  }
+
   document.documentElement.classList.add('ublock');
 
   {
@@ -692,7 +705,7 @@
           });
 
           const blackListedListeners = [
-            ...blockCtxMenu ? ['contextmenu'] : [],
+            // ...blockCtxMenu ? ['contextmenu'] : [],
             'beforeunload',
             'unload',
             'error',

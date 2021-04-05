@@ -6,6 +6,7 @@
   if(location.href.startsWith('https://mail.google.com/')) return;
   if(location.href.startsWith('https://drive.google.com/')) return;
   if(location.href.startsWith('https://npm.runkit.com/')) return;
+  if(location.href.startsWith('https://translate.google.co.uk/')) return;
 
   var whiteList = [
     'mail.google.com',

@@ -639,17 +639,6 @@
           //e.closest('ytd-expander').removeAttribute('collapsed');
 
           if(getChName() === chs[0]){
-            var v = e.textContent
-              .split(/\r\n|\r|\n/)[0]
-              .split('.');
-            v.pop();
-            v[v.length - 1] = '';
-            v = v.join('.')
-              .split(' ')
-              .slice(5)
-              .join(' ');
-            v = `${v[0].toUpperCase()}${v.slice(1)}`;
-            e.textContent = v;
           }
 
           e.classList.add('ublock-safe');
@@ -967,7 +956,7 @@
     function getChName(){
       const e = qs('#channel-name.ytd-video-owner-renderer');
       if(!e) return null;
-      return e.textContent.trim();
+      return e.textContent.trim().replace(/[\r\n][\s\S]*/, '').trim();
     }
 
     function rf(url, data, cb){

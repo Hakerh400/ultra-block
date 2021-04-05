@@ -215,6 +215,8 @@ a[href*="bitlord.me/"],
 body > p[align="center"]:last-child,
 body > nav.nav[role="navigation"]:first-child,
 
+#stl_bg,
+
 html:not(.ublock-ordinary-scrollbar) ::-webkit-scrollbar,
 #_eEe,
 .ublock-hidden{
@@ -469,4 +471,8 @@ html body :hover{
 [bgcolor], [color]{
   background: #fff !important;
   color: #000 !important;
+}
+
+html body[style*="overflow: hidden"]{
+  overflow: auto !important;
 }
