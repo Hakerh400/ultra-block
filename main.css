@@ -468,7 +468,10 @@ html body :hover{
   overflow: scroll !important;
 }
 
-[bgcolor], [color]{
+html[bgcolor],
+body[bgcolor],
+html[color],
+body[color]{
   background: #fff !important;
   color: #000 !important;
 }

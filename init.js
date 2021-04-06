@@ -705,7 +705,7 @@
           });
 
           const blackListedListeners = [
-            // ...blockCtxMenu ? ['contextmenu'] : [],
+            ...blockCtxMenu ? ['contextmenu'] : [],
             'beforeunload',
             'unload',
             'error',
