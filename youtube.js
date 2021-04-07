@@ -1,6 +1,8 @@
 (() => {
   'use strict';
 
+  const INCO = chrome.extension.inIncognitoContext;
+
   const O = {
     enum(arr){
       var obj = O.obj();
@@ -353,6 +355,98 @@
 
       block();
     });
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    setVideoQuality: {
+      const LOG = 0;
+
+      const tryFunc = async func => {
+        let done = 0;
+
+        try{
+          done = await func();
+        }catch{}
+
+        if(!done)
+          return setTimeout(() => tryFunc(func));
+        
+        if(LOG) log('Done');
+      };
+
+      const raf = () => new Promise(res => {
+        requestAnimationFrame(() => res());
+      });
+
+      tryFunc(async () => {
+        qs('[data-tooltip-target-id="ytp-settings-button"]').click();
+        await raf();
+
+        [...qsa('div.ytp-menuitem-label')].find(e => {
+          return e.innerText.trim() === 'Quality';
+        }).click();
+        await raf();
+
+        const opts = [...qsa('.ytp-popup.ytp-settings-menu .ytp-menuitem-label')].map(e => {
+          return [e, e.innerText.trim()];
+        });
+
+        const preferred = !INCO ? [
+          '1080',
+          '720',
+          '480',
+          '360',
+          '240',
+          '144',
+        ] : ['144'];
+
+        for(const pref of preferred){
+          const info = opts.find(([a, b]) => b.includes(pref));
+          if(!info) continue;
+
+          const opt = info[0];
+          opt.click();
+
+          if(LOG) log(pref);
+          return 1;
+        }
+
+        return 0;
+      });
+
+      // const key = 'setPlaybackQuality';
+      // let setQualityFunc = null;
+      //
+      // const sem = new Semaphore(0);
+      //
+      // const makeDesc = func => ({
+      //   get(){
+      //     return func;
+      //   },
+      //
+      //   set(func){
+      //     Object.defineProperty(this, key, makeDesc(func));
+      //
+      //     if(String(func).includes('setPlaybackQualityRange')){
+      //       log('here');
+      //       setQualityFunc = func.bind(this);
+      //       // setTimeout(() => {
+      //       //   sem.signal();
+      //       // }, 10e3);
+      //     }
+      //   },
+      // });
+      //
+      // Object.defineProperty(Object.prototype, key, makeDesc());
+      //
+      // window.addEventListener('load', evt => {
+      //   (async () => {
+      //     await sem.wait();
+      //     setQualityFunc('hd1080');
+      //     log('ok');
+      //   })()//.catch(log);
+      // });
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -845,7 +939,7 @@
     }
 
     function toggleComments(evt){
-      if(chrome.extension.inIncognitoContext) return 1;
+      if(INCO) return 1;
       return toggleElem('ytd-comments', evt);
     }
 

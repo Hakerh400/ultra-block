@@ -47,6 +47,41 @@
 
       ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+      class Semaphore{
+        constructor(s=1){
+          this.s = s;
+          this.blocked = [];
+        }
+
+        init(s){
+          this.s = s;
+        }
+
+        wait(){
+          if(this.s > 0){
+            this.s--;
+            return Promise.resolve();
+          }
+
+          return new Promise(res => {
+            this.blocked.push(res);
+          });
+        }
+
+        signal(){
+          const {blocked} = this;
+
+          if(blocked.length === 0){
+            this.s++;
+            return;
+          }
+
+          setTimeout(blocked.shift());
+        }
+      }
+
+      ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
       // Add special style
       {
         const style = document.createElement('style');
@@ -239,7 +274,39 @@
         });
       }
 
-      ////////////////////////////////////////////////////////////////////////////////////////////////////
+      ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+      function show(e){
+        e.classList.add('ublock-safe');
+      }
+
+      function qs(a, b=null){
+        if(b === null){
+          b = a;
+          a = document;
+        }
+
+        return a.querySelector(b);
+      }
+
+      function qsa(a, b=null){
+        if(b === null){
+          b = a;
+          a = document;
+        }
+
+        return a.querySelectorAll(b);
+      }
+
+      function decode(str){
+        return str.split('').
+          map(a => a.charCodeAt(0) - 32).
+          map(a => 94 - a).
+          map(a => String.fromCharCode(32 + a)).
+          join('');
+      }
+
+      ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
       window.addEventListener('keydown', evt => {
         var activeElem = document.activeElement;
@@ -343,7 +410,7 @@
         if(play){
           if(video.paused){
             video.play(ytObj);
-            show(video);
+            showElem(video);
           }
         }else{
           if(!video.paused){
@@ -371,11 +438,11 @@
         play.apply(video, []);
       }
 
-      function show(elem, attempt=maxAttemptsNum){
+      function showElem(elem, attempt=maxAttemptsNum){
         if(elem.tagName === 'VIDEO'){
           if(videoHiddenLevel !== 0 || !canVideoBeShown() || elem.readyState !== 4){
             if(attempt !== 0)
-              setTimeout(() => show(elem, attempt - 1), attemptTimeDelay);
+              setTimeout(() => showElem(elem, attempt - 1), attemptTimeDelay);
 
             return;
           }
