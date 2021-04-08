@@ -7,7 +7,7 @@
 
   if(
     url.startsWith('https://tio.run/') ||
-    url.startsWith('http://localhost/') ||
+    url.startsWith('http://localhost') ||
     /^https:\/\/[^\.]*\.github\.io\//.test(url)
   ){
     document.documentElement.classList.add('ublock-ordinary-links');
@@ -15,7 +15,7 @@
     document.documentElement.classList.add('ublock-ordinary-scrollbar');
   }
 
-  if(url.startsWith('http://localhost/') && !/\.(?:mp3|mp4|webm|mkv)(?:[?&]|$)/i.test(url)) return;
+  if(url.startsWith('http://localhost') && !/\.(?:mp3|mp4|webm|mkv)(?:[?&]|$)/i.test(url)) return;
   if(url.startsWith('https://hakerh400.github.io/')) return;
   if(url.startsWith('file:///C:/Projects/')) return;
 
