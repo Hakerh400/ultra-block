@@ -358,7 +358,7 @@
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    setVideoQuality: {
+    setVideoQuality: if(isWatchPage){
       const LOG = 0;
 
       const tryFunc = async func => {
@@ -401,7 +401,8 @@
         ] : ['144'];
 
         for(const pref of preferred){
-          const info = opts.find(([a, b]) => b.includes(pref));
+          const prefStr = `${pref}p`;
+          const info = opts.find(([a, b]) => b.includes(prefStr));
           if(!info) continue;
 
           const opt = info[0];
