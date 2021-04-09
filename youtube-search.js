@@ -46,10 +46,10 @@
     ...blackList,
   ] : [];
 
-  const blackListUser = arr2obj([
+  const blackListChannel = arr2obj([
   ]);
 
-  const blackListChannel = arr2obj([
+  const blackListUser = arr2obj([
   ]);
 
   const types = createEnum([

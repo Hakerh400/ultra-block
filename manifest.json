@@ -207,6 +207,12 @@
       "run_at": "document_start",
       "all_frames": true
     }, {
+      "matches": ["https://www.watzatsong.com/*"],
+      "js": ["wzs.js"],
+      "css": ["wzs.css"],
+      "run_at": "document_start",
+      "all_frames": true
+    }, {
       "matches": [
         "https://travis-ci.org/*",
         "https://travis-ci.com/*"

@@ -1,0 +1,43 @@
+h1,
+h2,
+div[id="right-column"],
+div[id="uvTab"],
+div[class="header__sign-btns"],
+div[class="explaination-box"],
+div[style*="text-align: center; font-size: 14px"],
+a[class="sample-box-cross quarantine-btn"],
+div[class="sample-box-actions-share"],
+div[id="footer"],
+li[class="paytime-action"],
+p[style*="text-align: center"],
+/*a[class="sample-box-profile-pict"],*/
+div[class="sample-box sample-box--premium"],
+div[class="profile__tagline-holder"],
+a[id="sign-off-btn"][class="block right"],
+input[id="recorder-submit"] + P,
+#sample-form > div:first-child:not(.ublock-safe),
+.header__baseline,
+#fancybox-loading,
+#spinner,
+#profile-pict-label,
+.proposal__cover,
+img[src*="mzstatic.com"],
+#right-column{
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.sample-box-comment:not(.ublock-safe){
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+body{
+  color: white !important;
+}
+
+.sample-box-profile-pict{
+  background: none !important;
+}
