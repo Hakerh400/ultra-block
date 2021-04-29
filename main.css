@@ -215,6 +215,8 @@ body > p[align="center"]:last-child,
 body > nav.nav[role="navigation"]:first-child,
 
 #stl_bg,
+html body *[id*="inline-video-adv"],
+html body *[class*="inline-video-adv"],
 
 html:not(.ublock-ordinary-scrollbar) ::-webkit-scrollbar,
 #_eEe,
@@ -489,3 +491,7 @@ body{
 nav{
   position: relative !important;
 }*/
+
+html body header[class*="sticky"]{
+  position: relative !important;
+}
