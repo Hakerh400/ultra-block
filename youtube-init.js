@@ -249,27 +249,77 @@
       if(location.href.startsWith('https://www.youtube.com/watch?')){
         let config = undefined;
 
-        Object.defineProperty(window, 'ytplayer', {
-          value: {
-            get config(){ return config; },
+        // Object.defineProperty(window, 'ytplayer', {
+        //   value: {
+        //     get config(){ return config; },
+        //
+        //     set config(conf){
+        //       const {args} = conf;
+        //
+        //       const prop1 = 'player_response';
+        //       const prop2 = 'raw_player_response';
+        //
+        //       [prop1, prop2].forEach((prop, i) => {
+        //         if(!args[prop]) return;
+        //
+        //         const playerResponse = i === 0 ? JSON.parse(args[prop]) : args[prop];
+        //
+        //         delete playerResponse.adPlacements;
+        //         conf.args[prop] = i === 0 ? JSON.stringify(playerResponse) : playerResponse;
+        //
+        //         config = conf;
+        //       });
+        //     },
+        //   },
+        // });
 
-            set config(conf){
-              const {args} = conf;
+        // JSON.stringify(conf).match(/"[a-zA-Z][a-zA-Z0-9]*"\:/g).map(a=>a.slice(1,a.length-2)).filter(a=>/^ads?(?![a-z])|Ads?(?![a-z])/.test(a)).join('\n');
 
-              const prop1 = 'player_response';
-              const prop2 = 'raw_player_response';
+        const blackList = [
+          'actionCompanionAdRenderer',
+          'adActionInterstitialRenderer',
+          'adBadgeRenderer',
+          'adBreakServiceRenderer',
+          'adDurationRemaining',
+          'adDurationRemainingRenderer',
+          'adHoverTextButtonRenderer',
+          'adInfoDialogEndpoint',
+          'adInfoDialogRenderer',
+          'adInfoRenderer',
+          'adLayoutLoggingData',
+          'adLifecycleCommand',
+          'adPlacementConfig',
+          'adPlacementRenderer',
+          'adPlacements',
+          'adPreviewRenderer',
+          'adReasons',
+          'adRendererCommands',
+          'adSlotLoggingData',
+          'adTimeOffset',
+          'adVideoId',
+          'getAdBreakUrl',
+          'instreamAdPlayerOverlayRenderer',
+          'instreamVideoAdRenderer',
+          'linearAds',
+          'linearAdSequenceRenderer',
+          'playerAdParams',
+          'playerAds',
+          'playerLegacyDesktopWatchAdsRenderer',
+          'serializedAdServingDataEntry',
+          'serializedSlotAdServingDataEntry',
+          'simpleAdBadgeRenderer',
+          'skipAdRenderer',
+          'templatedAdText',
+        ];
 
-              [prop1, prop2].forEach((prop, i) => {
-                if(!args[prop]) return;
+        Object.defineProperty(window, 'ytInitialPlayerResponse', {
+          get(){ return config; },
+      
+          set(conf){
+            conf.adPlacements.length = 0;
+            conf.playerAds.length = 0;
 
-                const playerResponse = i === 0 ? JSON.parse(args[prop]) : args[prop];
-
-                delete playerResponse.adPlacements;
-                conf.args[prop] = i === 0 ? JSON.stringify(playerResponse) : playerResponse;
-
-                config = conf;
-              });
-            },
+            config = conf;
           },
         });
       }
