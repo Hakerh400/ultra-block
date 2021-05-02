@@ -316,8 +316,10 @@
           get(){ return config; },
       
           set(conf){
-            conf.adPlacements.length = 0;
-            conf.playerAds.length = 0;
+            try{
+              conf.adPlacements.length = 0;
+              conf.playerAds.length = 0;
+            }catch{}
 
             config = conf;
           },
