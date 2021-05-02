@@ -218,6 +218,7 @@ body > nav.nav[role="navigation"]:first-child,
 html body *[id*="inline-video-adv"],
 html body *[class*="inline-video-adv"],
 
+img[alt*="getty images"i],
 html:not(.ublock-ordinary-scrollbar) ::-webkit-scrollbar,
 #_eEe,
 .ublock-hidden{

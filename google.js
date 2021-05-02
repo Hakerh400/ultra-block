@@ -157,6 +157,16 @@
     'scriptmag',
     'heitnerlegal',
     'demotivation',
+    'masterfile',
+    'westend',
+    'photobucket',
+    'sayyes',
+    'artflakes',
+    'stock',
+    'printmeposter',
+    'pngio',
+    'designs',
+    'photos',
   ];
 
   const checkUrl = url => {
