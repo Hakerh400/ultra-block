@@ -2,6 +2,7 @@
   'use strict';
 
   const HIDE_IMAGES = 0;
+  const SMOOTH_IMAGE_TRANSITION = 1;
 
   const url = location.href;
 
@@ -1094,7 +1095,8 @@
           const sem = new Semaphore();
 
           const navigate = async url => {
-            return location.href = url;
+            if(!SMOOTH_IMAGE_TRANSITION)
+              return location.href = url;
 
             await sem.wait();
 
@@ -1737,6 +1739,7 @@
   code = code.
     replace(/\bSTYLE_URL\b/g, `'${STYLE_URL}'`).
     replace(/\bHIDE_IMAGES\b/g, HIDE_IMAGES).
+    replace(/\bSMOOTH_IMAGE_TRANSITION\b/g, SMOOTH_IMAGE_TRANSITION).
     replace(/\bINCO\b/g, chrome.extension.inIncognitoContext);
 
   elem.setAttribute('onreset', code);
