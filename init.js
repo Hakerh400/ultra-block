@@ -11,9 +11,14 @@
     url.startsWith('http://localhost') ||
     /^https:\/\/[^\.]*\.github\.io\//.test(url)
   ){
-    document.documentElement.classList.add('ublock-ordinary-links');
-    document.documentElement.classList.add('ublock-ordinary-ta');
-    document.documentElement.classList.add('ublock-ordinary-scrollbar');
+    [
+      'ublock-ordinary-links',
+      'ublock-ordinary-ta',
+      'ublock-ordinary-scrollbar',
+      'ublock-ordinary-overflow',
+    ].forEach(a => {
+      document.documentElement.classList.add(a);
+    });
   }
 
   if(url.startsWith('http://localhost') && !/\.(?:mp3|mp4|webm|mkv)(?:[?&]|$)/i.test(url)) return;

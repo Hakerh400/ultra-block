@@ -478,7 +478,7 @@ body[color]{
   color: #000 !important;
 }
 
-html body[style*="overflow: hidden"]{
+html:not(.ublock-ordinary-overflow) body[style*="overflow: hidden"]{
   overflow: auto !important;
 }
 
