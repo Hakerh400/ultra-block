@@ -34,6 +34,9 @@ div[role="listitem"]:not(.ublock-safe),
 /*.BA0A6c,*/
 /*g-img.BA0A6c,*/
 
+input[type="submit"][value="Google Search"],
+input[type="submit"][value="I'm Feeling Lucky"],
+
 a[href="#"]{
   display: none !important;
   visibility: hidden !important;

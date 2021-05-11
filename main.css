@@ -221,6 +221,10 @@ html body *[class*="inline-video-adv"],
 img[alt*="getty images"i],
 html:not(.ublock-ordinary-scrollbar) ::-webkit-scrollbar,
 #_eEe,
+
+figure,
+aside,
+
 .ublock-hidden{
   display: none !important;
   visibility: hidden !important;
