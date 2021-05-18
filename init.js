@@ -55,6 +55,8 @@
     });
   }
 
+  const {log} = console;
+
   onbeforeunload = () => {
     if((window.sessionStorage && window.sessionStorage['ublock-prevent-hard-reload']))
       return;
