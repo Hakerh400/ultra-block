@@ -1110,8 +1110,7 @@
               const parent = old.parentNode;
               const img = document.createElement('img');
 
-              const style = old.getAttribute('style');
-              img.setAttribute('style', style);
+              img.classList.add('ublock-img');
 
               img.onload = () => {
                 requestAnimationFrame(() => {
