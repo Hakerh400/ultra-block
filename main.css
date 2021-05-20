@@ -461,9 +461,9 @@ img[src^="file:///"]{
   position: absolute !important;
 }
 
-html body :hover{
+/*html body :hover{
   opacity: 1 !important;
-}
+}*/
 
 /*img{
   clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 25% 100%, 25% 97%, 0% 97%, 0% 0%) !important;
