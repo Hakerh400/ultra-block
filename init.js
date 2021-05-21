@@ -214,7 +214,7 @@
             }
           };
 
-          w.ubkeys = value => {
+          w.uinfo = value => {
             let obj = value;
             let depth = 0;
 
@@ -1633,6 +1633,15 @@
             try{
               return f.apply(t, args);
             }catch{}
+          }
+        });
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        proxify(HTMLFormElement.prototype, 'submit', {
+          apply(f, t, args){
+            // return nop;
+            f.apply(t,args);
           }
         });
 
