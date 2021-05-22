@@ -940,7 +940,7 @@
     }
 
     function toggleComments(evt){
-      if(INCO) return 1;
+      // if(INCO) return 1;
       return toggleElem('ytd-comments', evt);
     }
 
