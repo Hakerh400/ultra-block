@@ -84,9 +84,14 @@
       ch.push([]);
   }
 
-  const symbs = [
+  const symbsArr = [
     'status',
-  ].map(a => Symbol(a));
+  ];
+
+  const symbs = Object.create(null);
+
+  for(const name of symbsArr)
+    symbs[name] = Symbol(name);
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////
 

@@ -173,6 +173,7 @@ h1.title:not(.ublock_safe){
 
 #video-title.ytd-grid-video-renderer{
   max-height: none !important;
+  display: block !important;
 }
 
 #date.style-scope.ytd-video-primary-info-renderer{
