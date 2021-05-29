@@ -1757,7 +1757,10 @@
     replace(/\bSMOOTH_IMAGE_TRANSITION\b/g, SMOOTH_IMAGE_TRANSITION).
     replace(/\bINCO\b/g, chrome.extension.inIncognitoContext);
 
-  elem.setAttribute('onreset', code);
-  elem.dispatchEvent(new CustomEvent('reset'));
-  elem.removeAttribute('onreset');
+  (() => {
+    const script = document.createElement('script');
+    script.textContent = code;
+    document.documentElement.appendChild(script);
+    script.remove();
+  })();
 })();

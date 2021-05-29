@@ -118,7 +118,10 @@
   var code = `(${script})();`;
   var elem = document.documentElement;
 
-  elem.setAttribute('onreset', code);
-  elem.dispatchEvent(new CustomEvent('reset'));
-  elem.removeAttribute('onreset');
+  (() => {
+    const script = document.createElement('script');
+    script.textContent = code;
+    document.documentElement.appendChild(script);
+    script.remove();
+  })();
 })();

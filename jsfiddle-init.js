@@ -36,7 +36,10 @@
   code = code.substring(code.indexOf('{') + 1);
   code = code.substring(0, code.length - 1);
 
-  document.documentElement.setAttribute('onreset', code);
-  document.documentElement.dispatchEvent(new CustomEvent('reset'));
-  document.documentElement.removeAttribute('onreset');
+  (() => {
+    const script = document.createElement('script');
+    script.textContent = code;
+    document.documentElement.appendChild(script);
+    script.remove();
+  })();
 })();
