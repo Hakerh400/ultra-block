@@ -583,7 +583,7 @@
         const enhanceVideo = () => {
           (q=>((v,S)=>{'controls,autoplay'.split`,`.map(a=>v.removeAttribute(a)),v.muted=shouldBeMuted,v.classList.add('ublock-video'),addEventListener('keydown',(a,b=!a.ctrlKey?a.keyCode:0,c='currentTime')=>b-37?b-39?b-77?b-116?1:(a.preventDefault('ublock'),v.pause(),S.src=(a=>(a=a.split`?`,a[1]='a='+Date.now()+Math.random(),a.join`?`))(S.src),v.controls=0,v.load()):v.muted^=1:v[c]+=5:v[c]-=5);
 
-            if(/\.(?:mp3|mp4|webm|mkv)(?:[?&]|$)/i.test(url))
+            if(/\.(?:mp3|mp4|m4a|webm|mkv)(?:[?&]|$)/i.test(url))
               (window.sessionStorage && (window.sessionStorage['ublock-prevent-hard-reload'] = 1));
           })(q('video')[0],q('source')[0]))(a=>[...document.querySelectorAll(a)]);
 

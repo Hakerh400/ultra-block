@@ -1,5 +1,6 @@
 (() => {
   'use strict';
+  return;
 
   if(window.location.href.startsWith('http://localhost/')) return;
   if(window.location.href.startsWith('https://www.pdfpit.com/')) return;
