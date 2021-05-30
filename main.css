@@ -186,7 +186,7 @@ a[href*="bitbigs"],
 
 /* monorail */
 *[icon="settings"],
-#makechanges .h4,
+#makechanges,
 
 /* travis */
 .loading-screen,
@@ -408,6 +408,13 @@ mr-app{
   padding-top: 0px !important;
 }
 
+.star-line{
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
 .ublock-rot-0 video{ transform: rotate(0deg) !important; }
 .ublock-rot-1 video{ transform: rotate(90deg) !important; }
 .ublock-rot-2 video{ transform: rotate(180deg) !important; }
@@ -452,9 +459,9 @@ body.displaying-homepage .frame{
   pointer-events: none !important;
 }
 
-img[src^="file:///"]{
+/*img[src^="file:///"]{
   background: #dae5d6;
-}
+}*/
 
 *{
   transition: none !important;
