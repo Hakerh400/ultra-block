@@ -22,6 +22,7 @@ input[id="recorder-submit"] + P,
 #profile-pict-label,
 .proposal__cover,
 img[src*="mzstatic.com"],
+div[id^="cf_async_"],
 #right-column{
   display: none !important;
   visibility: hidden !important;

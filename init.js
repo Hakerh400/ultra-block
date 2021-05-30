@@ -1,8 +1,8 @@
 (() => {
   'use strict';
 
+  const SMOOTH_IMAGE_TRANSITION = 0;
   const HIDE_IMAGES = 0;
-  const SMOOTH_IMAGE_TRANSITION = 1;
 
   const url = location.href;
 
