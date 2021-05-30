@@ -223,7 +223,7 @@ html:not(.ublock-ordinary-scrollbar) ::-webkit-scrollbar,
 #_eEe,
 
 figure,
-aside,
+aside:not(.metadata-container),
 
 .ublock-hidden{
   display: none !important;
@@ -364,14 +364,8 @@ chops-snackbar,
 mr-cue[cueprefname="availability_msgs"],
 mr-cue[cueprefname="code_of_conduct"],
 .new-link,
+.comment-options,
 video{
-  display: none !important;
-  visibility: hidden !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
-}
-
-.comment-options{
   display: none !important;
   visibility: hidden !important;
   opacity: 0 !important;
@@ -402,6 +396,17 @@ a:active
   color: blue !important;
 }
 */
+
+.issueheader,
+.issue-header-container,
+th,
+mr-issue-metadata{
+  position: static !important;
+}
+
+mr-app{
+  padding-top: 0px !important;
+}
 
 .ublock-rot-0 video{ transform: rotate(0deg) !important; }
 .ublock-rot-1 video{ transform: rotate(90deg) !important; }
