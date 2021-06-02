@@ -4,6 +4,7 @@
   const SMOOTH_IMAGE_TRANSITION = 1;
   const HIDE_IMAGES = 0;
 
+  const INCO = chrome.extension.inIncognitoContext;
   const url = location.href;
 
   if(
@@ -212,7 +213,7 @@
 
               return str;
             }
-          };
+          }
 
           w.uinfo = value => {
             let obj = value;
@@ -364,7 +365,7 @@
               depth++;
             }
 
-            return table.toString();
+            log(table.toString());
           };
         }
 
@@ -1755,7 +1756,7 @@
     replace(/\bSTYLE_URL\b/g, `'${STYLE_URL}'`).
     replace(/\bHIDE_IMAGES\b/g, HIDE_IMAGES).
     replace(/\bSMOOTH_IMAGE_TRANSITION\b/g, SMOOTH_IMAGE_TRANSITION).
-    replace(/\bINCO\b/g, chrome.extension.inIncognitoContext);
+    replace(/\bINCO\b/g, INCO);
 
   (() => {
     const script = document.createElement('script');
