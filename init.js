@@ -58,6 +58,41 @@
 
   const {log} = console;
 
+  {
+    const blackList = [
+    ];
+
+    const selectorsInfo = {
+      a: ['href'],
+      img: ['src'],
+      div: ['data-async-context'],
+      '*': ['alt', 'title'],
+    };
+
+    const tags = Reflect.ownKeys(selectorsInfo);
+
+    const selectors = tags.flatMap(tag => {
+      const attribs = selectorsInfo[tag];
+
+      return attribs.flatMap(attrib => {
+        return blackList.map(item => {
+          return `${tag}[${attrib}*="${item}" i]`;
+        });
+      });
+    }).join(',\n');
+
+    const style = `
+      ${selectors}{
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+      }
+    `;
+
+    document.documentElement.appendChild(document.createElement('style')).innerHTML = style;
+  }
+
   onbeforeunload = () => {
     if((window.sessionStorage && window.sessionStorage['ublock-prevent-hard-reload']))
       return;

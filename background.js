@@ -189,6 +189,12 @@
       return `dashboard/blog/${a.match(/(?:\/|%2F)([^%]*?)\.tumblr.com/i)[1]}`;
     }],
     [/^[^\/]+\.codidact\.com\/categories\/\d+$/, /$/, '?sort=age'],
+    [/^[^\/]+\.reddit\.com\/$/, /$/, 'r/popular/?geo_filter=US'],
+    // [/^[^\/]+\.reddit\.com\/.*/, /.*/, a => {
+    //   if(a.endsWith('geo_filter=US')) return a;
+    //   const sep = a.includes('?') ? '&' : '?';
+    //   return `${a}${sep}geo_filter=US`;
+    // }],
   ];
 
   chrome.webRequest.onBeforeRequest.addListener(evt => {
@@ -198,7 +204,13 @@
     var urlLower = url.toLowerCase();
 
     var redirect = redirectionsList.find(([a]) => a.test(url));
-    if(redirect) return {redirectUrl: evt.url.replace(redirect[1], redirect[2])};
+
+    if(redirect){
+      const newUrl = evt.url.replace(redirect[1], redirect[2]);
+
+      if(newUrl !== evt.url)
+        return {redirectUrl: newUrl};
+    }
 
     if(inco && url.startsWith('www.youtube.com/')){
       if(!/[\?&]gl=US&persist_gl=1/.test(url)){

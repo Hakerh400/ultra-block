@@ -227,6 +227,7 @@ figure,
 aside:not(.metadata-container),
 
 .uk-notification.uk-notification-top-center,
+[id*="countrysort" i],
 
 .ublock-hidden{
   display: none !important;
