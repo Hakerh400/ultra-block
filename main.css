@@ -33,7 +33,7 @@ jdiv,
 *[class*="partner" i],
 *[class*="banner" i]:not(*[class$="--banner"]):not(.no-nav-banners):not(.js-review-bar):not(.hx_UnderlineNav-with-profile-color-modes-banner),
 *[class*="watermark" i],
-*[class*="logo" i]:not(.wp-custom-logo),
+*[class*="logo" i]:not(.wp-custom-logo):not([class*="no_logo" i]),
 *[class*="_ad_" i],
 *[class$="_ad" i],
 *[class="foot" i],
@@ -200,6 +200,7 @@ a[href*="bitbigs"],
 
 /* chromium */
 .new-link,
+.snackbar-container,
 
 /* discord */
 .container-16j22k.fixClipping-3qAKRb,
@@ -224,6 +225,8 @@ html:not(.ublock-ordinary-scrollbar) ::-webkit-scrollbar,
 
 figure,
 aside:not(.metadata-container),
+
+.uk-notification.uk-notification-top-center,
 
 .ublock-hidden{
   display: none !important;
