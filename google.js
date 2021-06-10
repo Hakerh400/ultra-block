@@ -167,6 +167,9 @@
     'pngio',
     'designs',
     'photos',
+    '.picdn.',
+    'everypixel',
+    'makingcircuits',
   ];
 
   const checkUrl = url => {

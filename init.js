@@ -1167,7 +1167,11 @@
           };
 
           window.addEventListener('keydown', evt => {
-            if(!(evt.ctrlKey && (evt.code === 'ArrowLeft' || evt.code === 'ArrowRight'))) return;
+            if(location.href.includes('/ubimgs/')){
+              if(/^F\d+$/.test(evt.code)) return;
+            }else{
+              if(!(evt.ctrlKey && (evt.code === 'ArrowLeft' || evt.code === 'ArrowRight'))) return;
+            }
 
             const elem = document.activeElement;
             if(elem !== null){

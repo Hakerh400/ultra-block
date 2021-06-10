@@ -6,6 +6,19 @@
   if(inco|1){
   }
 
+  if(location.href !== 'https://www.youtube.com/watch?v=7'){
+    const style = `
+      #search-form{
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+      }
+    `;
+
+    document.documentElement.appendChild(document.createElement('style')).innerHTML = style;
+  }
+
   var script = () => {
     (() => {
       'use strict';
