@@ -50,7 +50,9 @@ jdiv,
 
 a[href*="covid" i],
 a[href*="corona" i],
-a[href="/help" i],
+a[href*="/help" i],
+a[href*="copyright" i],
+a[href*="monetization" i],
 
 /* https://www.puzzle-*.com/ */
 input[class="clock"],

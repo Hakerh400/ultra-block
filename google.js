@@ -170,6 +170,7 @@
     '.picdn.',
     'everypixel',
     'makingcircuits',
+    'worldwide-photography',
   ];
 
   const checkUrl = url => {
