@@ -2,6 +2,8 @@ footer,
 address,
 jdiv,
 
+#MathJax_Message,
+
 *[id*="footer" i]:not(#not-footer):not(#queryboxfooter):not(textarea),
 *[id*="copyright" i],
 *[id*="newsletter" i],
