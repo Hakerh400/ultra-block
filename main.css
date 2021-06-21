@@ -506,12 +506,6 @@ html:not(.ublock-ordinary-overflow) body[style*="overflow: hidden"]{
   overflow: auto !important;
 }
 
-html,
-body{
-  margin-top: 0px !important;
-  padding-top: 0px !important;
-}
-
 /*.navbar,
 nav{
   position: relative !important;

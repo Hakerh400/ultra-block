@@ -93,6 +93,18 @@
     document.documentElement.appendChild(document.createElement('style')).innerHTML = style;
   }
 
+  {
+    const style = `
+      html,
+      body{
+        margin-top: 0px !important;
+        padding-top: 0px !important;
+      }
+    `;
+
+    document.documentElement.appendChild(document.createElement('style')).innerHTML = style;
+  }
+
   onbeforeunload = () => {
     if((window.sessionStorage && window.sessionStorage['ublock-prevent-hard-reload']))
       return;
