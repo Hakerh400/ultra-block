@@ -190,8 +190,13 @@
       "all_frames": true
     }, {
       "matches": ["https://esolangs.org/*"],
-      "js": ["esolangs.js"],
       "css": ["esolangs.css"],
+      "run_at": "document_start",
+      "all_frames": true
+    }, {
+      "matches": ["https://logs.esolangs.org/*"],
+      "js": ["esolangs-logs.js"],
+      "css": ["esolangs-logs.css"],
       "run_at": "document_start",
       "all_frames": true
     }, {

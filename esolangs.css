@@ -4,8 +4,3 @@
   opacity: 0 !important;
   pointer-events: none !important;
 }
-
-span.ed:not(.ublock-safe){
-  opacity: 0 !important;
-  pointer-events: none !important;
-}
