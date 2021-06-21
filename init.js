@@ -118,7 +118,10 @@
       sanitizedEventTargets: new Set(),
     };
 
-    const ublockFunc = (w=window, url=w.location.href) => {
+    const ublockFunc = (w, url) => {
+      if(!w) w = window;
+      if(!url) url = w.location.href;
+
       if(w['ublock-init.js']) return;
       w['ublock-init.js'] = 1;
 

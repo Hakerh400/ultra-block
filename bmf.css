@@ -1,0 +1,13 @@
+html,
+html *,
+html body,
+html body *,
+html body img,
+html body img[id],
+html body img[src],
+#anti-adblock{
+  /*display: none !important;
+  visibility: hidden !important;*/
+  opacity: 0 !important;
+  pointer-events: none !important;
+}

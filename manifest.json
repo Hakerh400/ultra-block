@@ -220,6 +220,12 @@
       "css": ["travis.css"],
       "run_at": "document_start",
       "all_frames": true
+    }, {
+      "matches": ["*://bluemediafiles.com/*"],
+      "js": ["bmf-init.js"],
+      "css": ["bmf.css"],
+      "run_at": "document_start",
+      "all_frames": true
     }
   ],
 

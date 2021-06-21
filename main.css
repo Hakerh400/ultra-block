@@ -49,6 +49,7 @@ jdiv,
 *[class*="rss" i],
 *[class*="popup" i]:not(.ytp-popup):not(.js-profile-popup-actionable),
 *[class*="progressbar" i],
+*[class*=" ad " i],
 
 a[href*="covid" i],
 a[href*="corona" i],
