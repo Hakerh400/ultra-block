@@ -5,6 +5,31 @@
 
   if(url.startsWith('http://localhost/')) return;
 
+  legacySelectors: {
+    const selectors = [
+    ];
+
+    const filteredSelectors = [];
+
+    for(const entry of selectors){
+      const [urlPart, selector] = entry.split('##');
+      if(!url.includes(urlPart)) continue;
+
+      filteredSelectors.push(selector);
+    }
+
+    const style = `
+      ${filteredSelectors.join(',\n')}{
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+      }
+    `;
+
+    document.documentElement.appendChild(document.createElement('style')).innerHTML = style;
+  }
+
   var stage = 0;
   var scrollScheduled = 1;
 
