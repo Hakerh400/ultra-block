@@ -57,17 +57,6 @@ a[href*="/help" i],
 a[href*="copyright" i],
 a[href*="monetization" i],
 
-/* https://www.puzzle-*.com/ */
-input[class="clock"],
-a[class="disable-ads"],
-a[href="/patron.php"],
-#shareContainer,
-#shareContainer + p,
-#moreGamesBnr,
-#Side,
-#noncomph,
-.icon-spin,
-
 div[id*="hero-"],
 div[id*="-hero"],
 div[id*="herobox"],
@@ -84,6 +73,17 @@ img[src*="promo" i],
 #to-top,
 .to-top,
 .scrollToTop,
+
+/* https://www.puzzle-*.com/ */
+input[class="clock"],
+a[class="disable-ads"],
+a[href="/patron.php"],
+#shareContainer,
+#shareContainer + p,
+#moreGamesBnr,
+#Side,
+#noncomph,
+.icon-spin,
 
 /*.loginbox,*/
 
