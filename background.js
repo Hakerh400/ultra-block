@@ -1,7 +1,7 @@
 (() => {
   'use strict';
 
-  const RMI = 1;
+  const RMI = 0;
 
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -181,6 +181,12 @@
   ];
 
   var redirectionsList = [
+    [/^www\.google\./, /.*/, a => {
+      const t = a.includes('?') ? '&' : '?';
+      const s = `${t}nfpr=1`;
+      if(a.endsWith(s)) return a;
+      return a + s;
+    }],
     [/^www\.google\.(?!co\.uk)/, /\.google\.[^\/]+/, '.google.co.uk'],
     [/^www\.google\.co\.uk\/imgres\?/, /[\s\S]*/, a => unescape(a.match(/[\?\&]imgurl=([^\&]*)/)[1])],
     [/^www\.youtube\.com\/$/, /$/, 'watch?v=7'],
