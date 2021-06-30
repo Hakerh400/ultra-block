@@ -206,22 +206,36 @@
   chrome.webRequest.onBeforeRequest.addListener(evt => {
     if(evt.initiator === 'https://drive.google.com') return;
 
-    var url = evt.url.match(/^[^\/]+?\:\/{2,3}(.+)/)[1];
+    const urlOrig = evt.url;
+    var url = urlOrig.match(/^[^\/]+?\:\/{2,3}(.+)/)[1];
     var urlLower = url.toLowerCase();
 
-    let newUrl = null;
+    let urlCur = urlOrig;
+    let redirect = 0;
 
-    var redirect = redirectionsList.find(([a, b, c]) => {
-      if(!a.test(url)) return 0;
+    while(1){
+      let url = urlCur.match(/^[^\/]+?\:\/{2,3}(.+)/)[1];
+      let urlNew = null;
 
-      newUrl = evt.url.replace(b, c);
-      if(newUrl === evt.url) return 0;
+      const found = redirectionsList.find(([a, b, c]) => {
+        if(!a.test(url)) return 0;
 
-      return 1;
-    });
+        urlNew = urlCur.replace(b, c);
+        if(urlNew === urlCur) return 0;
 
-    if(redirect)
-      return {redirectUrl: newUrl};
+        return 1;
+      });
+
+      if(found){
+        redirect = 1;
+        urlCur = urlNew;
+        continue;
+      }
+
+      if(!redirect) break;
+
+      return {redirectUrl: urlCur};
+    }
 
     if(inco && url.startsWith('www.youtube.com/')){
       if(!/[\?&]gl=US&persist_gl=1/.test(url)){
