@@ -209,14 +209,19 @@
     var url = evt.url.match(/^[^\/]+?\:\/{2,3}(.+)/)[1];
     var urlLower = url.toLowerCase();
 
-    var redirect = redirectionsList.find(([a]) => a.test(url));
+    let newUrl = null;
 
-    if(redirect){
-      const newUrl = evt.url.replace(redirect[1], redirect[2]);
+    var redirect = redirectionsList.find(([a, b, c]) => {
+      if(!a.test(url)) return 0;
 
-      if(newUrl !== evt.url)
-        return {redirectUrl: newUrl};
-    }
+      newUrl = evt.url.replace(b, c);
+      if(newUrl === evt.url) return 0;
+
+      return 1;
+    });
+
+    if(redirect)
+      return {redirectUrl: newUrl};
 
     if(inco && url.startsWith('www.youtube.com/')){
       if(!/[\?&]gl=US&persist_gl=1/.test(url)){
