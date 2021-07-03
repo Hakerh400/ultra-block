@@ -1278,6 +1278,7 @@
               var blob = new Blob([source]);
               var url = w.URL.createObjectURL(blob);
             }catch(a){}
+            
             return new ctor(url);
           }
         });
