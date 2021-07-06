@@ -63,7 +63,7 @@
           getCurrentPosition(succCb, failCb, opts){
             const coords = new GeolocationCoordinates(latitude, longitude, accuracy);
             const pos = new GeolocationPosition(coords);
-            
+
             setTimeout(() => succCb(pos));
           }
 
@@ -92,7 +92,7 @@
         }
 
         Object.defineProperty(navigator, 'geolocation', {
-          value: new Geolocation,
+          value: new Geolocation(),
         });
         
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
