@@ -55,9 +55,9 @@
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        const latitude = '36.3931395';
-        const longitude = '25.4614646';
-        const accuracy = 1;
+        let latitude = 36.3931395;
+        let longitude = 25.4614646;
+        let accuracy = 1;
 
         class Geolocation{
           getCurrentPosition(succCb, failCb, opts){
