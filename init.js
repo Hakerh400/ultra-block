@@ -1273,6 +1273,11 @@
 
         proxify(w, 'Worker', {
           construct(ctor, args){
+            let scriptUrl = args[0];
+
+            if(scriptUrl.startsWith('/'))
+              scriptUrl = location.href.slice(0, location.href.search(/(?<!\/)\/(?!\/)/)) + scriptUrl;
+
             try{
               var source = `${injectedWorkerCode}importScripts('${args[0]}');`;
               var blob = new Blob([source]);
