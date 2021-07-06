@@ -38,7 +38,8 @@
         "overlay.js",
         "iframes.js",
         "links.js",
-        "pdf.js"
+        "pdf.js",
+        "geolocation.js"
       ],
       "css": [
         "main.css",
