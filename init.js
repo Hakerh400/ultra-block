@@ -22,8 +22,12 @@
     });
   }
 
-  if(url.startsWith('https://codegolf.codidact.com/'))
+  if(
+    url.startsWith('https://codegolf.codidact.com/') ||
+    url.startsWith('https://www.watzatsong.com/')
+  ){
     document.documentElement.classList.add('ublock-ordinary-ta');
+  }
 
   if(url.startsWith('http://localhost') && !/\.(?:mp3|mp4|webm|mkv)(?:[?&]|$)/i.test(url)) return;
   if(url.startsWith('https://hakerh400.github.io/')) return;
