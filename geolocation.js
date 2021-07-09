@@ -84,8 +84,8 @@
           constructor(latitude, longitude, accuracy){
             this.latitude = latitude;
             this.longitude = longitude;
-            this.altitude = null;
             this.accuracy = accuracy;
+            this.altitude = null;
             this.altitudeAccuracy = null;
             this.heading = null;
             this.speed = null;
