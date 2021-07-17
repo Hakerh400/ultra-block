@@ -29,7 +29,12 @@
     document.documentElement.classList.add('ublock-ordinary-ta');
   }
 
-  if(url.startsWith('http://localhost') && !/\.(?:mp3|mp4|webm|mkv)(?:[?&]|$)/i.test(url)) return;
+  if(url.startsWith('http://localhost') && !(
+    // url === 'http://localhost/web/?project=cinema' ||
+    /\.(?:mp3|mp4|webm|mkv)(?:[?&]|$)/i.test(url) ||
+    0
+  )) return;
+
   if(url.startsWith('https://hakerh400.github.io/')) return;
   if(url.startsWith('file:///C:/Projects/')) return;
 

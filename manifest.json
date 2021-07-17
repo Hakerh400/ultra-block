@@ -39,7 +39,8 @@
         "iframes.js",
         "links.js",
         "pdf.js",
-        "geolocation.js"
+        "geolocation.js",
+        "resize.js"
       ],
       "css": [
         "main.css",

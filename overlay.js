@@ -1,11 +1,18 @@
 (() => {
   'use strict';
 
-  if(location.href.includes('&nocanvas')) return;
+  const url = location.href;
+
+  if(url.includes('&nocanvas')) return;
 
   if(window.parent.frames.length > 0) return;
-  if(window.location.href.startsWith('http://localhost/')) return;
-  if(location.href.startsWith('https://hakerh400.github.io/')) return;
+  if(url.startsWith('https://hakerh400.github.io/')) return;
+
+  if(url.startsWith('http://localhost') && !(
+    // url === 'http://localhost/web/?project=cinema' ||
+    /\.(?:mp3|mp4|webm|mkv)(?:[?&]|$)/i.test(url) ||
+    0
+  )) return;
 
   const inco = chrome.extension.inIncognitoContext;
 

@@ -86,8 +86,6 @@
     // localStorage.z = 0;
 
     function block(){
-      window.dispatchEvent(new Event('resize'));
-
       let e;
 
       for(e of qsa('ytd-video-renderer:not(.ublock-safe)')){
