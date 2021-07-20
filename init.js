@@ -810,6 +810,7 @@
                   if(code === 'KeyJ' && evt.ctrlKey && evt.shiftKey) return nop;
                   if(code === 'KeyL' && evt.ctrlKey) return nop;
                   if(/^Shift(?:Left|Right)$/.test(code)) return nop;
+                  if(code.startsWith('Arrow')) return nop;
                   break check;
                 }
 
