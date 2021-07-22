@@ -1,7 +1,9 @@
 (() => {
   'use strict';
 
-  const {href: url} = top.location;
+  const url = location.href;
+
+  if(url.startsWith('http://localhost/')) return;
   
   let stage = 0;
 
