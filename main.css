@@ -399,7 +399,7 @@ body.displaying-homepage .frame{
 }*/
 
 *{
-  transition: none !important;
+  /*transition: none !important;*/
   tab-size: 2 !important;
   outline: none !important;
 }
