@@ -708,6 +708,7 @@
           const ctxMenuWhiteList = [
             /^https\:\/\/www\.puzzle-[a-z0-9\-]+\.com\//,
             /^https\:\/\/pwmarcz\.pl\/kaboom\//,
+            /^https\:\/\/www\.chiark\.greenend\.org\.uk\//,
           ];
 
           const blockCtxMenu = !ctxMenuWhiteList.some(a => {
