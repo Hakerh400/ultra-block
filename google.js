@@ -171,6 +171,11 @@
     'everypixel',
     'makingcircuits',
     'worldwide-photography',
+    'appunwrapper',
+    'appwalkthrough',
+    'game-solver',
+    'imgur',
+    'stackexchange',
   ];
 
   const checkUrl = url => {

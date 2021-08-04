@@ -72,7 +72,14 @@
     g = canvas.getContext('2d');
 
     ael('scroll', updateCanvas);
-    ael('resize', updateCanvas);
+
+    ael('resize', evt => {
+      const iw = window.innerWidth;
+      const ih = window.innerHeight;
+      if(iw === w && ih === h) return;
+
+      updateCanvas();
+    });
 
     ael('keydown', evt => {
       switch(evt.key){
