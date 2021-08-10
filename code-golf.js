@@ -38,8 +38,6 @@
 
       if(stage === 0)
         return setTimeout(block);
-
-      document.documentElement.setAttribute('ublock-loaded', '1');
     }
   }
 
