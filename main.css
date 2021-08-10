@@ -180,11 +180,11 @@ body:not(.ublock-show-gifs) *:not(.download) > *[style*=".gif" i],
   pointer-events: none !important;
 }
 
-html:not(.ublock-ordinary-links) body:not(.env-production) a,
-html:not(.ublock-ordinary-links) body:not(.env-production) a:link,
-html:not(.ublock-ordinary-links) body:not(.env-production) a:visited,
-html:not(.ublock-ordinary-links) body:not(.env-production) a:hover,
-html:not(.ublock-ordinary-links) body:not(.env-production) a:active{
+html:not(.ublock-ordinary-links):not([ublock-style="ordinary-links"]) body:not(.env-production) a,
+html:not(.ublock-ordinary-links):not([ublock-style="ordinary-links"]) body:not(.env-production) a:link,
+html:not(.ublock-ordinary-links):not([ublock-style="ordinary-links"]) body:not(.env-production) a:visited,
+html:not(.ublock-ordinary-links):not([ublock-style="ordinary-links"]) body:not(.env-production) a:hover,
+html:not(.ublock-ordinary-links):not([ublock-style="ordinary-links"]) body:not(.env-production) a:active{
   color: blue !important;
 }
 

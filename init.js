@@ -29,6 +29,12 @@
     document.documentElement.classList.add('ublock-ordinary-ta');
   }
 
+  if(
+    url.startsWith('https://discord.com/')
+  ){
+    document.documentElement.setAttribute('ublock-style', 'ordinary-links');
+  }
+
   if(url.startsWith('http://localhost') && !(
     // url === 'http://localhost/web/?project=cinema' ||
     /\.(?:mp3|mp4|webm|mkv)(?:[?&]|$)/i.test(url) ||
