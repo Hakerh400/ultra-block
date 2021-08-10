@@ -26,7 +26,20 @@
         show(e);
       }
 
-      if(stage === 0) return setTimeout(block);
+      for(const e of qsa('.container:not(.header--container) a[href*="/users/"]:not(.ublock-safe)')){
+        let str = e.innerText.trim();
+        if(!str) continue;
+
+        str = str.split('\u{1F637}').join('');
+        e.innerText = str;
+
+        show(e);
+      }
+
+      if(stage === 0)
+        return setTimeout(block);
+
+      document.documentElement.setAttribute('ublock-loaded', '1');
     }
   }
 
