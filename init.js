@@ -30,7 +30,8 @@
   }
 
   if(
-    url.startsWith('https://discord.com/')
+    url.startsWith('https://discord.com/') ||
+    url.startsWith('https://xkcd.com/')
   ){
     document.documentElement.setAttribute('ublock-style', 'ordinary-links');
   }

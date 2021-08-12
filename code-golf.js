@@ -26,7 +26,7 @@
         show(e);
       }
 
-      for(const e of qsa('.container:not(.header--container) a[href*="/users/"]:not(.ublock-safe)')){
+      /*for(const e of qsa('.container:not(.header--container) a[href*="/users/"]:not(.ublock-safe)')){
         let str = e.innerText.trim();
         if(!str) continue;
 
@@ -34,7 +34,7 @@
         e.innerText = str;
 
         show(e);
-      }
+      }*/
 
       if(stage === 0)
         return setTimeout(block);
