@@ -24,7 +24,8 @@
 
   if(
     url.startsWith('https://codegolf.codidact.com/') ||
-    url.startsWith('https://www.watzatsong.com/')
+    url.startsWith('https://www.watzatsong.com/') ||
+    url.startsWith('https://www.philipzucker.com/z3-rise4fun')
   ){
     document.documentElement.classList.add('ublock-ordinary-ta');
   }
