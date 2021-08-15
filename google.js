@@ -176,6 +176,7 @@
     'game-solver',
     'imgur',
     'stackexchange',
+    'thedailybeast',
   ];
 
   const checkUrl = url => {
