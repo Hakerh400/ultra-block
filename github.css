@@ -1,3 +1,7 @@
+.discussion-sidebar-item.border-top-0.mt-0.pt-1,
+/*.my-3,*/
+.my-3 + .color-text-tertiary.list-style-none,
+.discussion-sidebar-item.pt-3,
 .diff-progressive-loader,
 .anim-rotate,
 /*div[data-hide-on-error],*/
@@ -77,6 +81,7 @@ span[aria-label^="Request review from "] ~ *,
 .wiki-rightbar > *:not(#wiki-pages-box),
 html body div[class*="discussion-spotlights-sortable"],
 .js-header-promo-hide,
+.octicon-infinity,
 
 .gh-header-shadow.box-shadow{
   display: none !important;

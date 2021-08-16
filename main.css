@@ -174,9 +174,9 @@ aside:not(.metadata-container),
 
 #searchResult:not(.ublock-safe),
 hr + center:not(.ublock-safe),
-body:not(.ublock-show-gifs) img[src$=".gif" i],
+/*body:not(.ublock-show-gifs) img[src$=".gif" i],
 body:not(.ublock-show-gifs) img[src*=".gif?" i],
-body:not(.ublock-show-gifs) *:not(.download) > *[style*=".gif" i],
+body:not(.ublock-show-gifs) *:not(.download) > *[style*=".gif" i],*/
 ::-webkit-input-placeholder{
   visibility: hidden !important;
   pointer-events: none !important;
