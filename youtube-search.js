@@ -8,9 +8,9 @@
   const {href} = top.location;
 
   const kws = href.
-    match(/[\?\&]search_query=([^&]+)/)[1].
+    match(/[\?\&]search_query=([^&]*)/)[1].
     split('+').
-    filter(a => !a.startsWith('-')).
+    filter(a => a && !a.startsWith('-')).
     map(a => decodeURIComponent(a));
 
   const cyr = kws.some(a => /[^!-~]/.test(a));
@@ -67,7 +67,7 @@
     [types.DESC]: 'Description',
     [types.CHANNEL]: 'Channel',
   };
-  
+
   var stage = 0;
   let dbgType, dbg;
 
@@ -236,7 +236,7 @@
 
     const str = e.innerText;
     const func = checkFunc(str);
-    
+
     if(blackList.find(func)) return 0;
     return 1;
   }
@@ -249,7 +249,7 @@
 
     const name = e.innerText.trim();
     const func = checkFunc(name);
-    
+
     if(blackListChannelName.find(func)) return 0;
     return 1;
   }

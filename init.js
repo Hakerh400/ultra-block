@@ -30,9 +30,9 @@
     document.documentElement.classList.add('ublock-ordinary-ta');
   }
 
-  if(
-    url.startsWith('https://discord.com/') ||
-    url.startsWith('https://xkcd.com/')
+  if(0
+    || url.startsWith('https://discord.com/')
+    || url.startsWith('https://xkcd.com/')
   ){
     document.documentElement.setAttribute('ublock-style', 'ordinary-links');
   }
@@ -47,19 +47,27 @@
   if(url.startsWith('file:///C:/Projects/')) return;
 
   if(url.startsWith('https://translate.google.co.uk/')){
+    document.documentElement.classList.add('ublock-ordinary-ta');
+
     window.addEventListener('load', evt => {
       setInterval(() => {
         document.title = '\u034F';
-        console.clear();
+        // console.clear();
       }, 1e3);
     });
-
-    document.documentElement.classList.add('ublock-ordinary-ta');
 
     return;
   }
 
   document.documentElement.classList.add('ublock');
+
+  function decode(str){
+    return str.split('').
+      map(a => a.charCodeAt(0) - 32).
+      map(a => 94 - a).
+      map(a => String.fromCharCode(32 + a)).
+      join('');
+  }
 
   {
     const {style} = document.documentElement;
@@ -82,6 +90,9 @@
     const blackList = [
     ];
 
+    const blackListEnd = [
+    ];
+
     const selectorsInfo = {
       a: ['href'],
       img: ['src'],
@@ -97,7 +108,9 @@
       return attribs.flatMap(attrib => {
         return blackList.map(item => {
           return `${tag}[${attrib}*="${item}" i]`;
-        });
+        }).concat(blackListEnd.map(item => {
+          return `${tag}[${attrib}$="${item}" i]`;
+        }));
       });
     }).join(',\n');
 
@@ -126,19 +139,23 @@
   }
 
   onbeforeunload = () => {
-    if((window.sessionStorage && window.sessionStorage['ublock-prevent-hard-reload']))
-      return;
+    try{
+      if((window.sessionStorage && window.sessionStorage['ublock-prevent-hard-reload']))
+        return;
+    }catch{}
 
-    if(window === top){
-      try{
-        window.scrollTo(0, 0);
-        const d = document;
-        const e = d.body || d.documentElement;
-        e.innerHTML = '';
-      }catch(err){
-        // (window.console_ || console).log(err); debugger;
+    try{
+      if(window === top){
+        try{
+          window.scrollTo(0, 0);
+          const d = document;
+          const e = d.body || d.documentElement;
+          e.innerHTML = '';
+        }catch(err){
+          // (window.console_ || console).log(err); debugger;
+        }
       }
-    }
+    }catch{}
   };
 
   const STYLE_URL = chrome.runtime.getURL('main.css');
@@ -566,7 +583,7 @@
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        const isMusic = url.startsWith('file:///D:/Music/');
+        const isMusic = url.toLowerCase().startsWith('file:///D:/Music/'.toLowerCase());
         const shouldBeMuted = url.startsWith('file:///') && !isMusic;
 
         const enhanceTitle = () => {
@@ -774,7 +791,7 @@
                     // (window.console_ || console).log(err); debugger;
                   }
                 }
-                
+
                 w.location.reload();
                 break;
             }
@@ -1197,7 +1214,7 @@
 
                   while(1){
                     const index = start + end >> 1;
-                    
+
                     if(await exists(index)){
                       if(start === index) break;
                       start = index;
@@ -1302,7 +1319,7 @@
               var blob = new Blob([source]);
               var url = w.URL.createObjectURL(blob);
             }catch(a){}
-            
+
             return new ctor(url);
           }
         });
@@ -1569,7 +1586,7 @@
             style.setProperty('display', 'none', 'important');
             style.setProperty('visibility', 'hidden', 'important');
             style.setProperty('opacity', '0', 'important');
-            
+
             window.location.reload();
 
             return nop;
@@ -1587,8 +1604,12 @@
           const {href} = location;
 
           const func = url => {
+            if(url === urlCur) return nop;
+
             return 1;
           };
+
+          const urlCur = url;
 
           proxify(w.Node.prototype, 'appendChild', {
             apply(f, t, args){
@@ -1624,11 +1645,7 @@
           proxify(w.History.prototype, 'replaceState', {
             apply(f, t, args){
               let url = args[2];
-
               if(!func(url)) return nop;
-
-              if(url === w.location.href)
-                return nop;
 
               top.location.href = url;
               w.document.body.innerHTML = '';

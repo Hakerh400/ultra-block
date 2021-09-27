@@ -218,7 +218,7 @@
 
       raf(f);
     };
-    
+
     f();
   }
 
@@ -375,7 +375,7 @@
 
         if(!done)
           return setTimeout(() => tryFunc(func));
-        
+
         if(LOG) log('Done');
       };
 
@@ -660,7 +660,7 @@
           e.classList.add('ublock_safe');
           continue;
         }
-        
+
         rf(url, e, updateTitle);
       }
 
