@@ -179,6 +179,19 @@
       if(m1 !== null) title = title.slice(m1[0].length);
       if(m2 !== null) title = title.slice(0, title.length - m2[0].length);
     }
+    
+    specificChannels: {
+      const cn = channelN.join('');
+      
+      if(cn === 'tweag'){
+        const prefix = '@rae: ';
+        
+        if(title.startsWith(prefix))
+          title = title.slice(prefix.length);
+        
+        break specificChannels;
+      }
+    }
 
     if(title.endsWith(' by'))
       title = title.slice(0, title.length - 3).trimRight();

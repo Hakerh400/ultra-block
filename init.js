@@ -1602,14 +1602,13 @@
           || url.startsWith('https://github.com/')
         ) (() => {
           const {href} = location;
+          const urlCur = top.location.href;
 
           const func = url => {
-            if(url === urlCur) return nop;
+            if(url === urlCur) return 0;
 
             return 1;
           };
-
-          const urlCur = url;
 
           proxify(w.Node.prototype, 'appendChild', {
             apply(f, t, args){
