@@ -215,7 +215,7 @@
       "all_frames": true
     }, {
       "matches": ["https://www.watzatsong.com/*"],
-      "js": ["wzs.js"],
+      "js": ["wzs-init.js", "wzs.js"],
       "css": ["wzs.css"],
       "run_at": "document_start",
       "all_frames": true

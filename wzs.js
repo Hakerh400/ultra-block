@@ -15,7 +15,7 @@
 
     if(evt.code === 'KeyD' && !evt.ctrlKey && !evt.shiftKey){
       if(tag !== 'input' && tag !== 'textarea'){
-        const e = qs('a.play[sample]');
+        const e = qs('.play[sample]');
         const url = e.getAttribute('sample');
 
         const link = document.createElement('a');
@@ -39,7 +39,7 @@
 
     function block(){
       for(const e of qsa('#sample-form > div:first-child:not(.ublock-safe)')){
-        log(e);
+        // log(e);
         const btn = qs(e, '#sample_sending_mode_1');
         if(!btn) continue;
         btn.click();
@@ -51,6 +51,13 @@
           e.innerText = '';
 
         show(e);
+      }
+      
+      for(const e of qsa('#success-div .buttons.active')){
+        const str = e.innerText.toLowerCase();
+        if(!str.includes('without')) continue;
+        
+        e.click();
       }
 
       setTimeout(block, stage ? 1e3 :  0);
