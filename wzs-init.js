@@ -70,7 +70,7 @@
               return new Proxy({}, {
                 get(t, k){
                   if(Object.hasOwnProperty.call(methods, k))
-                      return methods[k];
+                    return methods[k];
                   
                   let v = audio[k];
                   
