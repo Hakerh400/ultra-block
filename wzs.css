@@ -47,3 +47,7 @@ body{
 .sample-box-profile-pict{
   background: none !important;
 }
+
+center{
+  text-align: left !important;
+}
